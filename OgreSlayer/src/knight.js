@@ -8,7 +8,6 @@ export default class Knight {
         this.playerAnimations = [];
         this.animationFramesSetter()
 
-
     }
 
     animationFramesSetter() {
@@ -41,19 +40,4 @@ export default class Knight {
 
 
 
-
-
-    
-
-// playerImage.src = playerAnimations[playerState].src
-
-// playerDropdown.addEventListener("change", (e) => {
-//     // the animation gaps bug is happening because after a few reversions of change, the playerstate in animate stops updating, lockking the length.
-//     //     let playerPosition = Math.floor(gameFrame / staggerFrames) % playerAnimations[playerState].loc.length
-//     // this may stop happening once I break out of the change loop. 
-//     playerState = e.target.value
-//     playerImage.src = ""
-//     playerImage.src = playerAnimations[playerState].src
-// })
-// }
 

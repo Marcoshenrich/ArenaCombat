@@ -4,6 +4,7 @@ export default class Opponent {
         this.opponentImage.src = 'art/demon/_Idle.png'
         this.opponentSpriteWidth = 100;
         this.opponentSpriteHeight = 80;
+        this.health = 80
 
         this.opponentAnimations = [];
         this.animationFramesSetter()
@@ -35,11 +36,3 @@ export default class Opponent {
 
 
 
-
-// opponentImage.src = opponentAnimations[opponentState].src
-
-// opponentDropdown.addEventListener("change", (e) => {
-//     opponentState = e.target.value
-//     opponentImage.src = ""
-//     opponentImage.src = opponentAnimations[opponentState].src
-// })
