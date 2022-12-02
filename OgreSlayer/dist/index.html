@@ -2,31 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="./doggo.css">
-    <script type="text/javascript" src="./main.js" charset="utf-8" defer></script>
+    <link rel="stylesheet" type="text/css" href="./arena.css">
+    <script type="module" src="./main.js" charset="utf-8" defer></script>
 </head>
 
 <body>
-    <canvas id="canvas1"></canvas>
-    <div class="controls">
-        <label for="animations">Animation:</label>
-        <select name="animations" id="animations">
-        <option value="idle">idle</option>
-        <option value="run">run</option>
-        <option value="jump">jump</option>
-        <option value="fall">fall</option>
-        <option value="dizzy">dizzy</option>
-        <option value="sit">sit</option>
-        <option value="roll">roll</option>
-        <option value="bite">bite</option>
-        <option value="ko">ko</option>
-        <option value="getHit">ouch</option>
-        </select>
+    <canvas id="canvas1">
+        <div id="mat">
         
-        
-    </div>
+        </div>
 
     </canvas>
+
+    <div class="p-controls">
+        <label for="player-animations">Animation:</label>
+        <select name="player-animations" id="player-animations">
+            <option value="idle">idle</option>
+            <option value="attack">attack</option>
+            <option value="attack2">attack2</option>
+            <option value="combo">combo</option>
+            <option value="death">death</option>
+            <option value="roll">roll</option>
+        </select>
+    </div>
+    
+    <div class="o-controls">
+        <label for="opponent-animations">Animation:</label>
+        <select name="opponent-animations" id="opponent-animations">
+            <option value="idle">idle</option>
+            <option value="attack">attack</option>
+        </select>
+    </div>
+
+
 </body>
 
 </html>
