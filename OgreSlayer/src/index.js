@@ -1,38 +1,21 @@
-import Game from './game.js'
 import GameView from './gameView.js'
 
 const canvas = document.getElementById('canvas1')
-const attack = document.getElementById('attack')
 const mat = document.getElementById('mat')
 const gameview = new GameView(canvas)
-
-
-
 
 const playerDropdown = document.getElementById('player-animations')
 const opponentDropdown = document.getElementById('opponent-animations')
 
 
 opponentDropdown.addEventListener("change", (e) => {
-    gameview.opponentState = e.target.value
-    gameview.game.opponent.opponentImage.src = ""
-    gameview.game.opponent.opponentImage.src = gameview.game.opponent.opponentAnimations[gameview.opponentState].src
+    gameview.opponent.animationState = e.target.value
+    gameview.opponent.image.src = gameview.opponent.animations[gameview.opponent.animationState].src
 })
 
 playerDropdown.addEventListener("change", (e) => {
-    gameview.playerState = e.target.value
-    gameview.game.knight.playerImage.src = ""
-    gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
-})
-
-attack.addEventListener("click", (e) => {
-    gameview.playerState = "attack"
-    gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
-    setTimeout(()=>{
-        gameview.game.opponent.health -= 3
-        gameview.playerState = "idle"
-        gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
-    },1000)
+    gameview.knight.animationState = e.target.value
+    gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
 })
 
 mat.addEventListener("click", (e) => {
@@ -42,13 +25,13 @@ mat.addEventListener("click", (e) => {
         let slot = e.target
         let num = parseInt(slot.id[slot.id.length - 1])
 
-        gameview.playerState = "attack"
-        gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
+        gameview.knight.animationState = "attack"
+        gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
    
         setTimeout(() => {
-            gameview.game.opponent.health -= num
-            gameview.playerState = "idle"
-            gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
+            gameview.opponent.health -= num
+            gameview.knight.animationState = "idle"
+            gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
         }, 1000)
     }
 })

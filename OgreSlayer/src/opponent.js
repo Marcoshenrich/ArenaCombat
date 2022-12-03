@@ -1,39 +1,28 @@
-export default class Opponent {
-    constructor() { 
-        this.opponentImage = new Image()
-        this.opponentImage.src = 'art/demon/_Idle.png'
-        this.opponentSpriteWidth = 100;
-        this.opponentSpriteHeight = 80;
-        this.health = 80
+import Combatant from './combatant.js'
 
-        this.opponentAnimations = [];
-        this.animationFramesSetter()
+export default class Opponent extends Combatant {
+    constructor() { 
+        super()
+        this.image = new Image()
+        this.image.src = 'art/demon/_Idle.png'
+        this.spriteWidth = 100;
+        this.spriteHeight = 80;
+        this.xPosition = 400
+        this.yPosition = 475
+        
         this.nextMove = []
         this.nextMoveMaker()
-        this.attack = 0
-        this.block = 0
-    }
 
-    animationFramesSetter() {
-        this.opponentAnimationStates = [
-            { name: "idle", frames: 6, src: 'art/demon/_Idle.png' },
-            { name: "attack", frames: 5, src: 'art/demon/_Attack.png' },
+        this.health = 80
+
+        this.animationStates = [
+        { name: "idle", frames: 6, src: 'art/demon/_Idle.png' },
+        { name: "attack", frames: 5, src: 'art/demon/_Attack.png' },
         ];
 
-        this.opponentAnimationStates.forEach((opponentState) => {
-            let frames = {
-                loc: [],
-                src: opponentState.src
-            }
-            for (let j = 0; j < opponentState.frames; j++) {
-                let positionX = j * this.opponentSpriteWidth;
-                let positionY = 0;
-                frames.loc.push({ x: positionX, y: positionY });
-            }
-            this.opponentAnimations[opponentState.name] = frames;
-        });
+        this.animationFramesSetter()
 
-     
+
     }
 
     nextMoveMaker() {
@@ -50,9 +39,6 @@ export default class Opponent {
             card.art = img
             this.nextMove.push(card)
         }
-
-
-
     }
 
 

@@ -2,7 +2,6 @@ import Game from './game.js'
 
 export default class GameView {
     constructor(canvas) { 
-        this.game = new Game()
         this.ctx = canvas.getContext('2d')
 
         this.CANVAS_WIDTH = canvas.width = 1024
@@ -14,8 +13,9 @@ export default class GameView {
         this.matImage = new Image()
         this.matImage.src = 'art/mat.png'
 
-        this.playerState = "idle"
-        this.opponentState = "idle"
+        this.game = new Game()
+        this.knight = this.game.knight
+        this.opponent = this.game.opponent
 
         this.gameFrame = 0;
         this.staggerFrames = 10;
@@ -27,20 +27,8 @@ export default class GameView {
         this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         this.renderBackground()
         this.renderText()
-
-        //opponent draw
-        let opponentPosition = Math.floor(this.gameFrame / this.staggerFrames) % this.game.opponent.opponentAnimations[this.opponentState].loc.length
-        let opponentFrameX = this.game.opponent.opponentSpriteWidth * opponentPosition;
-        let opponentframeY = this.game.opponent.opponentAnimations[this.opponentState].loc[opponentPosition].y
-        this.ctx.drawImage(this.game.opponent.opponentImage, opponentFrameX, opponentframeY, this.game.opponent.opponentSpriteWidth, this.game.opponent.opponentSpriteHeight, 400, 475, Math.floor(this.game.opponent.opponentSpriteWidth * 3.5), Math.floor(this.game.opponent.opponentSpriteHeight * 3.5))
-
-        //player draw
-        let playerPosition = Math.floor(this.gameFrame / this.staggerFrames) % this.game.knight.playerAnimations[this.playerState].loc.length
-        let playerFrameX = this.game.knight.playerSpriteWidth * playerPosition;
-        let playerframeY = this.game.knight.playerAnimations[this.playerState].loc[playerPosition].y
-        this.ctx.drawImage(this.game.knight.playerImage, playerFrameX, playerframeY, this.game.knight.playerSpriteWidth, this.game.knight.playerSpriteHeight, 200, 450, Math.floor(this.game.knight.playerSpriteWidth * 3.5), Math.floor(this.game.knight.playerSpriteHeight * 3.5))
-    
-
+        this.opponent.draw(this.ctx, this.gameFrame, this.staggerFrames)
+        this.knight.draw(this.ctx,this.gameFrame, this.staggerFrames)
         this.gameFrame++
         requestAnimationFrame(this.animate.bind(this))
     }
@@ -55,8 +43,6 @@ export default class GameView {
         this.ctx.drawImage(opponentMove, 780, 350, 120, 200)
 
         this.ctx.fillRect(90, 200, 200, 400)
-
-
     }
 
     renderText() {
