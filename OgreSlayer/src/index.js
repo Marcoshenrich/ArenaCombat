@@ -3,7 +3,7 @@ import GameView from './gameView.js'
 
 const canvas = document.getElementById('canvas1')
 const attack = document.getElementById('attack')
-
+const mat = document.getElementById('mat')
 const gameview = new GameView(canvas)
 
 
@@ -35,5 +35,22 @@ attack.addEventListener("click", (e) => {
     },1000)
 })
 
+mat.addEventListener("click", (e) => {
+    // let el = document.getElementById('test')
+
+    if (e.target.className === "card-slot") {
+        let slot = e.target
+        let num = parseInt(slot.id[slot.id.length - 1])
+
+        gameview.playerState = "attack"
+        gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
+   
+        setTimeout(() => {
+            gameview.game.opponent.health -= num
+            gameview.playerState = "idle"
+            gameview.game.knight.playerImage.src = gameview.game.knight.playerAnimations[gameview.playerState].src
+        }, 1000)
+    }
+})
 
 

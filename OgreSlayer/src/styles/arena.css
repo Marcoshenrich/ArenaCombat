@@ -24,6 +24,7 @@
 
 #mat {
     border: 1px solid black;
+    background-image: url("../../dist/art/mat.png");
     height: 300px;
     width: 1026px;
     display: flex;
@@ -32,11 +33,22 @@
     
 }
 
-.card-slot {
-    border: 1px solid black;
-    height: 160px;
+.card-slot, .deck-slot{
+    border: 5px solid black;
+    background-color: gray;
+    height: 180px;
     width: 120px;
     z-index: 1;
     display: flex;
+    font-size: 40px;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.card-slot:hover {
+    border: 5px solid yellow;
+    background-color: gray;
+
 }
 

@@ -8,6 +8,10 @@ export default class Knight {
         this.playerAnimations = [];
         this.animationFramesSetter()
 
+        this.health = 30
+        this.attack = 0
+        this.block = 0
+
     }
 
     animationFramesSetter() {

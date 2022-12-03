@@ -2,25 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="./arena.css">
+    <link rel="stylesheet" type="text/css" href="../src/styles/css_reset.css">
+    <link rel="stylesheet" type="text/css" href="../src/styles/arena.css">
     <script type="module" src="./main.js" charset="utf-8" defer></script>
 </head>
 
 <body>
-    <canvas id="canvas1">
-        <div id="mat">
-        
-        </div>
-
-    </canvas>
+    <canvas id="canvas1"></canvas>
 
     <div id="mat" >
-        <!-- <img src="art/mat.png" width="1026px" height="300px"> -->
-        <div class="card-slot"></div>
-        <div class="card-slot" ></div>
-        <div class="card-slot"></div>
-        <div class="card-slot"></div>
-        <div class="card-slot"></div>
+
+        <div class="card-slot" id="card-slot1">
+            <img id="test" class="card" src="art/strike.png" width="200px" height="200px">
+            <!-- <div width="200px" height="200px">1</div> -->
+        </div>
+        <div class="card-slot" id="card-slot2">2</div>
+        <div class="card-slot" id="card-slot3">3</div>
+        <div class="card-slot" id="card-slot4">4</div>
+        <div class="card-slot" id="card-slot5">5</div>
         <div class="deck-slot"></div>
     </div>
 

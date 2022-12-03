@@ -8,6 +8,10 @@ export default class Opponent {
 
         this.opponentAnimations = [];
         this.animationFramesSetter()
+        this.nextMove = []
+        this.nextMoveMaker()
+        this.attack = 0
+        this.block = 0
     }
 
     animationFramesSetter() {
@@ -28,7 +32,30 @@ export default class Opponent {
             }
             this.opponentAnimations[opponentState.name] = frames;
         });
+
+     
     }
+
+    nextMoveMaker() {
+        const basicCards = {
+            strike: { A: 3, B: 0, src: "art/strike.png" },
+            defend: { A: 0, B: 5 },
+            reposition: { A: 0, B: 2, draw: 2 }
+        }
+
+        for (let i = 0; i < 100; i++) {	
+            let img = new Image()
+            let card = basicCards.strike
+            img.src = card.src
+            card.art = img
+            this.nextMove.push(card)
+        }
+
+
+
+    }
+
+
 }
 
 
