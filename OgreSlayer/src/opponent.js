@@ -12,6 +12,7 @@ export default class Opponent extends Combatant {
         
         this.nextMove = []
         this.nextMoveMaker()
+        console.log(this.nextMove);
 
         this.health = 80
 
@@ -27,14 +28,14 @@ export default class Opponent extends Combatant {
 
     nextMoveMaker() {
         const basicCards = {
-            strike: { A: 3, B: 0, src: "art/strike.png" },
-            defend: { A: 0, B: 5 },
-            reposition: { A: 0, B: 2, draw: 2 }
+            strike: { attack: 3, block: 0, src: "art/strike.png" },
+            heal: { attack: 0, block: 2, src: "art/heal.png" },
         }
 
         for (let i = 0; i < 100; i++) {	
             let img = new Image()
-            let card = basicCards.strike
+            let cards = Object.keys(basicCards)
+            let card = basicCards[cards[[cards.length * Math.random() << 0]]]
             img.src = card.src
             card.art = img
             this.nextMove.push(card)
@@ -42,6 +43,20 @@ export default class Opponent extends Combatant {
     }
 
 
+}
+
+Opponent.prototype.idleAnimation = function () {
+    this.animationState = "idle"
+    this.image.src = this.animations["idle"].src
+}
+
+Opponent.prototype.attackAnimation = function () {
+    this.animationState = "attack"
+    this.image.src = this.animations["attack"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 830)
 }
 
 

@@ -18,22 +18,17 @@ playerDropdown.addEventListener("change", (e) => {
     gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
 })
 
-mat.addEventListener("click", (e) => {
-    // let el = document.getElementById('test')
+// mat.addEventListener("click", (e) => {
+    // if (e.target.className === "card-slot") {
+    //     let slot = e.target
 
-    if (e.target.className === "card-slot") {
-        let slot = e.target
-        let num = parseInt(slot.id[slot.id.length - 1])
+    //     gameview.resetAnimationFrames()
+    //     gameview.game.coreGameLoop(slot)
+        
+    // }
+// })
 
-        gameview.knight.animationState = "attack"
-        gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
-   
-        setTimeout(() => {
-            gameview.opponent.health -= num
-            gameview.knight.animationState = "idle"
-            gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
-        }, 1000)
-    }
-})
-
-
+//2 attack, 1 dmg
+//3 attack2, 2 dmg
+//4 combo, 4 dmg
+//5 roll, negate dmg receipt

@@ -47,7 +47,6 @@ export default class GameView {
     }
 
     renderText() {
-        // { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
         this.ctx.fillStyle = 'rgba(0,0,0,1)';
         this.ctx.font = "bold 20px verdana, sans-serif "
         this.ctx.fillText("Monster Health", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 14, this.infoDimensions.infoSquareYOffset + 40)
@@ -56,6 +55,10 @@ export default class GameView {
 
         this.ctx.fillText("Knight Health", (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 21, this.infoDimensions.infoSquareYOffset + 40)
         this.ctx.fillText(this.game.knight.health, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 81, this.infoDimensions.infoSquareYOffset + 80)
+    }
+
+    resetAnimationFrames() {
+        this.gameFrame = 0;
     }
 
 }
