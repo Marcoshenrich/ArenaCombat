@@ -12,6 +12,7 @@ export default class Knight extends Combatant {
 
         this.health = 30
         this.deck = []
+        this.allUniqueCards = {}
 
         this.animationStates = [
         { name: "idle", frames: 10, src: 'art/knight1/_Idle.png' },
@@ -23,11 +24,13 @@ export default class Knight extends Combatant {
         ];
 
         this.animationFramesSetter()
+        this.deckMaker()
     }
 
-    nextMoveMaker() {
+    deckMaker() {
         const playerCards = {
             strike: {
+                id: "strike",
                 attack: 3,
                 block: 0,
                 src: "art/knight_cards/strike.png",
@@ -36,6 +39,7 @@ export default class Knight extends Combatant {
             },
 
             defend: {
+                id: "defend",
                 attack: 0,
                 block: 5,
                 src: "art/knight_cards/defend.png",
@@ -44,6 +48,7 @@ export default class Knight extends Combatant {
             },
 
             reposition: {
+                id: "reposition",
                 attack: 0,
                 block: 2,
                 src: "art/knight_cards/reposition.png",
@@ -52,6 +57,7 @@ export default class Knight extends Combatant {
             },
 
             taunt: {
+                id: "taunt",
                 attack: 0,
                 block: 4,
                 src: "art/knight_cards/taunt.png",
@@ -60,6 +66,7 @@ export default class Knight extends Combatant {
             },
 
             parry: {
+                id: "parry",
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/parry.png",
@@ -68,6 +75,7 @@ export default class Knight extends Combatant {
             },
 
             shieldOfFaith: {
+                id: "shieldOfFaith",
                 attack: 0,
                 block: 5,
                 src: "art/knight_cards/shield_of_faith.png",
@@ -76,6 +84,7 @@ export default class Knight extends Combatant {
             },
 
             dodge: {
+                id: "dodge",
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/dodge.png",
@@ -84,6 +93,7 @@ export default class Knight extends Combatant {
             },
 
             secondWind: {
+                id: "secondWind",
                 attack: 0,
                 block: 8,
                 src: "art/knight_cards/second_wind.png",
@@ -92,6 +102,7 @@ export default class Knight extends Combatant {
             },
 
             feint: {
+                id: "feint",
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/feint.png",
@@ -100,6 +111,7 @@ export default class Knight extends Combatant {
             },
 
             revengeance: {
+                id: "revengeance",
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/revengeance.png",
@@ -108,6 +120,7 @@ export default class Knight extends Combatant {
             },
 
             mightyBlow: {
+                id: "mightyBlow",
                 attack: 7,
                 block: 0,
                 src: "art/knight_cards/mighty_blow.png",
@@ -116,6 +129,7 @@ export default class Knight extends Combatant {
             },
 
             forHonor: {
+                id: "forHonor",
                 attack: 3,
                 block: 5,
                 src: "art/knight_cards/for_honor.png",
@@ -124,6 +138,7 @@ export default class Knight extends Combatant {
             },
 
             poiseBreak: {
+                id: "poiseBreak",
                 attack: 3,
                 block: 5,
                 src: "art/knight_cards/poise_break.png",
@@ -132,6 +147,7 @@ export default class Knight extends Combatant {
             },
 
             holdTheLine: {
+                id: "holdTheLine",
                 attack: 0,
                 block: 10,
                 src: "art/knight_cards/hold_the_line.png",
@@ -157,11 +173,18 @@ export default class Knight extends Combatant {
             this.deck.push(card)
         }
 
-
-
-
-
+        this.shuffleDeck()
     }
+
+    shuffleDeck() {
+        for (let i = this.deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = this.deck[i];
+            this.deck[i] = this.deck[j];
+            this.deck[j] = temp;
+        }
+    }
+
 }
 
 Knight.prototype.idleAnimation = function () {

@@ -5,34 +5,28 @@ export default class Game {
     constructor() { 
         this.knight = new Knight()
         this.opponent = new Opponent()
+        this.setupMat()
     }
 
-    coreGameLoop(knightcard) {
-        const knightTest = {
-            2: { attack: 1, block: 0, animation: this.knight.attackAnimation.bind(this.knight) },
-            3: { attack: 2, block: 0, animation: this.knight.attack2Animation.bind(this.knight) ,
-                effects: () => {
-                    this.opponent.nextMove[0] = this.opponent.allUniqueCards.heal
-                }
-            
-            },
-                
-            4: { attack: 4, block: 0, animation: this.knight.comboAnimation.bind(this.knight),
-              effects: () => {
-                  this.opponent.nextMove[1] = this.opponent.allUniqueCards.strike
-                }
-            },
+    setupMat() {
+        let deck = this.knight.deck
 
-            
-            5: { attack: 0, block: 0, animation: this.knight.rollAnimation.bind(this.knight),
-                    effects: () => {
-                        this.opponent.attack = 0
-                    }
-             }
+        for (let i = 1; i <= 5; i++) {	
+            let card = deck[i - 1]
+            let slotId = "card-slot" + i
+            let slot = document.getElementById(slotId)
+            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" + " width="280px" height="280px"/>';
+
         }
 
-        this.knight.attack = knightTest[knightcard].attack
-        this.knight.block = knightTest[knightcard].attack
+        this.knight.deck = deck.slice(5, deck.length)
+    }
+
+    coreGameLoop(playerCardId, slotId) {
+        let playedCard = this.knight.allUniqueCards[playerCardId]
+
+        this.knight.attack = playedCard.attack
+        this.knight.block = playedCard.attack
 
         this.opponent.attack = this.opponent.nextMove[0].attack
         this.opponent.block = this.opponent.nextMove[0].block
@@ -40,11 +34,12 @@ export default class Game {
         this.damageCalc()
         this.cardEffects()
 
-        if (knightTest[knightcard].effects) knightTest[knightcard].effects()
+        // if (playedCard.effects) knightTest[knightcard].effects()
 
-        knightTest[knightcard].animation()
+        playedCard.animation()
         this.opponent.nextMove[0].animation()
         this.opponent.nextMove.shift()
+        this.resolveMatState(slotId)
 
     }
 
@@ -55,6 +50,17 @@ export default class Game {
 
     cardEffects() {
 
+    }
+
+    resolveMatState(slotId) {
+        let slot = document.getElementById(slotId)
+        slot.innerHTML = ""
+
+        if (this.knight.deck.length > 0) {
+            let card = this.knight.deck.shift()
+            slot.innerHTML = ""
+            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" + " width="280px" height="280px"/>';
+        }
     }
 
 }

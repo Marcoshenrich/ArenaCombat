@@ -36,7 +36,8 @@
 .card-slot, .deck-slot{
     border: 5px solid black;
     background-color: gray;
-    height: 180px;
+    height: 200px;
+    border-radius: 28px;
     width: 120px;
     z-index: 1;
     display: flex;

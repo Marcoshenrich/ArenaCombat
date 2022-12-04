@@ -94,7 +94,6 @@ export default class Opponent extends Combatant {
         for (let i = 0; i < 100; i++) {	
 
             let card = this.allUniqueCards[allUniqueCardkeys[allUniqueCardkeys.length * Math.random() << 0]]
-            console.log(card);
             this.nextMove.push(card)
         }
 

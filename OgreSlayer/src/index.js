@@ -19,12 +19,11 @@ playerDropdown.addEventListener("change", (e) => {
 });
 
 mat.addEventListener("click", (e) => {
-    if (e.target.className === "card-slot") {
-        console.log()
-        let slot = e.target.id[e.target.id.length - 1]
+    let slot = e.target.parentNode
+    if (slot.className === "card-slot") {
+        let playerCardId = e.target.id
         gameview.resetAnimationFrames()
-        gameview.game.coreGameLoop(parseInt(slot))
-        
+        gameview.game.coreGameLoop(playerCardId, slot.id)
     }
 });
 
