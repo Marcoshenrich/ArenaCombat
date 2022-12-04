@@ -10,9 +10,9 @@ export default class Opponent extends Combatant {
         this.xPosition = 400
         this.yPosition = 475
         
+        this.allUniqueCards = {}
         this.nextMove = []
         this.nextMoveMaker()
-        console.log(this.nextMove);
 
         this.health = 80
 
@@ -28,18 +28,46 @@ export default class Opponent extends Combatant {
 
     nextMoveMaker() {
         const basicCards = {
-            strike: { attack: 3, block: 0, src: "art/strike.png" },
-            heal: { attack: 0, block: 2, src: "art/heal.png" },
+            strike: { 
+                attack: 3, 
+                block: 0, 
+                src: "art/strike.png", 
+                animation: this.attackAnimation.bind(this),
+                effects: ()=>{
+
+                }
+            },
+  
+            heal: { 
+                attack: 0,
+                block: 2, 
+                src: "art/heal.png", 
+                animation: this.attack2Animation.bind(this) 
+            },
         }
 
-        for (let i = 0; i < 100; i++) {	
+        let allCardNames = Object.keys(basicCards)
+
+        for (let i = 0; i < allCardNames.length; i++) {	
+            let card = basicCards[allCardNames[i]]
             let img = new Image()
-            let cards = Object.keys(basicCards)
-            let card = basicCards[cards[[cards.length * Math.random() << 0]]]
             img.src = card.src
             card.art = img
+            this.allUniqueCards[allCardNames[i]] = card
+        }
+        
+        let allUniqueCardkeys = Object.keys(this.allUniqueCards)
+        for (let i = 0; i < 100; i++) {	
+
+            let card = this.allUniqueCards[allUniqueCardkeys[allUniqueCardkeys.length * Math.random() << 0]]
+            console.log(card);
             this.nextMove.push(card)
         }
+
+       
+
+
+
     }
 
 
@@ -57,6 +85,15 @@ Opponent.prototype.attackAnimation = function () {
     setTimeout(() => {
         this.idleAnimation()
     }, 830)
+}
+
+Opponent.prototype.attack2Animation = function () {
+    this.animationState = "attack"
+    this.image.src = this.animations["attack"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 1660)
 }
 
 
