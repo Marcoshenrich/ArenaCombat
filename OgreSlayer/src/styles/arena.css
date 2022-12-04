@@ -2,22 +2,6 @@
     border: solid black 2px;
 }
 
-.p-controls {
-    position: absolute;
-    z-index: 10;
-    top: 50px;
-    left: 25%;
-    transform: translateX(-50%);
-}
-
-.o-controls {
-    position: absolute;
-    z-index: 10;
-    top: 50px;
-    left: 75%;
-    transform: translateX(-50%);
-}
-
 .controls, select, option {
     font-size: 25px;
 }

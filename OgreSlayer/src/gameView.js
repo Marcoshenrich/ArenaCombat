@@ -22,6 +22,9 @@ export default class GameView {
         this.staggerFrames = 10;
 
         this.animate()
+
+        this.hoveredCard = null
+        this.showNextHover = true
     }
 
     animate() {
@@ -31,7 +34,12 @@ export default class GameView {
         this.opponent.draw(this.ctx, this.gameFrame, this.staggerFrames)
         this.knight.draw(this.ctx,this.gameFrame, this.staggerFrames)
         this.gameFrame++
+
+        if (this.hoveredCard && this.showNextHover) this.renderHoveredCard(this.hoveredCard)
+
         requestAnimationFrame(this.animate.bind(this))
+
+        
     }
 
     renderBackground() {
@@ -59,6 +67,12 @@ export default class GameView {
 
     resetAnimationFrames() {
         this.gameFrame = 0;
+    }
+
+    renderHoveredCard(playerCardId) {
+        let card = this.knight.allUniqueCards[playerCardId]
+        this.ctx.drawImage(card.art, (this.CANVAS_WIDTH / 2) - (390 / 2), (this.CANVAS_HEIGHT / 2) - (800/2), 390, 600)
+
     }
 
 }

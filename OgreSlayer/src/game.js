@@ -15,7 +15,7 @@ export default class Game {
             let card = deck[i - 1]
             let slotId = "card-slot" + i
             let slot = document.getElementById(slotId)
-            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" + " width="280px" height="280px"/>';
+            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" class="card" + " width="280px" height="280px"/>';
 
         }
 
@@ -59,7 +59,7 @@ export default class Game {
         if (this.knight.deck.length > 0) {
             let card = this.knight.deck.shift()
             slot.innerHTML = ""
-            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" + " width="280px" height="280px"/>';
+            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" class="card" width="280px" height="280px"/>';
         }
     }
 

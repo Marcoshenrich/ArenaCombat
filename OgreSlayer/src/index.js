@@ -7,27 +7,29 @@ const gameview = new GameView(canvas)
 const playerDropdown = document.getElementById('player-animations')
 const opponentDropdown = document.getElementById('opponent-animations')
 
-
-opponentDropdown.addEventListener("change", (e) => {
-    gameview.opponent.animationState = e.target.value
-    gameview.opponent.image.src = gameview.opponent.animations[gameview.opponent.animationState].src
-});
-
-playerDropdown.addEventListener("change", (e) => {
-    gameview.knight.animationState = e.target.value
-    gameview.knight.image.src = gameview.knight.animations[gameview.knight.animationState].src
-});
-
 mat.addEventListener("click", (e) => {
+    gameview.showNextHover = false
     let slot = e.target.parentNode
     if (slot.className === "card-slot") {
         let playerCardId = e.target.id
         gameview.resetAnimationFrames()
         gameview.game.coreGameLoop(playerCardId, slot.id)
+        gameview.hoveredCard = null
     }
 });
 
-//2 attack, 1 dmg
-//3 attack2, 2 dmg
-//4 combo, 4 dmg
-//5 roll, negate dmg receipt
+mat.addEventListener("mouseover", (e) => {
+    let slot = e.target.parentNode
+    if (slot.className === "card-slot") {
+        let playerCardId = e.target.id
+        gameview.hoveredCard = playerCardId
+    }
+});
+
+mat.addEventListener("mouseout", (e) => {
+    gameview.showNextHover = true
+    let slot = e.target.parentNode
+    if (slot.className === "card-slot") {
+        gameview.hoveredCard = null
+    }
+});
