@@ -30,7 +30,7 @@ export default class Opponent extends Combatant {
     }
 
     nextMoveMaker() {
-        const basicCards = {
+        const opponentCards = {
             strike: { 
                 attack: 8, 
                 block: 0, 
@@ -80,10 +80,10 @@ export default class Opponent extends Combatant {
             }
         }
 
-        let allCardNames = Object.keys(basicCards)
+        let allCardNames = Object.keys(opponentCards)
 
         for (let i = 0; i < allCardNames.length; i++) {	
-            let card = basicCards[allCardNames[i]]
+            let card = opponentCards[allCardNames[i]]
             let img = new Image()
             img.src = card.src
             card.art = img
