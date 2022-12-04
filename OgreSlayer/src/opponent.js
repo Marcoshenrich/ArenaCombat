@@ -29,21 +29,52 @@ export default class Opponent extends Combatant {
     nextMoveMaker() {
         const basicCards = {
             strike: { 
-                attack: 3, 
+                attack: 8, 
                 block: 0, 
-                src: "art/strike.png", 
+                src: "art/opponent_cards/mstrike.png", 
                 animation: this.attackAnimation.bind(this),
-                effects: ()=>{
+                effects: ()=>{ }
+            },
 
-                }
+            rockThrow: {
+                attack: 8,
+                block: 6,
+                src: "art/opponent_cards/mrock_throw.png",
+                animation: this.attackAnimation.bind(this),
+                effects: () => { }
             },
-  
-            heal: { 
+
+            spikes: {
+                attack: 12,
+                block: 0,
+                src: "art/opponent_cards/mspikes.png",
+                animation: this.attackAnimation.bind(this),
+                effects: () => { }
+            },
+
+            blindingFlash: {
                 attack: 0,
-                block: 2, 
-                src: "art/heal.png", 
-                animation: this.attack2Animation.bind(this) 
+                block: 0,
+                src: "art/opponent_cards/mblinding_flash.png",
+                animation: this.attackAnimation.bind(this),
+                effects: () => { }
             },
+
+            turtle: {
+                attack: 0,
+                block: 10,
+                src: "art/opponent_cards/mturtle.png",
+                animation: this.attackAnimation.bind(this),
+                effects: () => { }
+            },
+
+            groundPound: {
+                attack: 0,
+                block: 0,
+                src: "art/opponent_cards/mground_pound.png",
+                animation: this.attackAnimation.bind(this),
+                effects: () => { }
+            }
         }
 
         let allCardNames = Object.keys(basicCards)
