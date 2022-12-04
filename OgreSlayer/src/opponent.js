@@ -19,6 +19,9 @@ export default class Opponent extends Combatant {
         this.animationStates = [
         { name: "idle", frames: 6, src: 'art/demon/_Idle.png' },
         { name: "attack", frames: 5, src: 'art/demon/_Attack.png' },
+        { name: "attack2", frames: 6, src: 'art/demon/_Attack2.png' },
+        { name: "attack3", frames: 6, src: 'art/demon/_Attack3.png' },
+        { name: "hit", frames: 3, src: 'art/demon/_Hit.png' },
         ];
 
         this.animationFramesSetter()
@@ -40,7 +43,7 @@ export default class Opponent extends Combatant {
                 attack: 8,
                 block: 6,
                 src: "art/opponent_cards/mrock_throw.png",
-                animation: this.attackAnimation.bind(this),
+                animation: this.attacktwiceAnimation.bind(this),
                 effects: () => { }
             },
 
@@ -48,7 +51,7 @@ export default class Opponent extends Combatant {
                 attack: 12,
                 block: 0,
                 src: "art/opponent_cards/mspikes.png",
-                animation: this.attackAnimation.bind(this),
+                animation: this.attack2Animation.bind(this),
                 effects: () => { }
             },
 
@@ -56,7 +59,7 @@ export default class Opponent extends Combatant {
                 attack: 0,
                 block: 0,
                 src: "art/opponent_cards/mblinding_flash.png",
-                animation: this.attackAnimation.bind(this),
+                animation: this.attack3Animation.bind(this),
                 effects: () => { }
             },
 
@@ -64,7 +67,7 @@ export default class Opponent extends Combatant {
                 attack: 0,
                 block: 10,
                 src: "art/opponent_cards/mturtle.png",
-                animation: this.attackAnimation.bind(this),
+                animation: this.idleAnimation.bind(this),
                 effects: () => { }
             },
 
@@ -72,7 +75,7 @@ export default class Opponent extends Combatant {
                 attack: 0,
                 block: 0,
                 src: "art/opponent_cards/mground_pound.png",
-                animation: this.attackAnimation.bind(this),
+                animation: this.attack3Animation.bind(this),
                 effects: () => { }
             }
         }
@@ -118,7 +121,7 @@ Opponent.prototype.attackAnimation = function () {
     }, 830)
 }
 
-Opponent.prototype.attack2Animation = function () {
+Opponent.prototype.attacktwiceAnimation = function () {
     this.animationState = "attack"
     this.image.src = this.animations["attack"].src
 
@@ -126,6 +129,38 @@ Opponent.prototype.attack2Animation = function () {
         this.idleAnimation()
     }, 1660)
 }
+
+Opponent.prototype.attack2Animation = function () {
+    this.animationState = "attack2"
+    this.image.src = this.animations["attack2"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 1000)
+}
+
+
+Opponent.prototype.attack3Animation = function () {
+    this.animationState = "attack3"
+    this.image.src = this.animations["attack3"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 1000)
+}
+
+
+Opponent.prototype.hitAnimation = function () {
+    this.animationState = "hit"
+    this.image.src = this.animations["hit"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 500)
+}
+
+
+
 
 
 
