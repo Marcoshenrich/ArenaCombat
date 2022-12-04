@@ -7,15 +7,23 @@ const gameview = new GameView(canvas)
 const playerDropdown = document.getElementById('player-animations')
 const opponentDropdown = document.getElementById('opponent-animations')
 
+
+
 mat.addEventListener("click", (e) => {
+    if (!gameview.pauseInputs) {
     gameview.showNextHover = false
+    gameview.pauseInputs = true
     let slot = e.target.parentNode
     if (slot.className === "card-slot") {
         let playerCardId = e.target.id
         gameview.resetAnimationFrames()
         gameview.game.coreGameLoop(playerCardId, slot.id)
         gameview.hoveredCard = null
+        setTimeout(() => {
+            gameview.pauseInputs = false
+        }, 1500); // this needs to equal the longest animation time. 
     }
+}
 });
 
 mat.addEventListener("mouseover", (e) => {
@@ -36,7 +44,9 @@ mat.addEventListener("mouseout", (e) => {
     let slot = e.target.parentNode
     if (slot.className === "card-slot") {
         gameview.hoveredCard = null
-        gameview.knight.block = 0
+        if (!gameview.pauseInputs) {
         gameview.knight.attack = 0
+        gameview.knight.block = 0
+        }
     }
 });

@@ -62,7 +62,7 @@ export default class Deck {
                 block: 0,
                 src: "art/knight_cards/strike.png",
                 animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                effects: function () { }
             },
 
             defend: {
@@ -70,8 +70,8 @@ export default class Deck {
                 attack: 0,
                 block: 5,
                 src: "art/knight_cards/defend.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.attack2Animation.bind(knight),
+                effects: function () { }
             },
 
             reposition: {
@@ -79,8 +79,8 @@ export default class Deck {
                 attack: 0,
                 block: 2,
                 src: "art/knight_cards/reposition.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.duckAnimation.bind(knight),
+                effects: function () { }
             },
 
             taunt: {
@@ -88,8 +88,8 @@ export default class Deck {
                 attack: 0,
                 block: 4,
                 src: "art/knight_cards/taunt.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.duckAnimation.bind(knight),
+                effects: function () { }
             },
 
             parry: {
@@ -97,8 +97,8 @@ export default class Deck {
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/parry.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.comboAnimation.bind(knight),
+                effects: function () { }
             },
 
             shieldOfFaith: {
@@ -106,8 +106,8 @@ export default class Deck {
                 attack: 0,
                 block: 5,
                 src: "art/knight_cards/shield_of_faith.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.attack2Animation.bind(knight),
+                effects: function () { }
             },
 
             dodge: {
@@ -115,8 +115,8 @@ export default class Deck {
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/dodge.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.rollAnimation.bind(knight),
+                effects: function () { }
             },
 
             secondWind: {
@@ -124,8 +124,8 @@ export default class Deck {
                 attack: 0,
                 block: 8,
                 src: "art/knight_cards/second_wind.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.duckAnimation.bind(knight),
+                effects: function () { }
             },
 
             feint: {
@@ -133,8 +133,8 @@ export default class Deck {
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/feint.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.crouchAttackAnimation.bind(knight),
+                effects: function () { }
             },
 
             revengeance: {
@@ -142,8 +142,8 @@ export default class Deck {
                 attack: 0,
                 block: 0,
                 src: "art/knight_cards/revengeance.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.comboAnimation.bind(knight),
+                effects: function () { }
             },
 
             mightyBlow: {
@@ -151,8 +151,8 @@ export default class Deck {
                 attack: 7,
                 block: 0,
                 src: "art/knight_cards/mighty_blow.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.comboAnimation.bind(knight),
+                effects: function () { }
             },
 
             forHonor: {
@@ -161,7 +161,7 @@ export default class Deck {
                 block: 5,
                 src: "art/knight_cards/for_honor.png",
                 animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                effects: function () { }
             },
 
             poiseBreak: {
@@ -169,8 +169,8 @@ export default class Deck {
                 attack: 3,
                 block: 5,
                 src: "art/knight_cards/poise_break.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.crouchAttackAnimation.bind(knight),
+                effects: function () { }
             },
 
             holdTheLine: {
@@ -178,8 +178,8 @@ export default class Deck {
                 attack: 0,
                 block: 10,
                 src: "art/knight_cards/hold_the_line.png",
-                animation: knight.attackAnimation.bind(knight),
-                effects: () => { }
+                animation: knight.attack2Animation.bind(knight),
+                effects: function () { }
             },
 
 
@@ -195,7 +195,7 @@ export default class Deck {
                 block: 0,
                 src: "art/opponent_cards/mstrike.png",
                 animation: opponent.attackAnimation.bind(opponent),
-                effects: () => { }
+                effects: function () { }
             },
 
             rockThrow: {
@@ -203,7 +203,7 @@ export default class Deck {
                 block: 6,
                 src: "art/opponent_cards/mrock_throw.png",
                 animation: opponent.attacktwiceAnimation.bind(opponent),
-                effects: () => { }
+                effects: function () { }
             },
 
             spikes: {
@@ -211,7 +211,7 @@ export default class Deck {
                 block: 0,
                 src: "art/opponent_cards/mspikes.png",
                 animation: opponent.attack2Animation.bind(opponent),
-                effects: () => { }
+                effects: function () { }
             },
 
             blindingFlash: {
@@ -219,15 +219,22 @@ export default class Deck {
                 block: 0,
                 src: "art/opponent_cards/mblinding_flash.png",
                 animation: opponent.attack3Animation.bind(opponent),
-                effects: () => { }
+                effects: function () { } //You cannot see your opponent’s moves for the next two turns
             },
 
             turtle: {
                 attack: 0,
-                block: 10,
+                block: 4,
                 src: "art/opponent_cards/mturtle.png",
                 animation: opponent.idleAnimation.bind(opponent),
-                effects: () => { }
+                effects: function() { 
+                    let heal = 10
+                    if (this.opponent.health + heal > this.opponent.maxHealth) {
+                        this.opponent.health = this.opponent.maxHealth
+                    } else {
+                        this.opponent.health += 10
+                    }
+                } //gain 10 health
             },
 
             groundPound: {
@@ -235,7 +242,10 @@ export default class Deck {
                 block: 0,
                 src: "art/opponent_cards/mground_pound.png",
                 animation: opponent.attack3Animation.bind(opponent),
-                effects: () => { }
+                effects: function () { 
+                    
+                    
+                } //Destroy two cards in player’s hand.
             }
         }
     }   

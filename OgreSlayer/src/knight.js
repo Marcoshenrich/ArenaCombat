@@ -20,10 +20,13 @@ export default class Knight extends Combatant {
         this.animationStates = [
         { name: "idle", frames: 10, src: 'art/knight1/_Idle.png' },
         { name: "attack", frames: 4, src: 'art/knight1/_Attack.png' },
-        { name: "attack2", frames: 6, src: 'art/knight1/_Attack2.png' },
-        { name: "combo", frames: 10, src: 'art/knight1/_AttackCombo.png' },
+        { name: "attack2", frames: 6, src: 'art/knight1/_Attack2nm.png' },
+        { name: "combo", frames: 10, src: 'art/knight1/_AttackCombonm.png' },
         { name: "death", frames: 10, src: 'art/knight1/_Death.png' },
         { name: "roll", frames: 12, src: 'art/knight1/_Roll.png' },
+        { name: "duck", frames: 3, src: 'art/knight1/_CrouchAll.png' },
+        { name: "crouchAttack", frames: 6, src: 'art/knight1/_CrouchAttack.png' },
+        { name: "hit", frames: 6, src: 'art/knight1/Hit.png' },
         ];
 
         this.animationFramesSetter()
@@ -80,4 +83,22 @@ Knight.prototype.rollAnimation = function () {
     setTimeout(() => {
         this.idleAnimation()
     }, 1830)
+}
+
+Knight.prototype.duckAnimation = function () {
+    this.animationState = "duck"
+    this.image.src = this.animations["duck"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 650)
+}
+
+Knight.prototype.crouchAttackAnimation = function () {
+    this.animationState = "crouchAttack"
+    this.image.src = this.animations["crouchAttack"].src
+
+    setTimeout(() => {
+        this.idleAnimation()
+    }, 1000)
 }

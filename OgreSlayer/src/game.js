@@ -23,24 +23,30 @@ export default class Game {
     }
 
     coreGameLoop(playerCardId, slotId) {
+        this.clearCardFromSlot(slotId)
+
         let playedCard = this.knight.allUniqueCards[playerCardId]
+        let opponentCard = this.opponent.nextMove[0]
 
         this.knight.attack = playedCard.attack
-        this.knight.block = playedCard.attack
+        this.knight.block = playedCard.block
 
-        this.opponent.attack = this.opponent.nextMove[0].attack
-        this.opponent.block = this.opponent.nextMove[0].block
+        this.opponent.attack = opponentCard.attack
+        this.opponent.block = opponentCard.block
 
         this.damageCalc()
-        this.cardEffects()
-
-        // if (playedCard.effects) knightTest[knightcard].effects()
+        this.cardEffects(playedCard, opponentCard)
 
         playedCard.animation()
-        this.opponent.nextMove[0].animation()
-        this.opponent.nextMove.shift()
-        this.resolveMatState(slotId)
-
+        opponentCard.animation()
+        setTimeout(() => {
+            this.addCardtoSlot(slotId)
+            this.opponent.nextMove.shift()
+            this.knight.attack = 0
+            this.knight.block = 0
+            this.opponent.attack = this.opponent.nextMove[0].attack
+            this.opponent.block = this.opponent.nextMove[0].block
+        },1100) //should match the pause interval in indexlisteners
     }
 
     damageCalc(){
@@ -48,17 +54,23 @@ export default class Game {
         if (this.knight.attack > this.opponent.block) this.opponent.health -= (this.knight.attack - this.opponent.block)
     }
 
-    cardEffects() {
-
+    cardEffects(playedCard, opponentCard) {
+        console.log(playedCard.effects);
+        console.log(opponentCard.effects);
+        console.log(this);
+        playedCard.effects.call(this)
+        opponentCard.effects.call(this)
     }
 
-    resolveMatState(slotId) {
+    clearCardFromSlot(slotId){
         let slot = document.getElementById(slotId)
         slot.innerHTML = ""
+    }
 
+    addCardtoSlot(slotId) {
+        let slot = document.getElementById(slotId)
         if (this.knight.deck.length > 0) {
             let card = this.knight.deck.shift()
-            slot.innerHTML = ""
             slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" class="card" width="280px" height="280px"/>';
         }
     }

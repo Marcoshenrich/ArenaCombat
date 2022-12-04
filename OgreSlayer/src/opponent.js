@@ -10,15 +10,15 @@ export default class Opponent extends Combatant {
         this.spriteHeight = 80;
         this.xPosition = 400
         this.yPosition = 475
-        
-        // this.nextMove = []
-        // this.nextMoveMaker()
 
         this.deckObj = new Deck(this, 100)
         this.nextMove = this.deckObj.stack
         this.allUniqueCards = this.deckObj.allUniqueCards
 
-        this.health = 80
+        this.maxHealth = 80
+        this.health = this.maxHealth
+        this.attack = this.nextMove[0].attack
+        this.block = this.nextMove[0].block
 
         this.animationStates = [
         { name: "idle", frames: 6, src: 'art/demon/_Idle.png' },
@@ -29,7 +29,6 @@ export default class Opponent extends Combatant {
         ];
 
         this.animationFramesSetter()
-
 
     }
 

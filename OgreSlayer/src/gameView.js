@@ -3,6 +3,7 @@ import Game from './game.js'
 export default class GameView {
     constructor(canvas) { 
         this.ctx = canvas.getContext('2d')
+        this.pauseInputs = false
 
         this.CANVAS_WIDTH = canvas.width = 1024
         this.CANVAS_HEIGHT = canvas.height = 760
