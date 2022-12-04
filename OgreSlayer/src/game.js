@@ -37,14 +37,23 @@ export default class Game {
         this.opponent.attack = this.opponent.nextMove[0].attack
         this.opponent.block = this.opponent.nextMove[0].block
 
-        if (knightTest[knightcard].effects) knightTest[knightcard].effects()
+        this.damageCalc()
+        this.cardEffects()
 
-        if (this.opponent.attack > this.knight.block) this.knight.health -= (this.opponent.attack - this.knight.block)
-        if (this.knight.attack > this.opponent.block) this.opponent.health -= (this.knight.attack - this.opponent.block)
+        if (knightTest[knightcard].effects) knightTest[knightcard].effects()
 
         knightTest[knightcard].animation()
         this.opponent.nextMove[0].animation()
         this.opponent.nextMove.shift()
+
+    }
+
+    damageCalc(){
+        if (this.opponent.attack > this.knight.block) this.knight.health -= (this.opponent.attack - this.knight.block)
+        if (this.knight.attack > this.opponent.block) this.opponent.health -= (this.knight.attack - this.opponent.block)
+    }
+
+    cardEffects() {
 
     }
 
