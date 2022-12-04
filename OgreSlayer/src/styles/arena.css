@@ -28,12 +28,22 @@
     font-size: 40px;
     align-items: center;
     justify-content: center;
+    position: relative
     
 }
 
 .card-slot:hover {
     border: 5px solid yellow;
     background-color: gray;
+
+}
+
+.card {
+    position: absolute;
+    top: -42px;
+    left: -28px;
+    width: 177px;
+    height: 260px
 
 }
 
