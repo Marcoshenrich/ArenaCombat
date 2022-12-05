@@ -40,7 +40,42 @@ export default class Deck {
             this.stack.push(card)
         }
 
-        this.shuffleDeck()
+        if (!infiniteDeck) {
+            this.shuffleDeck()
+        } else {
+            this.pruneDeck()
+        }
+    }
+
+    pruneDeck() {
+        let resetStack = []
+        let bF = this.allUniqueCards["blindingFlash"]
+        let gP = this.allUniqueCards["groundPound"]
+        let interval;
+
+        for (let i = 0; i < this.stack.length - 3; i++) {	
+            let card = this.stack[i]
+            if (interval && card === bF) {
+                interval--
+                continue
+            } else {
+                if (card === bF) interval = 3
+                resetStack.push(card)
+            }
+        }
+
+        for (let i = 0; i < resetStack.length - 3; i++) {
+            let card = resetStack[i]
+            if (interval && card === gP) {
+                interval--
+                continue
+            } else {
+                if (card === gP) interval = 3
+                this.stack.unshift(card)
+            }
+        }
+
+        console.log(this.stack)
     }
 
     shuffleDeck() {
@@ -296,14 +331,14 @@ export default class Deck {
                     let filledSlots = this.cardSlotCollector("filled")
 
                     if (filledSlots.length) {
-                        for (let i = 1; i <= 2 && filledSlots.length > 0; i++) {
+                        for (let i = 1; i === 1 && filledSlots.length > 0; i++) {
                             let index = Math.floor(Math.random() * (filledSlots.length));
                             let slotId = filledSlots.splice(index,1)
                             this.clearCardFromSlot(slotId)
                             this.knight.deckObj.graveyard--
                         }
                     }
-                } //Destroy two cards in player’s hand.
+                } //Destroy a card in player’s hand.
             }
         }
     }   

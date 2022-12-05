@@ -28,19 +28,15 @@ export default class Opponent extends Combatant {
         { name: "hit", frames: 3, src: 'art/demon/_Hit.png' },
         { name: "death", frames: 4, src: 'art/demon/_Death.png' },
         { name: "dead", frames: 1, src: 'art/demon/_Dead.png' },
-
         ];
 
         this.animationFramesSetter()
 
-        this.blindedCard = {}
+        this.blindedCard = { }
         this.blindedCard["art"] = new Image()
         this.blindedCard.art.src = "art/opponent_cards/mblinded.png"
 
-        this.status = {
-            poiseBreak: false,
-            ttpoiseBreak: 0
-        }
+        this.status = { }
     }
 
 
