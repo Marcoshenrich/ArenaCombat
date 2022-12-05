@@ -142,7 +142,7 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/feint.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
-                instantEffects: function () { },
+                instantEffects: function () { this.opponentCard = this.opponent.allUniqueCards["turtle"]},
                 delayedEffects: function () { } //Instead of their action, your opponent turtles this turn.
             },
 

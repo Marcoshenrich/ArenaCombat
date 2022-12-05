@@ -6,6 +6,8 @@ export default class Game {
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.setupMat()
+        this.playedCard = null
+        this.opponentCard = null
     }
 
     setupMat() {
@@ -25,26 +27,27 @@ export default class Game {
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
         
-        let playedCard = this.knight.allUniqueCards[playerCardId]
-        let opponentCard = this.opponent.nextMove[0]
+        this.playedCard = this.knight.allUniqueCards[playerCardId]
+        this.opponentCard = this.opponent.nextMove[0]
         
-        this.instantCardEffects(playedCard, opponentCard)
+        this.instantCardEffects()
 
-        this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack.call(this), "attack")
-        this.knight.block = playedCard.block.call(this)
+        this.knight.attack = this.knight.statusChecker.call(this.knight, this.playedCard.attack.call(this), "attack")
+        this.knight.block = this.playedCard.block.call(this)
 
-        this.opponent.attack = opponentCard.attack.call(this)
-        this.opponent.block = opponentCard.block.call(this)
+        this.opponent.attack = this.opponentCard.attack.call(this)
+        this.opponent.block = this.opponentCard.block.call(this)
 
         this.damageCalc()
         
         this.resolveStatusEffects.call(this.knight, this.knight)
         this.resolveStatusEffects.call(this.opponent, this.opponent)
         
-        this.delayedCardEffects(playedCard, opponentCard)
+        this.delayedCardEffects()
 
-        playedCard.animation()
-        opponentCard.animation()
+        this.playedCard.animation()
+        this.opponentCard.animation()
+
         setTimeout(() => {
             this.addCardtoSlot(slotId)
             this.opponent.nextMove.shift()
@@ -76,14 +79,14 @@ export default class Game {
         }
     }
 
-    instantCardEffects(playedCard, opponentCard) {
-        playedCard.instantEffects.call(this)
-        opponentCard.instantEffects.call(this)
+    instantCardEffects() {
+        this.playedCard.instantEffects.call(this)
+        this.opponentCard.instantEffects.call(this)
     }
 
-    delayedCardEffects(playedCard, opponentCard) {
-        playedCard.delayedEffects.call(this)
-        opponentCard.delayedEffects.call(this)
+    delayedCardEffects() {
+        this.playedCard.delayedEffects.call(this)
+        this.opponentCard.delayedEffects.call(this)
     }
 
     clearCardFromSlot(slotId){
