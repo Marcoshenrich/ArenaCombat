@@ -30,6 +30,11 @@ export default class Knight extends Combatant {
         ];
 
         this.animationFramesSetter()
+
+        this.status = {
+            blinded: false,
+            ttblinded: 0
+        }
     }
 
 

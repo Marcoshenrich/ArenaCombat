@@ -30,6 +30,9 @@ export default class Opponent extends Combatant {
 
         this.animationFramesSetter()
 
+        this.status = {}
+        this.blindedCard = new Image()
+        this.blindedCard.src = "art/opponent_cards/mblinded.png"
     }
 
 

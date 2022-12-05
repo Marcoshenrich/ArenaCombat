@@ -49,7 +49,12 @@ export default class GameView {
         this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
         const opponentInfoSquare = this.ctx.fillRect((this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset), this.infoDimensions.infoSquareYOffset, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)
        
-        let opponentMove = this.game.opponent.nextMove[0].art 
+        let opponentMove;
+        if (this.knight.status["blinded"]) {
+            opponentMove = this.opponent.blindedCard
+        } else {
+            opponentMove = this.opponent.nextMove[0].art  
+        }
         this.ctx.drawImage(opponentMove, (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 10, this.infoDimensions.infoSquareYOffset + 120, 180, 280)
 
         const playerInfoSquare = this.ctx.fillRect((this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen), this.infoDimensions.infoSquareYOffset, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)

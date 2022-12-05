@@ -35,6 +35,10 @@ export default class Game {
         this.opponent.block = opponentCard.block
 
         this.damageCalc()
+        
+        this.resolveStatusEffects.call(this.knight, this.knight)
+        this.resolveStatusEffects.call(this.opponent, this.opponent)
+        
         this.cardEffects(playedCard, opponentCard)
 
         playedCard.animation()
@@ -54,10 +58,24 @@ export default class Game {
         if (this.knight.attack > this.opponent.block) this.opponent.health -= (this.knight.attack - this.opponent.block)
     }
 
+    resolveStatusEffects() {
+        let statuses = Object.keys(this.status)
+        for (let i = 0; i < statuses.length; i++) {	
+            let statusTimerKey = statuses[i]
+
+            if (statusTimerKey.slice(0, 2) === "tt" && this.status[statusTimerKey] > 0) {
+                let actualStatusKey = statusTimerKey.slice(2)
+                this.status[statusTimerKey] -= 1
+                console.log(this.status)
+                console.log(this)
+                if (this.status[statusTimerKey] === 0) {
+                    this.status[actualStatusKey] = false
+                }
+            }
+        }
+    }
+
     cardEffects(playedCard, opponentCard) {
-        console.log(playedCard.effects);
-        console.log(opponentCard.effects);
-        console.log(this);
         playedCard.effects.call(this)
         opponentCard.effects.call(this)
     }

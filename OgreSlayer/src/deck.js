@@ -4,7 +4,6 @@ export default class Deck {
         this.stack = []
         this.allUniqueCards = {}
         this.deckMaker(decksize)
-        console.log(this.stack)
     }
 
 
@@ -219,7 +218,10 @@ export default class Deck {
                 block: 0,
                 src: "art/opponent_cards/mblinding_flash.png",
                 animation: opponent.attack3Animation.bind(opponent),
-                effects: function () { } //You cannot see your opponent’s moves for the next two turns
+                effects: function () { 
+                    this.knight.status["blinded"] = true
+                    this.knight.status["ttblinded"] = 2
+                } //You cannot see your opponent’s moves for the next two turns
             },
 
             turtle: {
