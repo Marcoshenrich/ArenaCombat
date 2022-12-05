@@ -52,14 +52,12 @@ export default class Deck {
         }
     }
 
-    
-
     playerCards(knight) {
         return {
             strike: {
                 id: "strike",
-                attack: function(){return 3},
-                block: function () {return 0},
+                attack: function() { return 3 },
+                block: function () { return 0 },
                 src: "art/knight_cards/strike.png",
                 animation: knight.attackAnimation.bind(knight),
                 instantEffects: function () { },
@@ -83,7 +81,9 @@ export default class Deck {
                 src: "art/knight_cards/reposition.png",
                 animation: knight.duckAnimation.bind(knight),
                 instantEffects: function () { },
-                delayedEffects: function () { } //draw a card
+                delayedEffects: function () { 
+                    this.numCardsDraw += 1 
+                } // draw a card
             },
 
             taunt: {
@@ -110,7 +110,9 @@ export default class Deck {
                         this.opponent.health -= 4
                     }
                  },
-                delayedEffects: function () { } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
+                delayedEffects: function () { 
+                    this.numCardsDraw += 1 
+                } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
             shieldOfFaith: {
@@ -144,8 +146,12 @@ export default class Deck {
                 block: function () { return 8 },
                 src: "art/knight_cards/second_wind.png",
                 animation: knight.duckAnimation.bind(knight),
-                instantEffects: function () { },
-                delayedEffects: function () { } //recover 8 health, draw a card
+                instantEffects: function () { 
+                    this.knight.heal(8)
+                },
+                delayedEffects: function () { 
+                    this.numCardsDraw += 1 
+                } //recover 8 health, draw a card
             },
 
             feint: {
@@ -187,7 +193,9 @@ export default class Deck {
                 src: "art/knight_cards/for_honor.png",
                 animation: knight.attackAnimation.bind(knight),
                 instantEffects: function () { },
-                delayedEffects: function () { } //draws a card
+                delayedEffects: function () { 
+                    this.numCardsDraw += 1 
+                } //draws a card
             },
 
             poiseBreak: {
@@ -283,7 +291,19 @@ export default class Deck {
                 src: "art/opponent_cards/mground_pound.png",
                 animation: opponent.attack3Animation.bind(opponent),
                 instantEffects: function () { },
-                delayedEffects: function () { } //Destroy two cards in player’s hand.
+                delayedEffects: function () { 
+                    let cardSlots = document.querySelectorAll(".card-slot")
+                    let filledSlots = this.cardSlotCollector("filled")
+
+                    if (filledSlots.length) {
+                        for (let i = 1; i <= 2 && filledSlots.length > 0; i++) {
+                            let index = Math.floor(Math.random() * (filledSlots.length));
+                            let slotId = filledSlots.splice(index,1)
+                            this.clearCardFromSlot(slotId)
+                            this.knight.deckObj.graveyard--
+                        }
+                    }
+                } //Destroy two cards in player’s hand.
             }
         }
     }   

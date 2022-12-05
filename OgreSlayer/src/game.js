@@ -8,8 +8,9 @@ export default class Game {
         this.setupMat()
         this.numCardsDraw = 0
         this.gameOver = false
-        this.gameLoss = false
         this.gameWin = false
+        this.gameLoss = false
+        this.cardLoss = false
     }
 
     setupMat() {
@@ -20,7 +21,6 @@ export default class Game {
             let slotId = "card-slot" + i
             let slot = document.getElementById(slotId)
             slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" class="card" + " width="280px" height="280px"/>';
-
         }
 
         this.knight.deck = deck.slice(5, deck.length)
@@ -51,8 +51,8 @@ export default class Game {
         opponentCard.animation()
 
         setTimeout(() => {
-            this.gameEndCheck()
             this.drawCards()
+            this.gameEndCheck() // add empty mat check
             this.opponent.nextMove.shift()
             this.knight.attack = 0
             this.knight.block = 0
@@ -62,8 +62,20 @@ export default class Game {
     }
 
     gameEndCheck() {
-        if (this.knight.health < 1) this.gameLoss = true
-        if (this.opponent.health < 1) this.gameWin = true
+        let i = 0
+        while (i === 0) {
+            i++
+            if (this.knight.health < 1) this.gameLoss = true
+            if (this.opponent.health < 1) {
+                this.gameWin = true; 
+                break;
+            }
+            let emptySlots = this.cardSlotCollector("empty")
+            if (emptySlots.length === 5) {
+                this.gameLoss = true
+                this.cardLoss = true
+            }
+        }
     }
 
     damageCalc(){
@@ -117,13 +129,7 @@ export default class Game {
     }
 
     drawCards() {
-        let cardSlots = document.querySelectorAll(".card-slot")
-        let emptySlots = []
-        for (let i = 0; i < cardSlots.length; i++) {
-            let cardslot = cardSlots[i];
-            if (!cardslot.firstChild) emptySlots.push(cardslot.id)
-        }
-
+        let emptySlots = this.cardSlotCollector("empty")
         for (let i = emptySlots.length - 1; i >= 0 && this.numCardsDraw > 0; this.numCardsDraw--) {	
             let slotId = emptySlots[Math.abs(i - (emptySlots.length - 1))]
             this.addCardtoSlot(slotId) 
@@ -131,6 +137,20 @@ export default class Game {
         }
 
         this.numCardsDraw = 0
+    }
+
+    cardSlotCollector(filledOrEmpty) {
+        let cardSlots = document.querySelectorAll(".card-slot")
+        let slots = []
+        for (let i = 0; i < cardSlots.length; i++) {
+            let cardslot = cardSlots[i];
+            if (filledOrEmpty === "empty") {
+                if (!cardslot.firstChild) slots.push(cardslot.id)
+            } else {
+                if (cardslot.firstChild) slots.push(cardslot.id)
+            }
+        }
+        return slots
     }
 }
 
