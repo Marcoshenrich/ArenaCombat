@@ -18,6 +18,9 @@ export default class GameView {
         this.lossText = new Image()
         this.lossText.src = 'art/youded.png'
 
+        this.winText = new Image()
+        this.winText.src = 'art/youwin.png'
+
         this.game = new Game()
         this.knight = this.game.knight
         this.opponent = this.game.opponent
@@ -36,34 +39,37 @@ export default class GameView {
     animate() {
         this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         this.renderBackground()
-        this.renderText()
-        this.opponent.draw(this.ctx, this.gameFrame, this.staggerFrames)
-        this.knight.draw(this.ctx,this.gameFrame, this.staggerFrames)
+        if (!this.game.gameOver) {
+            this.renderInfoSquares()
+            this.renderText()
+            if (this.hoveredCard && this.showNextHover) this.renderHoveredCard(this.hoveredCard)
+        }
+        if (this.game.gameLoss || this.game.gameWin) this.renderGameEndScreen()
+        this.renderCharacters()
         this.gameFrame++
 
-        if (this.hoveredCard && this.showNextHover) this.renderHoveredCard(this.hoveredCard)
 
         requestAnimationFrame(this.animate.bind(this))
-
-        
     }
 
     renderBackground() {
         this.ctx.drawImage(this.backgroundImage, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-       
+
+    }
+
+    renderInfoSquares() {
         this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
         const opponentInfoSquare = this.ctx.fillRect((this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset), this.infoDimensions.infoSquareYOffset, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)
-       
+
         let opponentMove;
         if (this.knight.status["blinded"]) {
             opponentMove = this.opponent.blindedCard.art
         } else {
-            opponentMove = this.opponent.nextMove[0].art  
+            opponentMove = this.opponent.nextMove[0].art
         }
         this.ctx.drawImage(opponentMove, (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 10, this.infoDimensions.infoSquareYOffset + 120, 180, 280)
 
         const playerInfoSquare = this.ctx.fillRect((this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen), this.infoDimensions.infoSquareYOffset, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)
-        if (this.game.gameLoss) this.renderGameLossScreen()
     }
 
     renderText() {
@@ -78,6 +84,17 @@ export default class GameView {
         this.ctx.fillText("Knight Health", (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 21, this.infoDimensions.infoSquareYOffset + 40)
         this.ctx.fillText(`Atk: ${this.knight.attack} Blk: ${this.knight.block} `, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 30, this.infoDimensions.infoSquareYOffset + 110)
         this.ctx.fillText(this.game.knight.health, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 81, this.infoDimensions.infoSquareYOffset + 80)
+        
+    }
+
+    renderCharacters(){
+        this.opponent.draw(this.ctx, this.gameFrame, this.staggerFrames)
+        this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames)
+        if (this.game.gameLoss && !this.game.gameOver) {
+            this.game.gameOver = true
+            this.resetAnimationFrames()
+            this.knight.deathAnimation()
+        }
     }
 
     resetAnimationFrames() {
@@ -96,16 +113,30 @@ export default class GameView {
         this.ctx.drawImage(card.art, (this.CANVAS_WIDTH / 2) - (390 / 2), (this.CANVAS_HEIGHT / 2) - (800/2), 390, 600)
     }
 
-    renderGameLossScreen() {
+    renderGameEndScreen() {
+        let text;
+        let sizeX;
+        let sizeY;
+        let posX;
+        let posY;
+
+        if (this.game.gameLoss) {
+            text = this.lossText
+            sizeX = 600; sizeY = 300; posX = 200; posY = 150
+        } else {
+            text = this.winText
+            sizeX = 840; sizeY = 220; posX = 80; posY = 150
+        }
         this.fadeOut += .01
         this.ctx.fillStyle = `rgba(0,0,0,${this.fadeOut})`;
-        this.ctx.fillRect(0,0,this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        this.ctx.fillRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         if (this.fadeOut > 1) {
             this.textFadeIn -= .01
             this.ctx.fillStyle = `rgba(0,0,0,${this.textFadeIn})`;
-            this.ctx.drawImage(this.lossText, 200, 150, 600,300)
+            this.ctx.drawImage(text, posX, posY, sizeX, sizeY)
             this.ctx.fillRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         }
+
     }
 
 

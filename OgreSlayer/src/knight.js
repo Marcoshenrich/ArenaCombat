@@ -11,7 +11,7 @@ export default class Knight extends Combatant {
         this.xPosition = 200
         this.yPosition = 450
 
-        this.health = 30
+        this.health = 1
 
         this.deckObj = new Deck(this, 14)
         this.deck = this.deckObj.stack
@@ -23,6 +23,7 @@ export default class Knight extends Combatant {
         { name: "attack2", frames: 6, src: 'art/knight1/_Attack2nm.png' },
         { name: "combo", frames: 10, src: 'art/knight1/_AttackCombonm.png' },
         { name: "death", frames: 10, src: 'art/knight1/_Death.png' },
+        { name: "dead", frames: 1, src: 'art/knight1/_Dead.png' },
         { name: "roll", frames: 12, src: 'art/knight1/_Roll.png' },
         { name: "duck", frames: 3, src: 'art/knight1/_CrouchAll.png' },
         { name: "crouchAttack", frames: 6, src: 'art/knight1/_CrouchAttack.png' },
@@ -90,8 +91,13 @@ Knight.prototype.deathAnimation = function () {
     this.image.src = this.animations["death"].src
 
     setTimeout(() => {
-        this.idleAnimation()
+        this.deadAnimation()
     }, 1650)
+}
+
+Knight.prototype.deadAnimation = function () {
+    this.animationState = "dead"
+    this.image.src = this.animations["dead"].src
 }
 
 Knight.prototype.rollAnimation = function () {

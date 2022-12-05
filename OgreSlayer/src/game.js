@@ -6,7 +6,9 @@ export default class Game {
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.setupMat()
+        this.gameOver = false
         this.gameLoss = false
+        this.gameWin = false
     }
 
     setupMat() {
@@ -49,6 +51,7 @@ export default class Game {
         opponentCard.animation()
 
         setTimeout(() => {
+            this.gameEndCheck()
             this.addCardtoSlot(slotId)
             this.opponent.nextMove.shift()
             this.knight.attack = 0
@@ -56,6 +59,11 @@ export default class Game {
             this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
             this.opponent.block = this.opponent.nextMove[0].block.call(this)
         },1100) //should match the pause interval in indexlisteners
+    }
+
+    gameEndCheck() {
+        if (this.knight.health < 1) this.gameLoss = true
+        if (this.opponent.health < 1) this.gameWin = true
     }
 
     damageCalc(){
