@@ -123,7 +123,9 @@ export default class Deck {
                 src: "art/knight_cards/dodge.png",
                 animation: knight.rollAnimation.bind(knight),
                 instantEffects: function () { },
-                delayedEffects: function () { } //You take no damage this turn
+                delayedEffects: function () { 
+                    if (this.opponent.attack > this.knight.block) this.knight.health += (this.opponent.attack - this.knight.block)
+                } //You take no damage this turn
             },
 
             secondWind: {
@@ -142,7 +144,9 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/feint.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
-                instantEffects: function () { this.opponentCard = this.opponent.allUniqueCards["turtle"]},
+                instantEffects: function () { 
+                    this.opponentCard = this.opponent.allUniqueCards["turtle"]
+                },
                 delayedEffects: function () { } //Instead of their action, your opponent turtles this turn.
             },
 
