@@ -102,8 +102,17 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/parry.png",
                 animation: knight.comboAnimation.bind(knight),
-                instantEffects: function () { },
-                delayedEffects: function () { } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
+                instantEffects: function (playedCard, opponentCard) {
+                    console.log(opponentCard);
+                    if (opponentCard.attack) {
+                        opponentCard.attack = function () { return 0 }
+                        // console.log(opponentCard);
+                        this.opponent.health -= 4
+                    }
+                 },
+                delayedEffects: function () { 
+  
+                } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
             shieldOfFaith: {
