@@ -6,6 +6,7 @@ export default class Game {
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.setupMat()
+        this.gameLoss = false
     }
 
     setupMat() {
@@ -24,7 +25,8 @@ export default class Game {
 
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
-        
+        // which have children?
+
         let playedCard = this.knight.allUniqueCards[playerCardId]
         let opponentCard = this.opponent.nextMove[0]
 

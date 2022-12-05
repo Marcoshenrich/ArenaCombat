@@ -15,6 +15,9 @@ export default class GameView {
         this.matImage = new Image()
         this.matImage.src = 'art/mat.png'
 
+        this.lossText = new Image()
+        this.lossText.src = 'art/youded.png'
+
         this.game = new Game()
         this.knight = this.game.knight
         this.opponent = this.game.opponent
@@ -26,6 +29,8 @@ export default class GameView {
 
         this.hoveredCard = null
         this.showNextHover = true
+        this.fadeOut = 0
+        this.textFadeIn = 1
     }
 
     animate() {
@@ -51,13 +56,14 @@ export default class GameView {
        
         let opponentMove;
         if (this.knight.status["blinded"]) {
-            opponentMove = this.opponent.blindedCard
+            opponentMove = this.opponent.blindedCard.art
         } else {
             opponentMove = this.opponent.nextMove[0].art  
         }
         this.ctx.drawImage(opponentMove, (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 10, this.infoDimensions.infoSquareYOffset + 120, 180, 280)
 
         const playerInfoSquare = this.ctx.fillRect((this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen), this.infoDimensions.infoSquareYOffset, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)
+        if (this.game.gameLoss) this.renderGameLossScreen()
     }
 
     renderText() {
@@ -78,11 +84,30 @@ export default class GameView {
         this.gameFrame = 0;
     }
 
-    renderHoveredCard(playerCardId) {
-        let card = this.knight.allUniqueCards[playerCardId]
+    renderHoveredCard(cardIdObj) {
+        let card;
+        if (cardIdObj["knightCard"]) {
+            card = this.knight.allUniqueCards[cardIdObj["knightCard"]]
+        } else if (this.knight.status["blinded"]) {
+            card = this.opponent.blindedCard
+        } else {
+            card = this.opponent.nextMove[0]
+        }
         this.ctx.drawImage(card.art, (this.CANVAS_WIDTH / 2) - (390 / 2), (this.CANVAS_HEIGHT / 2) - (800/2), 390, 600)
-
     }
+
+    renderGameLossScreen() {
+        this.fadeOut += .01
+        this.ctx.fillStyle = `rgba(0,0,0,${this.fadeOut})`;
+        this.ctx.fillRect(0,0,this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        if (this.fadeOut > 1) {
+            this.textFadeIn -= .01
+            this.ctx.fillStyle = `rgba(0,0,0,${this.textFadeIn})`;
+            this.ctx.drawImage(this.lossText, 200, 150, 600,300)
+            this.ctx.fillRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        }
+    }
+
 
 }
 

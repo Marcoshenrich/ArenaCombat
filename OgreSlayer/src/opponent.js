@@ -30,8 +30,9 @@ export default class Opponent extends Combatant {
 
         this.animationFramesSetter()
 
-        this.blindedCard = new Image()
-        this.blindedCard.src = "art/opponent_cards/mblinded.png"
+        this.blindedCard = {}
+        this.blindedCard["art"] = new Image()
+        this.blindedCard.art.src = "art/opponent_cards/mblinded.png"
 
         this.status = {
             poiseBreak: false,

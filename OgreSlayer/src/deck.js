@@ -222,6 +222,7 @@ export default class Deck {
         return {
 
             strike: {
+                id: "strike",
                 attack: function () { return 8 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mstrike.png",
@@ -231,6 +232,7 @@ export default class Deck {
             },
 
             rockThrow: {
+                id: "rockThrow",
                 attack: function () { return 8 },
                 block: function () { return 6 },
                 src: "art/opponent_cards/mrock_throw.png",
@@ -240,6 +242,7 @@ export default class Deck {
             },
 
             spikes: {
+                id: "spikes",
                 attack: function () { return 12 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mspikes.png",
@@ -249,6 +252,7 @@ export default class Deck {
             },
 
             blindingFlash: {
+                id: "blindingFlash",
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mblinding_flash.png",
@@ -261,6 +265,7 @@ export default class Deck {
             },
 
             turtle: {
+                id: "turtle",
                 attack: function () { return 0 },
                 block: function () { return 4 },
                 src: "art/opponent_cards/mturtle.png",
@@ -272,6 +277,7 @@ export default class Deck {
             },
 
             groundPound: {
+                id: "groundPound",
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mground_pound.png",

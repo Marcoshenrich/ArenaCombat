@@ -29,7 +29,7 @@ mat.addEventListener("mouseover", (e) => {
 
         gameview.knight.block = card.block.call(gameview.game)
         gameview.knight.attack = gameview.knight.statusChecker.call(gameview.knight, card.attack.call(gameview.game), "attack")
-        gameview.hoveredCard = playerCardId
+        gameview.hoveredCard = {knightCard: playerCardId}
     }
 });
 
@@ -43,4 +43,20 @@ mat.addEventListener("mouseout", (e) => {
         gameview.knight.block = 0
         }
     }
+});
+
+canvas.addEventListener("mousemove", (e) => {
+    // gameview.hoveredCard = gameview.opponent.blindedCard
+    if (e.clientX > 800 && e.clientX < 920 && e.clientY > 375 && e.clientY < 580){
+        gameview.showNextHover = true
+        if (gameview.knight.status["blinded"]) {
+            gameview.hoveredCard = gameview.opponent.blindedCard
+        } else {
+            gameview.hoveredCard = { opponentCard: gameview.opponent.nextMove.id }
+        }
+    } else {
+        gameview.showNextHover = false
+    }
+
+
 });
