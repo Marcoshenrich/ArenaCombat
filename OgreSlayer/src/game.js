@@ -27,7 +27,7 @@ export default class Game {
         
         let playedCard = this.knight.allUniqueCards[playerCardId]
         let opponentCard = this.opponent.nextMove[0]
-        console.log(opponentCard)
+
         this.instantCardEffects(playedCard, opponentCard)
 
         this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack.call(this), "attack")
