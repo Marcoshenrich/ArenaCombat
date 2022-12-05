@@ -26,6 +26,9 @@ export default class Opponent extends Combatant {
         { name: "attack2", frames: 6, src: 'art/demon/_Attack2.png' },
         { name: "attack3", frames: 6, src: 'art/demon/_Attack3.png' },
         { name: "hit", frames: 3, src: 'art/demon/_Hit.png' },
+        { name: "death", frames: 4, src: 'art/demon/_Death.png' },
+        { name: "dead", frames: 1, src: 'art/demon/_Dead.png' },
+
         ];
 
         this.animationFramesSetter()
@@ -98,7 +101,19 @@ Opponent.prototype.hitAnimation = function () {
 }
 
 
+Opponent.prototype.deathAnimation = function () {
+    this.animationState = "death"
+    this.image.src = this.animations["death"].src
 
+    setTimeout(() => {
+        this.deadAnimation()
+    }, 600)
+}
+
+Opponent.prototype.deadAnimation = function () {
+    this.animationState = "dead"
+    this.image.src = this.animations["dead"].src
+}
 
 
 

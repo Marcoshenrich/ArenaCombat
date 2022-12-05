@@ -5,20 +5,20 @@ const mat = document.getElementById('mat')
 const gameview = new GameView(canvas)
 
 mat.addEventListener("click", (e) => {
-    if (!gameview.pauseInputs) {
-    gameview.showNextHover = false
-    gameview.pauseInputs = true
-    let slot = e.target.parentNode
-    if (slot.className === "card-slot") {
-        let playerCardId = e.target.id
-        gameview.resetAnimationFrames()
-        gameview.game.coreGameLoop(playerCardId, slot.id)
-        gameview.hoveredCard = null
-        setTimeout(() => {
-            gameview.pauseInputs = false
-        }, 1500); // this needs to equal the longest animation time. 
+    if (!gameview.game.gameOver && !gameview.pauseInputs)  {
+        gameview.showNextHover = false
+        gameview.pauseInputs = true
+        let slot = e.target.parentNode
+        if (slot.className === "card-slot") {
+            let playerCardId = e.target.id
+            gameview.resetAnimationFrames()
+            gameview.game.coreGameLoop(playerCardId, slot.id)
+            gameview.hoveredCard = null
+            setTimeout(() => {
+                gameview.pauseInputs = false
+            }, 1500); // this needs to equal the longest animation time. 
+        }
     }
-}
 });
 
 mat.addEventListener("mouseover", (e) => {
@@ -46,7 +46,6 @@ mat.addEventListener("mouseout", (e) => {
 });
 
 canvas.addEventListener("mousemove", (e) => {
-    // gameview.hoveredCard = gameview.opponent.blindedCard
     if (e.clientX > 800 && e.clientX < 920 && e.clientY > 375 && e.clientY < 580){
         gameview.showNextHover = true
         if (gameview.knight.status["blinded"]) {

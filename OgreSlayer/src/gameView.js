@@ -90,10 +90,22 @@ export default class GameView {
     renderCharacters(){
         this.opponent.draw(this.ctx, this.gameFrame, this.staggerFrames)
         this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames)
+
+        if (this.game.gameLoss && this.game.gameWin && !this.game.gameOver) {
+            this.game.gameOver = true
+            this.resetAnimationFrames()
+            this.knight.deathAnimation()
+            this.opponent.deathAnimation()
+        }
         if (this.game.gameLoss && !this.game.gameOver) {
             this.game.gameOver = true
             this.resetAnimationFrames()
             this.knight.deathAnimation()
+        }
+        if (this.game.gameWin && !this.game.gameOver) {
+            this.game.gameOver = true
+            this.resetAnimationFrames()
+            this.opponent.deathAnimation()
         }
     }
 
