@@ -62,7 +62,8 @@ export default class Deck {
                 block: function () {return 0},
                 src: "art/knight_cards/strike.png",
                 animation: knight.attackAnimation.bind(knight),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             defend: {
@@ -71,7 +72,8 @@ export default class Deck {
                 block: function () { return 5 },
                 src: "art/knight_cards/defend.png",
                 animation: knight.attack2Animation.bind(knight),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             reposition: {
@@ -80,9 +82,8 @@ export default class Deck {
                 block: function () { return 2 },
                 src: "art/knight_cards/reposition.png",
                 animation: knight.duckAnimation.bind(knight),
-                effects: function () { 
-
-                } //draw a card
+                instantEffects: function () { },
+                delayedEffects: function () { } //draw a card
             },
 
             taunt: {
@@ -91,9 +92,8 @@ export default class Deck {
                 block: function () { return 4 },
                 src: "art/knight_cards/taunt.png",
                 animation: knight.duckAnimation.bind(knight),
-                effects: function () { 
-
-                } // your opponent must use strike next turn
+                instantEffects: function () { },
+                delayedEffects: function () { } // your opponent must use strike next turn
             },
 
             parry: {
@@ -102,9 +102,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/parry.png",
                 animation: knight.comboAnimation.bind(knight),
-                effects: function () { 
-
-                } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
+                instantEffects: function () { },
+                delayedEffects: function () { } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
             shieldOfFaith: {
@@ -113,9 +112,8 @@ export default class Deck {
                 block: function () { return 5 },
                 src: "art/knight_cards/shield_of_faith.png",
                 animation: knight.attack2Animation.bind(knight),
-                effects: function () { 
-
-                } //You take no damage next turn
+                instantEffects: function () { },
+                delayedEffects: function () { } //You take no damage next turn
             },
 
             dodge: {
@@ -124,9 +122,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/dodge.png",
                 animation: knight.rollAnimation.bind(knight),
-                effects: function () { 
-
-                } //You take no damage this turn
+                instantEffects: function () { },
+                delayedEffects: function () { } //You take no damage this turn
             },
 
             secondWind: {
@@ -135,9 +132,8 @@ export default class Deck {
                 block: function () { return 8 },
                 src: "art/knight_cards/second_wind.png",
                 animation: knight.duckAnimation.bind(knight),
-                effects: function () { 
-
-                } //recover 8 health, draw a card
+                instantEffects: function () { },
+                delayedEffects: function () { } //recover 8 health, draw a card
             },
 
             feint: {
@@ -146,9 +142,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/feint.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
-                effects: function () { 
-
-                } //Instead of their action, your opponent turtles this turn.
+                instantEffects: function () { },
+                delayedEffects: function () { } //Instead of their action, your opponent turtles this turn.
             },
 
             revengeance: {
@@ -157,7 +152,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/revengeance.png",
                 animation: knight.comboAnimation.bind(knight),
-                effects: function () { } 
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             mightyBlow: {
@@ -166,7 +162,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/mighty_blow.png",
                 animation: knight.comboAnimation.bind(knight),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             forHonor: {
@@ -175,9 +172,8 @@ export default class Deck {
                 block: function () { return 5 },
                 src: "art/knight_cards/for_honor.png",
                 animation: knight.attackAnimation.bind(knight),
-                effects: function () { 
-
-                } //draws a card
+                instantEffects: function () { },
+                delayedEffects: function () { } //draws a card
             },
 
             poiseBreak: {
@@ -186,7 +182,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/poise_break.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
-                effects: function () { 
+                instantEffects: function () { },
+                delayedEffects: function () { 
                     this.knight.status["opponentPoiseBroken"] = true
                     this.knight.status["ttopponentPoiseBroken"] = 1
                 } // your opponent takes double damage next turn
@@ -198,7 +195,8 @@ export default class Deck {
                 block: function () { return 10 },
                 src: "art/knight_cards/hold_the_line.png",
                 animation: knight.attack2Animation.bind(knight),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
 
@@ -214,7 +212,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/opponent_cards/mstrike.png",
                 animation: opponent.attackAnimation.bind(opponent),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             rockThrow: {
@@ -222,7 +221,8 @@ export default class Deck {
                 block: function () { return 6 },
                 src: "art/opponent_cards/mrock_throw.png",
                 animation: opponent.attacktwiceAnimation.bind(opponent),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             spikes: {
@@ -230,15 +230,17 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/opponent_cards/mspikes.png",
                 animation: opponent.attack2Animation.bind(opponent),
-                effects: function () { }
+                instantEffects: function () { },
+                delayedEffects: function () { }
             },
 
             blindingFlash: {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mblinding_flash.png",
-                animation: opponent.attack3Animation.bind(opponent),
-                effects: function () { 
+                animation: opponent.attack3Animation.bind(opponent), 
+                instantEffects: function () { },
+                delayedEffects: function () { 
                     this.knight.status["blinded"] = true
                     this.knight.status["ttblinded"] = 2
                 } //You cannot see your opponent’s moves for the next two turns
@@ -249,14 +251,10 @@ export default class Deck {
                 block: function () { return 4 },
                 src: "art/opponent_cards/mturtle.png",
                 animation: opponent.idleAnimation.bind(opponent),
-                effects: function() { 
-                    let heal = 10
-                    if (this.opponent.health + heal > this.opponent.maxHealth) {
-                        this.opponent.health = this.opponent.maxHealth
-                    } else {
-                        this.opponent.health += 10
-                    }
-                } //gain 10 health
+                instantEffects: function () { 
+                    this.opponent.heal.call(this.opponent, 10)
+                },
+                delayedEffects: function () { }
             },
 
             groundPound: {
@@ -264,10 +262,8 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/opponent_cards/mground_pound.png",
                 animation: opponent.attack3Animation.bind(opponent),
-                effects: function () { 
-                    
-                    
-                } //Destroy two cards in player’s hand.
+                instantEffects: function () { },
+                delayedEffects: function () { } //Destroy two cards in player’s hand.
             }
         }
     }   

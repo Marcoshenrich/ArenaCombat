@@ -24,9 +24,11 @@ export default class Game {
 
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
-
+        
         let playedCard = this.knight.allUniqueCards[playerCardId]
         let opponentCard = this.opponent.nextMove[0]
+        
+        this.instantCardEffects(playedCard, opponentCard)
 
         this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack.call(this), "attack")
         this.knight.block = playedCard.block.call(this)
@@ -39,7 +41,7 @@ export default class Game {
         this.resolveStatusEffects.call(this.knight, this.knight)
         this.resolveStatusEffects.call(this.opponent, this.opponent)
         
-        this.cardEffects(playedCard, opponentCard)
+        this.delayedCardEffects(playedCard, opponentCard)
 
         playedCard.animation()
         opponentCard.animation()
@@ -74,9 +76,14 @@ export default class Game {
         }
     }
 
-    cardEffects(playedCard, opponentCard) {
-        playedCard.effects.call(this)
-        opponentCard.effects.call(this)
+    instantCardEffects(playedCard, opponentCard) {
+        playedCard.instantEffects.call(this)
+        opponentCard.instantEffects.call(this)
+    }
+
+    delayedCardEffects(playedCard, opponentCard) {
+        playedCard.delayedEffects.call(this)
+        opponentCard.delayedEffects.call(this)
     }
 
     clearCardFromSlot(slotId){

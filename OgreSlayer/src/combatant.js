@@ -27,4 +27,12 @@ export default class Combatant {
         let frameY = this.animations[this.animationState].loc[position].y
         ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition, Math.floor(this.spriteWidth * 3.5), Math.floor(this.spriteHeight * 3.5))
     }
+
+    heal(healVal) {
+        if (this.health + healVal > this.maxHealth) {
+            this.health = this.maxHealth
+        } else {
+            this.health += healVal
+        }
+    }
 }
