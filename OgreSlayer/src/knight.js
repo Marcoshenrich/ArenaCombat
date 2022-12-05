@@ -35,7 +35,9 @@ export default class Knight extends Combatant {
             blinded: false,
             ttblinded: 0,
             opponentPoiseBroken: false,
-            ttopponentPoiseBroken: 0
+            ttopponentPoiseBroken: 0,
+            damageImmune: false,
+            ttdamageImmune: 0
         }
     }
 

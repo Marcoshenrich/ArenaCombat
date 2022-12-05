@@ -113,7 +113,10 @@ export default class Deck {
                 src: "art/knight_cards/shield_of_faith.png",
                 animation: knight.attack2Animation.bind(knight),
                 instantEffects: function () { },
-                delayedEffects: function () { } //You take no damage next turn
+                delayedEffects: function () { 
+                    this.knight.status["damageImmune"] = true
+                    this.knight.status["ttdamageImmune"] = 1
+                } //You take no damage next turn
             },
 
             dodge: {

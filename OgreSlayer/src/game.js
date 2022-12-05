@@ -60,8 +60,12 @@ export default class Game {
 
     damageCalc(){
 
-        if (this.opponent.attack > this.knight.block) this.knight.health -= (this.opponent.attack - this.knight.block)
-        if (this.knight.attack > this.opponent.block) this.opponent.health -= (this.knight.attack - this.opponent.block)
+        if (this.opponent.attack > this.knight.block && !this.knight.status.damageImmune) {
+            this.knight.health -= (this.opponent.attack - this.knight.block)
+        }
+        if (this.knight.attack > this.opponent.block) {
+            this.opponent.health -= (this.knight.attack - this.opponent.block)
+        }
     }
 
     resolveStatusEffects() {
