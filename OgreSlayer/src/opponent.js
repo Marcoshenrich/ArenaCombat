@@ -17,8 +17,8 @@ export default class Opponent extends Combatant {
 
         this.maxHealth = 80
         this.health = this.maxHealth
-        this.attack = this.nextMove[0].attack
-        this.block = this.nextMove[0].block
+        this.attack = this.nextMove[0].attack.call(this)
+        this.block = this.nextMove[0].block.call(this)
 
         this.animationStates = [
         { name: "idle", frames: 6, src: 'art/demon/_Idle.png' },

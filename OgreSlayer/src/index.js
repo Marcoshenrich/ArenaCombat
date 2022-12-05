@@ -4,11 +4,6 @@ const canvas = document.getElementById('canvas1')
 const mat = document.getElementById('mat')
 const gameview = new GameView(canvas)
 
-const playerDropdown = document.getElementById('player-animations')
-const opponentDropdown = document.getElementById('opponent-animations')
-
-
-
 mat.addEventListener("click", (e) => {
     if (!gameview.pauseInputs) {
     gameview.showNextHover = false
@@ -32,9 +27,8 @@ mat.addEventListener("mouseover", (e) => {
         let playerCardId = e.target.id
         let card = gameview.knight.allUniqueCards[playerCardId]
 
-        gameview.knight.block = card.block
-        gameview.knight.attack = gameview.knight.statusChecker.call(gameview.knight, card.attack, "attack")
-
+        gameview.knight.block = card.block.call(gameview.game)
+        gameview.knight.attack = gameview.knight.statusChecker.call(gameview.knight, card.attack.call(gameview.game), "attack")
         gameview.hoveredCard = playerCardId
     }
 });

@@ -28,11 +28,11 @@ export default class Game {
         let playedCard = this.knight.allUniqueCards[playerCardId]
         let opponentCard = this.opponent.nextMove[0]
 
-        this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack, "attack")
-        this.knight.block = playedCard.block
+        this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack.call(this), "attack")
+        this.knight.block = playedCard.block.call(this)
 
-        this.opponent.attack = opponentCard.attack
-        this.opponent.block = opponentCard.block
+        this.opponent.attack = opponentCard.attack.call(this)
+        this.opponent.block = opponentCard.block.call(this)
 
         this.damageCalc()
         
@@ -48,8 +48,8 @@ export default class Game {
             this.opponent.nextMove.shift()
             this.knight.attack = 0
             this.knight.block = 0
-            this.opponent.attack = this.opponent.nextMove[0].attack
-            this.opponent.block = this.opponent.nextMove[0].block
+            this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
+            this.opponent.block = this.opponent.nextMove[0].block.call(this)
         },1100) //should match the pause interval in indexlisteners
     }
 
@@ -82,6 +82,7 @@ export default class Game {
     clearCardFromSlot(slotId){
         let slot = document.getElementById(slotId)
         slot.innerHTML = ""
+        this.knight.deckObj.graveyard++
     }
 
     addCardtoSlot(slotId) {

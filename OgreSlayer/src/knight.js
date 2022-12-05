@@ -45,7 +45,6 @@ export default class Knight extends Combatant {
 Knight.prototype.statusChecker = function (unModValue, stat) {
     switch (stat) {
         case "attack":
-            console.log(unModValue)
             if (this.status["opponentPoiseBroken"]) return unModValue * 2
         default:
             return unModValue

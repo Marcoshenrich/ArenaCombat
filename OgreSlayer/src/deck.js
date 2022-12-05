@@ -4,6 +4,7 @@ export default class Deck {
         this.stack = []
         this.allUniqueCards = {}
         this.deckMaker(decksize)
+        this.graveyard = 0
     }
 
 
@@ -57,8 +58,8 @@ export default class Deck {
         return {
             strike: {
                 id: "strike",
-                attack: 3,
-                block: 0,
+                attack: function(){return 3},
+                block: function () {return 0},
                 src: "art/knight_cards/strike.png",
                 animation: knight.attackAnimation.bind(knight),
                 effects: function () { }
@@ -66,8 +67,8 @@ export default class Deck {
 
             defend: {
                 id: "defend",
-                attack: 0,
-                block: 5,
+                attack: function () { return 0 },
+                block: function () { return 5 },
                 src: "art/knight_cards/defend.png",
                 animation: knight.attack2Animation.bind(knight),
                 effects: function () { }
@@ -75,8 +76,8 @@ export default class Deck {
 
             reposition: {
                 id: "reposition",
-                attack: 0,
-                block: 2,
+                attack: function () { return 0 },
+                block: function () { return 2 },
                 src: "art/knight_cards/reposition.png",
                 animation: knight.duckAnimation.bind(knight),
                 effects: function () { 
@@ -86,8 +87,8 @@ export default class Deck {
 
             taunt: {
                 id: "taunt",
-                attack: 0,
-                block: 4,
+                attack: function () { return 0 },
+                block: function () { return 4 },
                 src: "art/knight_cards/taunt.png",
                 animation: knight.duckAnimation.bind(knight),
                 effects: function () { 
@@ -97,8 +98,8 @@ export default class Deck {
 
             parry: {
                 id: "parry",
-                attack: 0,
-                block: 0,
+                attack: function () { return 0 },
+                block: function () { return 0 },
                 src: "art/knight_cards/parry.png",
                 animation: knight.comboAnimation.bind(knight),
                 effects: function () { 
@@ -108,8 +109,8 @@ export default class Deck {
 
             shieldOfFaith: {
                 id: "shieldOfFaith",
-                attack: 0,
-                block: 5,
+                attack: function () { return 0 },
+                block: function () { return 5 },
                 src: "art/knight_cards/shield_of_faith.png",
                 animation: knight.attack2Animation.bind(knight),
                 effects: function () { 
@@ -119,8 +120,8 @@ export default class Deck {
 
             dodge: {
                 id: "dodge",
-                attack: 0,
-                block: 0,
+                attack: function () { return 0 },
+                block: function () { return 0 },
                 src: "art/knight_cards/dodge.png",
                 animation: knight.rollAnimation.bind(knight),
                 effects: function () { 
@@ -130,8 +131,8 @@ export default class Deck {
 
             secondWind: {
                 id: "secondWind",
-                attack: 0,
-                block: 8,
+                attack: function () { return 0 },
+                block: function () { return 8 },
                 src: "art/knight_cards/second_wind.png",
                 animation: knight.duckAnimation.bind(knight),
                 effects: function () { 
@@ -141,8 +142,8 @@ export default class Deck {
 
             feint: {
                 id: "feint",
-                attack: 0,
-                block: 0,
+                attack: function () { return 0 },
+                block: function () { return 0 },
                 src: "art/knight_cards/feint.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
                 effects: function () { 
@@ -152,19 +153,17 @@ export default class Deck {
 
             revengeance: {
                 id: "revengeance",
-                attack: 0,
-                block: 0,
+                attack: function () { return this.knight.deckObj.graveyard * 2 }, // deal damage equal to double the num of cards in discard
+                block: function () { return 0 },
                 src: "art/knight_cards/revengeance.png",
                 animation: knight.comboAnimation.bind(knight),
-                effects: function () { 
-
-                } // deal damage equal to double the num of cards in discard
+                effects: function () { } 
             },
 
             mightyBlow: {
                 id: "mightyBlow",
-                attack: 7,
-                block: 0,
+                attack: function () { return 7 },
+                block: function () { return 0 },
                 src: "art/knight_cards/mighty_blow.png",
                 animation: knight.comboAnimation.bind(knight),
                 effects: function () { }
@@ -172,8 +171,8 @@ export default class Deck {
 
             forHonor: {
                 id: "forHonor",
-                attack: 3,
-                block: 5,
+                attack: function () { return 3 },
+                block: function () { return 5 },
                 src: "art/knight_cards/for_honor.png",
                 animation: knight.attackAnimation.bind(knight),
                 effects: function () { 
@@ -183,8 +182,8 @@ export default class Deck {
 
             poiseBreak: {
                 id: "poiseBreak",
-                attack: 4,
-                block: 0,
+                attack: function () { return 4 },
+                block: function () { return 0 },
                 src: "art/knight_cards/poise_break.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
                 effects: function () { 
@@ -195,8 +194,8 @@ export default class Deck {
 
             holdTheLine: {
                 id: "holdTheLine",
-                attack: 0,
-                block: 10,
+                attack: function () { return 0 },
+                block: function () { return 10 },
                 src: "art/knight_cards/hold_the_line.png",
                 animation: knight.attack2Animation.bind(knight),
                 effects: function () { }
@@ -211,32 +210,32 @@ export default class Deck {
         return {
 
             strike: {
-                attack: 8,
-                block: 0,
+                attack: function () { return 8 },
+                block: function () { return 0 },
                 src: "art/opponent_cards/mstrike.png",
                 animation: opponent.attackAnimation.bind(opponent),
                 effects: function () { }
             },
 
             rockThrow: {
-                attack: 8,
-                block: 6,
+                attack: function () { return 8 },
+                block: function () { return 6 },
                 src: "art/opponent_cards/mrock_throw.png",
                 animation: opponent.attacktwiceAnimation.bind(opponent),
                 effects: function () { }
             },
 
             spikes: {
-                attack: 12,
-                block: 0,
+                attack: function () { return 12 },
+                block: function () { return 0 },
                 src: "art/opponent_cards/mspikes.png",
                 animation: opponent.attack2Animation.bind(opponent),
                 effects: function () { }
             },
 
             blindingFlash: {
-                attack: 0,
-                block: 0,
+                attack: function () { return 0 },
+                block: function () { return 0 },
                 src: "art/opponent_cards/mblinding_flash.png",
                 animation: opponent.attack3Animation.bind(opponent),
                 effects: function () { 
@@ -246,8 +245,8 @@ export default class Deck {
             },
 
             turtle: {
-                attack: 0,
-                block: 4,
+                attack: function () { return 0 },
+                block: function () { return 4 },
                 src: "art/opponent_cards/mturtle.png",
                 animation: opponent.idleAnimation.bind(opponent),
                 effects: function() { 
@@ -261,8 +260,8 @@ export default class Deck {
             },
 
             groundPound: {
-                attack: 0,
-                block: 0,
+                attack: function () { return 0 },
+                block: function () { return 0 },
                 src: "art/opponent_cards/mground_pound.png",
                 animation: opponent.attack3Animation.bind(opponent),
                 effects: function () { 
