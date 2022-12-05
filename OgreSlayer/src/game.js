@@ -6,6 +6,7 @@ export default class Game {
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.setupMat()
+        this.numCardsDraw = 0
         this.gameOver = false
         this.gameLoss = false
         this.gameWin = false
@@ -27,7 +28,6 @@ export default class Game {
 
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
-        // which have children?
 
         let playedCard = this.knight.allUniqueCards[playerCardId]
         let opponentCard = this.opponent.nextMove[0]
@@ -52,7 +52,7 @@ export default class Game {
 
         setTimeout(() => {
             this.gameEndCheck()
-            this.addCardtoSlot(slotId)
+            this.drawCards()
             this.opponent.nextMove.shift()
             this.knight.attack = 0
             this.knight.block = 0
@@ -73,6 +73,7 @@ export default class Game {
         }
         if (this.knight.attack > this.opponent.block) {
             this.opponent.health -= (this.knight.attack - this.opponent.block)
+            this.numCardsDraw += 1
         }
     }
 
@@ -115,5 +116,21 @@ export default class Game {
         }
     }
 
+    drawCards() {
+        let cardSlots = document.querySelectorAll(".card-slot")
+        let emptySlots = []
+        for (let i = 0; i < cardSlots.length; i++) {
+            let cardslot = cardSlots[i];
+            if (!cardslot.firstChild) emptySlots.push(cardslot.id)
+        }
+
+        for (let i = emptySlots.length - 1; i >= 0 && this.numCardsDraw > 0; this.numCardsDraw--) {	
+            let slotId = emptySlots[Math.abs(i - (emptySlots.length - 1))]
+            this.addCardtoSlot(slotId) 
+            i--
+        }
+
+        this.numCardsDraw = 0
+    }
 }
 

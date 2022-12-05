@@ -49,7 +49,7 @@ export default class GameView {
         this.gameFrame++
 
 
-        requestAnimationFrame(this.animate.bind(this))
+        requestAnimationFrame(this.animate.bind(this)) // set interval to throttle speed
     }
 
     renderBackground() {

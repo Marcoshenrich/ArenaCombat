@@ -11,7 +11,8 @@ export default class Knight extends Combatant {
         this.xPosition = 200
         this.yPosition = 450
 
-        this.health = 1
+        this.maxHealth = 100
+        this.health = this.maxHealth
 
         this.deckObj = new Deck(this, 14)
         this.deck = this.deckObj.stack

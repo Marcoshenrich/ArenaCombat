@@ -15,7 +15,7 @@ export default class Opponent extends Combatant {
         this.nextMove = this.deckObj.stack
         this.allUniqueCards = this.deckObj.allUniqueCards
 
-        this.maxHealth = 1
+        this.maxHealth = 100
         this.health = this.maxHealth
         this.attack = this.nextMove[0].attack.call(this)
         this.block = this.nextMove[0].block.call(this)
