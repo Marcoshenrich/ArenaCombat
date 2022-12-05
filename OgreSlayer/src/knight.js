@@ -33,11 +33,23 @@ export default class Knight extends Combatant {
 
         this.status = {
             blinded: false,
-            ttblinded: 0
+            ttblinded: 0,
+            opponentPoiseBroken: false,
+            ttopponentPoiseBroken: 0
         }
     }
 
 
+}
+
+Knight.prototype.statusChecker = function (unModValue, stat) {
+    switch (stat) {
+        case "attack":
+            console.log(unModValue)
+            if (this.status["opponentPoiseBroken"]) return unModValue * 2
+        default:
+            return unModValue
+    }
 }
 
 Knight.prototype.idleAnimation = function () {

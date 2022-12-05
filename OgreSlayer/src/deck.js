@@ -79,7 +79,9 @@ export default class Deck {
                 block: 2,
                 src: "art/knight_cards/reposition.png",
                 animation: knight.duckAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } //draw a card
             },
 
             taunt: {
@@ -88,7 +90,9 @@ export default class Deck {
                 block: 4,
                 src: "art/knight_cards/taunt.png",
                 animation: knight.duckAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } // your opponent must use strike next turn
             },
 
             parry: {
@@ -97,7 +101,9 @@ export default class Deck {
                 block: 0,
                 src: "art/knight_cards/parry.png",
                 animation: knight.comboAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
             shieldOfFaith: {
@@ -106,7 +112,9 @@ export default class Deck {
                 block: 5,
                 src: "art/knight_cards/shield_of_faith.png",
                 animation: knight.attack2Animation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } //You take no damage next turn
             },
 
             dodge: {
@@ -115,7 +123,9 @@ export default class Deck {
                 block: 0,
                 src: "art/knight_cards/dodge.png",
                 animation: knight.rollAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } //You take no damage this turn
             },
 
             secondWind: {
@@ -124,7 +134,9 @@ export default class Deck {
                 block: 8,
                 src: "art/knight_cards/second_wind.png",
                 animation: knight.duckAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } //recover 8 health, draw a card
             },
 
             feint: {
@@ -133,7 +145,9 @@ export default class Deck {
                 block: 0,
                 src: "art/knight_cards/feint.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } //Instead of their action, your opponent turtles this turn.
             },
 
             revengeance: {
@@ -142,7 +156,9 @@ export default class Deck {
                 block: 0,
                 src: "art/knight_cards/revengeance.png",
                 animation: knight.comboAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } // deal damage equal to double the num of cards in discard
             },
 
             mightyBlow: {
@@ -160,16 +176,21 @@ export default class Deck {
                 block: 5,
                 src: "art/knight_cards/for_honor.png",
                 animation: knight.attackAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+
+                } //draws a card
             },
 
             poiseBreak: {
                 id: "poiseBreak",
-                attack: 3,
-                block: 5,
+                attack: 4,
+                block: 0,
                 src: "art/knight_cards/poise_break.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
-                effects: function () { }
+                effects: function () { 
+                    this.knight.status["opponentPoiseBroken"] = true
+                    this.knight.status["ttopponentPoiseBroken"] = 1
+                } // your opponent takes double damage next turn
             },
 
             holdTheLine: {

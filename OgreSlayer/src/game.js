@@ -28,7 +28,7 @@ export default class Game {
         let playedCard = this.knight.allUniqueCards[playerCardId]
         let opponentCard = this.opponent.nextMove[0]
 
-        this.knight.attack = playedCard.attack
+        this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack, "attack")
         this.knight.block = playedCard.block
 
         this.opponent.attack = opponentCard.attack
@@ -54,6 +54,7 @@ export default class Game {
     }
 
     damageCalc(){
+
         if (this.opponent.attack > this.knight.block) this.knight.health -= (this.opponent.attack - this.knight.block)
         if (this.knight.attack > this.opponent.block) this.opponent.health -= (this.knight.attack - this.opponent.block)
     }
@@ -66,8 +67,6 @@ export default class Game {
             if (statusTimerKey.slice(0, 2) === "tt" && this.status[statusTimerKey] > 0) {
                 let actualStatusKey = statusTimerKey.slice(2)
                 this.status[statusTimerKey] -= 1
-                console.log(this.status)
-                console.log(this)
                 if (this.status[statusTimerKey] === 0) {
                     this.status[actualStatusKey] = false
                 }

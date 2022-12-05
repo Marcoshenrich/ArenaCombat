@@ -33,7 +33,7 @@ mat.addEventListener("mouseover", (e) => {
         let card = gameview.knight.allUniqueCards[playerCardId]
 
         gameview.knight.block = card.block
-        gameview.knight.attack = card.attack
+        gameview.knight.attack = gameview.knight.statusChecker.call(gameview.knight, card.attack, "attack")
 
         gameview.hoveredCard = playerCardId
     }
