@@ -12,7 +12,7 @@ export default class Game {
         this.gameLoss = false
         this.cardLoss = false
     }
-
+        
     setupMat() {
         let deckSlot = document.getElementById("deck-slot")
         deckSlot.innerHTML += '<img src="' + this.knight.deckObj.fullDeck.src + '" id="deckArt" width="140px" height="200px"/>'

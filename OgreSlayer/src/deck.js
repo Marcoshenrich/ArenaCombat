@@ -355,7 +355,7 @@ export default class Deck {
         console.log(this.deck.length)
         let deckSlot = document.getElementById("deck-slot")
         if (this.deck.length === 0) {
-            deckSlot.innerHTML = '<img src="art/deck/rune.png" id="deckArt" width="140px" height="200px"/>'
+            deckSlot.innerHTML = '<img src="art/deck/rune.png" id="deckArt" width="160px" height="260px"/>'
         } else if (this.deck.length < 3) {
             deckSlot.innerHTML = '<img src="' + this.deckObj.emptyDeck.src + '" id="deckArt" width="140px" height="200px"/>'
         } else if (this.deck.length < 6) {

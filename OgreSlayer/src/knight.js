@@ -8,10 +8,12 @@ export default class Knight extends Combatant {
         this.image.src = 'art/knight1/_Idle.png'
         this.spriteWidth = 120;
         this.spriteHeight = 80;
-        this.xPosition = 200
+        this.xPosition = 210
         this.yPosition = 450
+        this.sizeCoef = 3.5
+        this.animationTripper = 0
 
-        this.maxHealth = 300
+        this.maxHealth = 1
         this.health = this.maxHealth
 
         this.deckObj = new Deck(this, 14)
@@ -43,8 +45,15 @@ export default class Knight extends Combatant {
         }
     }
 
+    framesFinder (aniStateName) {
+        for (let frameObj in this.animationStates) {
+            if (frameObj[aniStateName]) return frameObj["frames"]
+        }
+    }
+
 
 }
+
 
 Knight.prototype.statusChecker = function (unModValue, stat) {
     switch (stat) {
@@ -61,8 +70,13 @@ Knight.prototype.idleAnimation = function () {
 }
 
 Knight.prototype.attackAnimation = function() {
+    // this.animationTripper = this.framesFinder(aniStateName)
     this.animationState = "attack"
     this.image.src = this.animations["attack"].src
+
+
+
+
 
     setTimeout(() => {
         this.idleAnimation()

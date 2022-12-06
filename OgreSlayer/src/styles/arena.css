@@ -18,8 +18,6 @@
 }
 
 .card-slot, .deck-slot{
-    border: 5px solid black;
-    background-color: gray;
     height: 200px;
     border-radius: 28px;
     width: 120px;
@@ -28,14 +26,17 @@
     font-size: 40px;
     align-items: center;
     justify-content: center;
-    position: relative
+    position: relative;
+    padding: 5px
     
 }
+
+/* dynamic padding when hovered */
 
 .card-slot:hover {
     border: 5px solid yellow;
     background-color: gray;
-
+        padding: 0px
 }
 
 .card {

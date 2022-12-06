@@ -49,6 +49,7 @@ export default class GameView {
         }
         if (this.game.gameLoss || this.game.gameWin) this.renderGameEndScreen()
         this.renderCharacters()
+        this.endScreenAnimations()
         this.gameFrame++
 
 
@@ -107,6 +108,9 @@ export default class GameView {
         this.opponent.draw(this.ctx, this.gameFrame, this.staggerFrames)
         this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames)
 
+    }
+
+    endScreenAnimations() {
         if (this.game.gameLoss && this.game.gameWin && !this.game.gameOver) {
             this.game.gameOver = true
             this.resetAnimationFrames()
