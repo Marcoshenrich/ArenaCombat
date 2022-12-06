@@ -56,6 +56,20 @@ canvas.addEventListener("mousemove", (e) => {
     } else {
         gameview.showNextHover = false
     }
+});
 
+mat.addEventListener("mouseover", (e) => {
+    let slot = e.target.parentNode
+    if (slot.id === "deck-slot") {
+        gameview.showDeckLength = true
+        gameview.showNextHover = false
+    }
+});
 
+mat.addEventListener("mouseout", (e) => {
+    let slot = e.target.parentNode
+    if (slot.id === "deck-slot") {
+        gameview.showDeckLength = false
+        gameview.showNextHover = false
+    }
 });

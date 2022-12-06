@@ -32,6 +32,9 @@ export default class GameView {
 
         this.hoveredCard = null
         this.showNextHover = true
+        this.showDeckLength = false
+
+
         this.fadeOut = 0
         this.textFadeIn = 1
     }
@@ -54,7 +57,6 @@ export default class GameView {
 
     renderBackground() {
         this.ctx.drawImage(this.backgroundImage, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-
     }
 
     renderInfoSquares() {
@@ -91,6 +93,14 @@ export default class GameView {
         this.ctx.fillText(`Atk: ${this.knight.attack} Blk: ${this.knight.block} `, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 30, this.infoDimensions.infoSquareYOffset + 110)
         this.ctx.fillText(this.game.knight.health, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 81, this.infoDimensions.infoSquareYOffset + 80)
         
+        if (this.showDeckLength) {
+            this.ctx.fillText(`${this.knight.deck.length} cards left`, 875,700)
+            this.ctx.beginPath();
+            this.ctx.moveTo(910, 715);
+            this.ctx.lineTo(960, 715);
+            this.ctx.lineTo(935, 735);
+            this.ctx.fill();
+        }
     }
 
     renderCharacters(){

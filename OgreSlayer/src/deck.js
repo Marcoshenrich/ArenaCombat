@@ -5,6 +5,15 @@ export default class Deck {
         this.allUniqueCards = {}
         this.deckMaker(decksize)
         this.graveyard = 0
+
+        this.fullDeck = new Image()
+        this.fullDeck.src = "art/deck/full_deck.png"
+
+        this.halfDeck = new Image()
+        this.halfDeck.src = "art/deck/half_deck.png"
+
+        this.emptyDeck = new Image()
+        this.emptyDeck.src = "art/deck/empty_deck.png"
     }
 
 
@@ -91,7 +100,7 @@ export default class Deck {
         return {
             strike: {
                 id: "strike",
-                attack: function() { return 3 },
+                attack: function() { return 4 },
                 block: function () { return 0 },
                 src: "art/knight_cards/strike.png",
                 animation: knight.attackAnimation.bind(knight),
@@ -196,7 +205,7 @@ export default class Deck {
                 src: "art/knight_cards/feint.png",
                 animation: knight.crouchAttackAnimation.bind(knight),
                 instantEffects: function () { 
-                    this.opponentCard = this.opponent.allUniqueCards["turtle"]
+                    this.opponent.nextMove[0] = this.opponent.allUniqueCards["turtle"]
                 },
                 delayedEffects: function () { } //Instead of their action, your opponent turtles this turn.
             },
@@ -213,7 +222,7 @@ export default class Deck {
 
             mightyBlow: {
                 id: "mightyBlow",
-                attack: function () { return 7 },
+                attack: function () { return 8 },
                 block: function () { return 0 },
                 src: "art/knight_cards/mighty_blow.png",
                 animation: knight.comboAnimation.bind(knight),
@@ -266,7 +275,7 @@ export default class Deck {
 
             strike: {
                 id: "strike",
-                attack: function () { return 8 },
+                attack: function () { return 6 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mstrike.png",
                 animation: opponent.attackAnimation.bind(opponent),
@@ -314,7 +323,7 @@ export default class Deck {
                 src: "art/opponent_cards/mturtle.png",
                 animation: opponent.idleAnimation.bind(opponent),
                 instantEffects: function () { 
-                    this.opponent.heal.call(this.opponent, 10)
+                    this.opponent.heal(4)
                 },
                 delayedEffects: function () { }
             },
@@ -342,18 +351,17 @@ export default class Deck {
             }
         }
     }   
+    thinDeck() {
+        console.log(this.deck.length)
+        let deckSlot = document.getElementById("deck-slot")
+        if (this.deck.length === 0) {
+            deckSlot.innerHTML = '<img src="art/deck/rune.png" id="deckArt" width="140px" height="200px"/>'
+        } else if (this.deck.length < 3) {
+            deckSlot.innerHTML = '<img src="' + this.deckObj.emptyDeck.src + '" id="deckArt" width="140px" height="200px"/>'
+        } else if (this.deck.length < 6) {
+            deckSlot.innerHTML = '<img src="' + this.deckObj.halfDeck.src + '" id="deckArt" width="140px" height="200px"/>'
+        }
+    }  
 }
 
-//player draws cards
-//player forces opponent to Strike next turn
-//player forces opponent to Block this turn
-//player negates attack and deals damage (if opponent attacked)
-//player negates damage on next turn
-//player negates damage this turn
-//player heals
-//player tracks number of cards in discard pile and increase damage value
-//player forces opponent to take double damage on the following turn
 
-
-//opponent can prevent player from seeing the next move for two turns
-//opponet can destroy cards in player's hands. 

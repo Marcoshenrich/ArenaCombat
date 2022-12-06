@@ -14,8 +14,10 @@ export default class Game {
     }
 
     setupMat() {
+        let deckSlot = document.getElementById("deck-slot")
+        deckSlot.innerHTML += '<img src="' + this.knight.deckObj.fullDeck.src + '" id="deckArt" width="140px" height="200px"/>'
+        
         let deck = this.knight.deck
-
         for (let i = 1; i <= 5; i++) {	
             let card = deck[i - 1]
             let slotId = "card-slot" + i
@@ -51,8 +53,10 @@ export default class Game {
         opponentCard.animation()
 
         setTimeout(() => {
+            this.numCardsDraw += 1
             this.drawCards()
-            this.gameEndCheck() // add empty mat check
+            this.gameEndCheck()
+            this.knight.deckObj.thinDeck.call(this.knight)
             this.opponent.nextMove.shift()
             this.knight.attack = 0
             this.knight.block = 0
