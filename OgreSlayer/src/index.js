@@ -73,3 +73,12 @@ mat.addEventListener("mouseout", (e) => {
         gameview.showNextHover = false
     }
 });
+
+
+addEventListener("resize", (event) => { 
+    console.log(document.documentElement.clientWidth)
+    console.log(document.documentElement.clientHeight)
+    gameview.HeightOffset
+
+});
+

@@ -7,6 +7,7 @@ export default class GameView {
 
         this.CANVAS_WIDTH = canvas.width = 1024
         this.CANVAS_HEIGHT = canvas.height = 760
+        this.HeightOffset = 0
         this.infoDimensions = { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
 
         this.backgroundImage = new Image()
@@ -58,12 +59,14 @@ export default class GameView {
     }
 
     renderBackground() {
-        this.ctx.drawImage(this.backgroundImage, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        // this.ctx.drawImage(this.backgroundImage, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 10, 100, 1000, 1000)
+        // drawImage(this.backgroundImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+        this.ctx.drawImage(this.backgroundImage, 0, this.HeightOffset, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
     }
 
     renderInfoSquares() {
         this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
-        const opponentInfoSquare = this.ctx.fillRect((this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset), this.infoDimensions.infoSquareYOffset, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)
+        const opponentInfoSquare = this.ctx.fillRect((this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset), this.infoDimensions.infoSquareYOffset - 150, this.infoDimensions.infoSquareLen, this.infoDimensions.infoSquareHeight)
 
         let opponentMove;
         if (this.knight.status["blinded"]) {
