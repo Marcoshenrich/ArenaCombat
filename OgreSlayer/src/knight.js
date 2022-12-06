@@ -10,7 +10,7 @@ export default class Knight extends Combatant {
         this.spriteWidth = 120;
         this.spriteHeight = 80;
         this.xPosition = 210
-        this.yPosition = 200
+        this.yPosition = 455
         this.sizeCoef = 3.5
 
         this.maxHealth = 1

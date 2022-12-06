@@ -23,7 +23,7 @@ export default class Combatant {
         });
     }
 
-    draw(ctx, gameFrame, staggerFrames) {
+    draw(ctx, gameFrame, staggerFrames, heightOffset) {
         let rawPosition = (gameFrame / staggerFrames) % this.animations[this.animationState].loc.length
         let position = Math.floor(rawPosition)
 
@@ -41,7 +41,7 @@ export default class Combatant {
 
         let frameX = this.spriteWidth * position;
         let frameY = this.animations[this.animationState].loc[position].y
-        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
+        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
     }
 
     heal(healVal) {

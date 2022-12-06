@@ -2,7 +2,8 @@ import GameView from './gameView.js'
 
 const canvas = document.getElementById('canvas1')
 const mat = document.getElementById('mat')
-const gameview = new GameView(canvas)
+let clientHeight = document.documentElement.clientHeight
+const gameview = new GameView(canvas, clientHeight)
 
 mat.addEventListener("click", (e) => {
     if (!gameview.game.gameOver && !gameview.pauseInputs)  {
@@ -46,6 +47,8 @@ mat.addEventListener("mouseout", (e) => {
 });
 
 canvas.addEventListener("mousemove", (e) => {
+    console.log(e.clientX);
+    console.log(e.clientY );
     if (e.clientX > 800 && e.clientX < 920 && e.clientY > 375 && e.clientY < 580){
         gameview.showNextHover = true
         if (gameview.knight.status["blinded"]) {
@@ -76,9 +79,8 @@ mat.addEventListener("mouseout", (e) => {
 
 
 addEventListener("resize", (event) => { 
-    console.log(document.documentElement.clientWidth)
-    console.log(document.documentElement.clientHeight)
-    gameview.HeightOffset
+    let clientHeight = document.documentElement.clientHeight
+    gameview.setHeight(clientHeight)
 
 });
 
