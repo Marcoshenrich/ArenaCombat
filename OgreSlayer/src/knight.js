@@ -4,6 +4,7 @@ import Deck from './deck.js'
 export default class Knight extends Combatant {
     constructor(){
         super()
+        
         this.image = new Image()
         this.image.src = 'art/knight1/_Idle.png'
         this.spriteWidth = 120;
@@ -11,7 +12,6 @@ export default class Knight extends Combatant {
         this.xPosition = 210
         this.yPosition = 450
         this.sizeCoef = 3.5
-        this.animationTripper = 0
 
         this.maxHealth = 1
         this.health = this.maxHealth
@@ -22,7 +22,7 @@ export default class Knight extends Combatant {
 
         this.animationStates = [
         { name: "idle", frames: 10, src: 'art/knight1/_Idle.png' },
-        { name: "attack", frames: 4, src: 'art/knight1/_Attack.png' },
+        { name: "attack", frames: 5, src: 'art/knight1/_Attack.png' },
         { name: "attack2", frames: 6, src: 'art/knight1/_Attack2nm.png' },
         { name: "combo", frames: 10, src: 'art/knight1/_AttackCombonm.png' },
         { name: "death", frames: 10, src: 'art/knight1/_Death.png' },
@@ -44,14 +44,6 @@ export default class Knight extends Combatant {
             ttdamageImmune: 0
         }
     }
-
-    framesFinder (aniStateName) {
-        for (let frameObj in this.animationStates) {
-            if (frameObj[aniStateName]) return frameObj["frames"]
-        }
-    }
-
-
 }
 
 
@@ -64,80 +56,10 @@ Knight.prototype.statusChecker = function (unModValue, stat) {
     }
 }
 
-Knight.prototype.idleAnimation = function () {
-    this.animationState = "idle"
-    this.image.src = this.animations["idle"].src
-}
-
-Knight.prototype.attackAnimation = function() {
-    // this.animationTripper = this.framesFinder(aniStateName)
-    this.animationState = "attack"
-    this.image.src = this.animations["attack"].src
+// Knight.prototype.animation = function (aniStateName) {
+//     this.animationState = aniStateName
+//     this.image.src = this.animations[aniStateName].src
+//     this.animationTripper = this.framesFinder(aniStateName)
+// }
 
 
-
-
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 830)
-}
-
-Knight.prototype.attack2Animation = function () {
-    this.animationState = "attack2"
-    this.image.src = this.animations["attack2"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1000)
-}
-
-Knight.prototype.comboAnimation = function () {
-    this.animationState = "combo"
-    this.image.src = this.animations["combo"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1650)
-}
-
-Knight.prototype.deathAnimation = function () {
-    this.animationState = "death"
-    this.image.src = this.animations["death"].src
-
-    setTimeout(() => {
-        this.deadAnimation()
-    }, 1650)
-}
-
-Knight.prototype.deadAnimation = function () {
-    this.animationState = "dead"
-    this.image.src = this.animations["dead"].src
-}
-
-Knight.prototype.rollAnimation = function () {
-    this.animationState = "roll"
-    this.image.src = this.animations["roll"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1830)
-}
-
-Knight.prototype.duckAnimation = function () {
-    this.animationState = "duck"
-    this.image.src = this.animations["duck"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 650)
-}
-
-Knight.prototype.crouchAttackAnimation = function () {
-    this.animationState = "crouchAttack"
-    this.image.src = this.animations["crouchAttack"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1000)
-}

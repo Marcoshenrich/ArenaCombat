@@ -22,12 +22,12 @@ export default class GameView {
         this.winText.src = 'art/youwin.png'
 
         this.game = new Game()
+        
         this.knight = this.game.knight
         this.opponent = this.game.opponent
 
         this.gameFrame = 0;
         this.staggerFrames = 10;
-
         this.animate()
 
         this.hoveredCard = null
@@ -40,6 +40,7 @@ export default class GameView {
     }
 
     animate() {
+        
         this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         this.renderBackground()
         if (!this.game.gameOver) {
@@ -114,18 +115,22 @@ export default class GameView {
         if (this.game.gameLoss && this.game.gameWin && !this.game.gameOver) {
             this.game.gameOver = true
             this.resetAnimationFrames()
-            this.knight.deathAnimation()
-            this.opponent.deathAnimation()
+            this.knight.animationQueue.push("death")
+            this.opponent.animationQueue.push("death")
+            this.knight.animationQueue.push("dead")
+            this.opponent.animationQueue.push("dead")
         }
         if (this.game.gameLoss && !this.game.gameOver) {
             this.game.gameOver = true
             this.resetAnimationFrames()
-            this.knight.deathAnimation()
+            this.knight.animationQueue.push("death")
+            this.knight.animationQueue.push("dead")
         }
         if (this.game.gameWin && !this.game.gameOver) {
             this.game.gameOver = true
             this.resetAnimationFrames()
-            this.opponent.deathAnimation()
+            this.opponent.animationQueue.push("death")
+            this.opponent.animationQueue.push("dead")
         }
     }
 

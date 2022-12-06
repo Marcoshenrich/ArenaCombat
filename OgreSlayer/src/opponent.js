@@ -11,6 +11,8 @@ export default class Opponent extends Combatant {
         this.sizeCoef = 5
         this.xPosition = 340
         this.yPosition = 375
+        this.animationTripper = -1
+        this.animationQueue = []
 
         this.deckObj = new Deck(this, 100)
         this.nextMove = this.deckObj.stack
@@ -45,73 +47,11 @@ export default class Opponent extends Combatant {
 
 }
 
-Opponent.prototype.idleAnimation = function () {
-    this.animationState = "idle"
-    this.image.src = this.animations["idle"].src
+Opponent.prototype.animation = function (aniStateName) {
+    this.animationState = aniStateName
+    this.image.src = this.animations[aniStateName].src
+    this.animationTripper = this.framesFinder(aniStateName)
 }
-
-Opponent.prototype.attackAnimation = function () {
-    this.animationState = "attack"
-    this.image.src = this.animations["attack"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 830)
-}
-
-Opponent.prototype.attacktwiceAnimation = function () {
-    this.animationState = "attack"
-    this.image.src = this.animations["attack"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1660)
-}
-
-Opponent.prototype.attack2Animation = function () {
-    this.animationState = "attack2"
-    this.image.src = this.animations["attack2"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1000)
-}
-
-
-Opponent.prototype.attack3Animation = function () {
-    this.animationState = "attack3"
-    this.image.src = this.animations["attack3"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 1000)
-}
-
-
-Opponent.prototype.hitAnimation = function () {
-    this.animationState = "hit"
-    this.image.src = this.animations["hit"].src
-
-    setTimeout(() => {
-        this.idleAnimation()
-    }, 500)
-}
-
-
-Opponent.prototype.deathAnimation = function () {
-    this.animationState = "death"
-    this.image.src = this.animations["death"].src
-
-    setTimeout(() => {
-        this.deadAnimation()
-    }, 600)
-}
-
-Opponent.prototype.deadAnimation = function () {
-    this.animationState = "dead"
-    this.image.src = this.animations["dead"].src
-}
-
 
 
 

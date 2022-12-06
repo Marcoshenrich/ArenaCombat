@@ -27,7 +27,6 @@ export default class Deck {
             cardStats = this.opponentCards(this.combatant)
             infiniteDeck = true
         }
-        
         let allCardNames = Object.keys(cardStats)
 
         for (let i = 0; i < allCardNames.length; i++) {
@@ -83,8 +82,6 @@ export default class Deck {
                 this.stack.unshift(card)
             }
         }
-
-        console.log(this.stack)
     }
 
     shuffleDeck() {
@@ -97,13 +94,14 @@ export default class Deck {
     }
 
     playerCards(knight) {
+        
         return {
             strike: {
                 id: "strike",
                 attack: function() { return 4 },
                 block: function () { return 0 },
                 src: "art/knight_cards/strike.png",
-                animation: knight.attackAnimation.bind(knight),
+                animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -113,7 +111,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 5 },
                 src: "art/knight_cards/defend.png",
-                animation: knight.attack2Animation.bind(knight),
+                animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -123,7 +121,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 2 },
                 src: "art/knight_cards/reposition.png",
-                animation: knight.duckAnimation.bind(knight),
+                animation: "duck",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.numCardsDraw += 1 
@@ -135,7 +133,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 4 },
                 src: "art/knight_cards/taunt.png",
-                animation: knight.duckAnimation.bind(knight),
+                animation: "duck",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.opponent.nextMove[1] = this.opponent.allUniqueCards["strike"]
@@ -147,12 +145,12 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/knight_cards/parry.png",
-                animation: knight.comboAnimation.bind(knight),
+                animation: "combo",
                 instantEffects: function (playedCard, opponentCard) {
-                    if (opponentCard.attack) {
-                        opponentCard.attack = function () { return 0 }
-                        this.opponent.health -= 4
-                    }
+                if (opponentCard.attack) {
+                    opponentCard.attack = function () { return 0 }
+                    this.opponent.health -= 4
+                }
                  },
                 delayedEffects: function () { 
                     this.numCardsDraw += 1 
@@ -164,7 +162,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 5 },
                 src: "art/knight_cards/shield_of_faith.png",
-                animation: knight.attack2Animation.bind(knight),
+                animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.knight.status["damageImmune"] = true
@@ -177,7 +175,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/knight_cards/dodge.png",
-                animation: knight.rollAnimation.bind(knight),
+                animation:  "roll",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     if (this.opponent.attack > this.knight.block) this.knight.health += (this.opponent.attack - this.knight.block)
@@ -189,7 +187,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 8 },
                 src: "art/knight_cards/second_wind.png",
-                animation: knight.duckAnimation.bind(knight),
+                animation: "duck",
                 instantEffects: function () { 
                     this.knight.heal(8)
                 },
@@ -203,7 +201,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/knight_cards/feint.png",
-                animation: knight.crouchAttackAnimation.bind(knight),
+                animation: "crouchAttack",
                 instantEffects: function () { 
                     this.opponent.nextMove[0] = this.opponent.allUniqueCards["turtle"]
                 },
@@ -215,7 +213,7 @@ export default class Deck {
                 attack: function () { return this.knight.deckObj.graveyard * 2 }, // deal damage equal to double the num of cards in discard
                 block: function () { return 0 },
                 src: "art/knight_cards/revengeance.png",
-                animation: knight.comboAnimation.bind(knight),
+                animation: "combo",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -225,7 +223,7 @@ export default class Deck {
                 attack: function () { return 8 },
                 block: function () { return 0 },
                 src: "art/knight_cards/mighty_blow.png",
-                animation: knight.comboAnimation.bind(knight),
+                animation: "combo",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -235,7 +233,7 @@ export default class Deck {
                 attack: function () { return 3 },
                 block: function () { return 5 },
                 src: "art/knight_cards/for_honor.png",
-                animation: knight.attackAnimation.bind(knight),
+                animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.numCardsDraw += 1 
@@ -247,7 +245,7 @@ export default class Deck {
                 attack: function () { return 4 },
                 block: function () { return 0 },
                 src: "art/knight_cards/poise_break.png",
-                animation: knight.crouchAttackAnimation.bind(knight),
+                animation: "crouchAttack",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.knight.status["opponentPoiseBroken"] = true
@@ -260,7 +258,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 10 },
                 src: "art/knight_cards/hold_the_line.png",
-                animation: knight.attack2Animation.bind(knight),
+                animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -278,7 +276,7 @@ export default class Deck {
                 attack: function () { return 6 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mstrike.png",
-                animation: opponent.attackAnimation.bind(opponent),
+                animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -288,7 +286,7 @@ export default class Deck {
                 attack: function () { return 8 },
                 block: function () { return 6 },
                 src: "art/opponent_cards/mrock_throw.png",
-                animation: opponent.attacktwiceAnimation.bind(opponent),
+                animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -298,7 +296,7 @@ export default class Deck {
                 attack: function () { return 12 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mspikes.png",
-                animation: opponent.attack2Animation.bind(opponent),
+                animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { }
             },
@@ -308,7 +306,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mblinding_flash.png",
-                animation: opponent.attack3Animation.bind(opponent), 
+                animation: "attack3",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.knight.status["blinded"] = true
@@ -321,7 +319,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 4 },
                 src: "art/opponent_cards/mturtle.png",
-                animation: opponent.idleAnimation.bind(opponent),
+                animation: "idle",
                 instantEffects: function () { 
                     this.opponent.heal(4)
                 },
@@ -333,7 +331,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mground_pound.png",
-                animation: opponent.attack3Animation.bind(opponent),
+                animation: "attack3",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     let cardSlots = document.querySelectorAll(".card-slot")
@@ -352,7 +350,6 @@ export default class Deck {
         }
     }   
     thinDeck() {
-        console.log(this.deck.length)
         let deckSlot = document.getElementById("deck-slot")
         if (this.deck.length === 0) {
             deckSlot.innerHTML = '<img src="art/deck/rune.png" id="deckArt" width="160px" height="260px"/>'

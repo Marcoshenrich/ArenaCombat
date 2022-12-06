@@ -3,8 +3,10 @@ import Opponent from './opponent.js'
 
 export default class Game {
     constructor() { 
+        
         this.knight = new Knight()
         this.opponent = new Opponent()
+        
         this.setupMat()
         this.numCardsDraw = 0
         this.gameOver = false
@@ -49,8 +51,8 @@ export default class Game {
         
         this.delayedCardEffects(playedCard, opponentCard)
 
-        playedCard.animation()
-        opponentCard.animation()
+        this.knight.animationQueue.push(playedCard.animation)
+        this.opponent.animationQueue.push(opponentCard.animation)
 
         setTimeout(() => {
             this.numCardsDraw += 1
