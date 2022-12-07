@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "node-polyfill-webpack-plugin": "^2.0.1"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

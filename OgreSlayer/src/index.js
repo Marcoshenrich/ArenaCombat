@@ -48,18 +48,20 @@ mat.addEventListener("mouseout", (e) => {
 
 canvas.addEventListener("mousemove", (e) => {
     let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH)/2
-    if (document.documentElement.clientWidth >= 1000) {
-        if (e.clientX > (718 + halfClientMargin) && e.clientX < (840 + halfClientMargin) && e.clientY > (375 - gameview.heightOffset) && e.clientY < (580 - gameview.heightOffset)){
-            gameview.showNextHover = true
-            if (gameview.knight.status["blinded"]) {
-                gameview.hoveredCard = gameview.opponent.blindedCard
+    if (gameview.gameStart === true) {
+        if (document.documentElement.clientWidth >= 1000) {
+            if (e.clientX > (718 + halfClientMargin) && e.clientX < (840 + halfClientMargin) && e.clientY > (375 - gameview.heightOffset) && e.clientY < (580 - gameview.heightOffset)){
+                gameview.showNextHover = true
+                if (gameview.knight.status["blinded"]) {
+                    gameview.hoveredCard = gameview.opponent.blindedCard
+                } else {
+                    gameview.hoveredCard = { opponentCard: gameview.opponent.nextMove.id }
+                }
             } else {
-                gameview.hoveredCard = { opponentCard: gameview.opponent.nextMove.id }
+                gameview.hoveredCard = null
             }
-        } else {
-            gameview.hoveredCard = null
         }
-    }
+    }      
 });
 
 mat.addEventListener("mouseover", (e) => {
@@ -86,7 +88,18 @@ addEventListener("resize", (e) => {
 
 canvas.addEventListener("click", (e) => {
     let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
+    console.log(e.clientX)
+    console.log(e.clientY)
     if (e.clientX > (220 + halfClientMargin) && e.clientX < (400 + halfClientMargin) && e.clientY > 320 && e.clientY < 350) {
         gameview.gameStart = true
+    } else if (e.clientX > (220 + halfClientMargin) && e.clientX < (425 + halfClientMargin) && e.clientY > 400 && e.clientY < 450) {
+        gameview.tutorialStart = true
+    }
+    if (gameview.tutorialStart) {
+        gameview.tutorial.tutorialSeq += 1
+        if (gameview.tutorial.tutorialSeq === 5) {
+            gameview.gameStart = true
+            gameview.tutorialStart = false
+        }
     }
 });

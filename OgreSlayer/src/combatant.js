@@ -75,12 +75,8 @@ export default class Combatant {
     }
 
     animation = function(aniStateName) {
-        // if (this.constructor.name === "Knight") console.log(this.animations["attack"]);
-        // if (this.constructor.name === "Knight") console.log(aniStateName);
-
         this.animationState = aniStateName
         this.image.src = this.animations[aniStateName].src
-        this.animationTripper = this.framesFinder(aniStateName)
     }
 
 }

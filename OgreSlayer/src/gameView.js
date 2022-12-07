@@ -1,5 +1,6 @@
 import Game from './game.js'
 import Crowd from './crowd.js'
+import Tutorial from './tutorial.js'
 
 export default class GameView {
     constructor(canvas, clientHeight) { 
@@ -7,8 +8,10 @@ export default class GameView {
         this.ctx = this.canvas.getContext('2d')
         this.pauseInputs = false
 
-        this.crowd = new Crowd(this.heightOffset)
+        this.crowd = new Crowd()
         this.crowdArray = this.crowd.crowdArray
+
+        this.tutorial = new Tutorial(this.ctx, this.heightOffset)
 
         this.MAX_HEIGHT = 708
         this.MIN_HEIGHT = 578
@@ -31,6 +34,7 @@ export default class GameView {
         this.winText.src = 'art/youwin.png'
 
         this.gameStart = false
+        this.tutorialStart = false
         this.gameFrame = 0;
         this.staggerFrames = 10;
         
@@ -47,18 +51,29 @@ export default class GameView {
     }
 
     openingAnimation() {
-        // if (!this.gameStart) {
-        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        //     this.renderBackground()
-        //     this.renderCrowd()
-        //     this.renderStartOptions()
-        //     requestAnimationFrame(this.openingAnimation.bind(this))
-        // } else {
+        if (!this.gameStart && !this.tutorialStart) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.renderStartOptions()
+            requestAnimationFrame(this.openingAnimation.bind(this))
+        } else if (this.tutorialStart) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.tutorial.renderTutorialPanel()
+            requestAnimationFrame(this.openingAnimation.bind(this))
+        } else if (this.gameStart) {
             this.game = new Game()
             this.knight = this.game.knight
             this.opponent = this.game.opponent
             this.animate()
-        // }
+        }
+    }
+
+    renderTutorialPanel() {
+        this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
+        const opponentInfoSquare = this.ctx.fillRect(150,75,650,400)
     }
 
     renderStartOptions() {
