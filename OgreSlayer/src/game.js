@@ -1,11 +1,8 @@
 import Knight from './knight.js'
 import Opponent from './opponent.js'
-import Crowd from './crowd.js'
 
 export default class Game {
     constructor() { 
-        this.crowd = new Crowd()
-        this.crowdArray = this.crowd.crowdArray
         this.knight = new Knight()
         this.opponent = new Opponent()
         

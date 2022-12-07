@@ -1,4 +1,5 @@
 import Game from './game.js'
+import Crowd from './crowd.js'
 
 export default class GameView {
     constructor(canvas, clientHeight) { 
@@ -26,35 +27,37 @@ export default class GameView {
         this.winText = new Image()
         this.winText.src = 'art/youwin.png'
 
-        this.game = new Game()
-        
-        this.knight = this.game.knight
-        this.opponent = this.game.opponent
-        this.crowd = this.game.crowd
-
+        this.gameStart = false
         this.gameFrame = 0;
         this.staggerFrames = 10;
-        this.animate()
-        // this.openingAnimation()
-
+        
         this.hoveredCard = null
         this.showNextHover = true
         this.showDeckLength = false
-
+        
         this.fadeOut = 0
         this.textFadeIn = 1
+        
+        this.crowd = new Crowd()
+        this.crowdArray = this.crowd.crowdArray
+        
+        this.openingAnimation()
     }
 
     openingAnimation() {
-        this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        this.renderBackground()
-        this.renderCrowd()
-        this.renderStartoptions()
-
-
-
-
-        requestAnimationFrame(this.openingAnimation.bind(this))
+        
+        if (!this.gameStart) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.renderStartoptions()
+            requestAnimationFrame(this.openingAnimation.bind(this))
+        } else {
+            this.game = new Game()
+            this.knight = this.game.knight
+            this.opponent = this.game.opponent
+            this.animate()
+        }
     }
 
     renderStartoptions() {
@@ -74,21 +77,22 @@ export default class GameView {
         this.ctx.font = "80px trattatello, sans-serif "
         this.ctx.fillText("start", 260, 350)
         this.ctx.fillText("tutorial", 260, 450)
+        
         this.ctx.beginPath();
-        this.ctx.moveTo(220, 415 - this.heightOffset);
-        this.ctx.lineTo(245, 400 - this.heightOffset);
-        this.ctx.lineTo(220, 385 - this.heightOffset);
+        this.ctx.moveTo(220, 340 - this.heightOffset);
+        this.ctx.lineTo(245, 325 - this.heightOffset);
+        this.ctx.lineTo(220, 310 - this.heightOffset);
         this.ctx.fill();
         this.ctx.beginPath();
-        this.ctx.moveTo(220, 515 - this.heightOffset);
-        this.ctx.lineTo(245, 500 - this.heightOffset);
-        this.ctx.lineTo(220, 485 - this.heightOffset);
+        this.ctx.moveTo(220, 440 - this.heightOffset);
+        this.ctx.lineTo(245, 425 - this.heightOffset);
+        this.ctx.lineTo(220, 410 - this.heightOffset);
         this.ctx.fill();
     }
 
     renderCrowd() {
-        for (let i = 0; i < this.crowd.crowdArray.length; i++) {
-            let section = this.crowd.crowdArray[i]
+        for (let i = 0; i < this.crowdArray.length; i++) {
+            let section = this.crowdArray[i]
             for (let j = 0; j < section.length; j++) {	
                 let spectator = section[j]
                 this.ctx.drawImage(spectator["img"], spectator["posX"], spectator["posY"], spectator["sizeX"], spectator["sizeY"])
@@ -154,11 +158,11 @@ export default class GameView {
         this.ctx.fillText(this.game.knight.health, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 81, this.infoDimensions.infoSquareYOffset + 80 - this.heightOffset)
         
         if (this.showDeckLength) {
-            this.ctx.fillText(`${this.knight.deck.length} cards left`, 875, 700 - this.heightOffset)
+            this.ctx.fillText(`${this.knight.deck.length} cards left`, 800, 650 - this.heightOffset)
             this.ctx.beginPath();
-            this.ctx.moveTo(910, 715 - this.heightOffset);
-            this.ctx.lineTo(960, 715 - this.heightOffset);
-            this.ctx.lineTo(935, 735 - this.heightOffset);
+            this.ctx.moveTo(850, 660 - this.heightOffset);
+            this.ctx.lineTo(870, 680 - this.heightOffset);
+            this.ctx.lineTo(890, 660 - this.heightOffset);
             this.ctx.fill();
         }
     }
