@@ -47,17 +47,21 @@ mat.addEventListener("mouseout", (e) => {
 });
 
 canvas.addEventListener("mousemove", (e) => {
-    console.log(e.clientX);
-    console.log(e.clientY );
-    if (e.clientX > 800 && e.clientX < 920 && e.clientY > 375 && e.clientY < 580){
-        gameview.showNextHover = true
-        if (gameview.knight.status["blinded"]) {
-            gameview.hoveredCard = gameview.opponent.blindedCard
+    let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH)/2
+    console.log(halfClientMargin);
+    // console.log(e.clientX);
+    // console.log(e.clientY );
+    if (document.documentElement.clientWidth >= 1000) {
+        if (e.clientX > (800 + halfClientMargin) && e.clientX < (920 + halfClientMargin) && e.clientY > (375 - gameview.heightOffset) && e.clientY < (580 - gameview.heightOffset)){
+            gameview.showNextHover = true
+            if (gameview.knight.status["blinded"]) {
+                gameview.hoveredCard = gameview.opponent.blindedCard
+            } else {
+                gameview.hoveredCard = { opponentCard: gameview.opponent.nextMove.id }
+            }
         } else {
-            gameview.hoveredCard = { opponentCard: gameview.opponent.nextMove.id }
+            gameview.hoveredCard = null
         }
-    } else {
-        gameview.showNextHover = false
     }
 });
 
@@ -77,10 +81,8 @@ mat.addEventListener("mouseout", (e) => {
     }
 });
 
-
 addEventListener("resize", (event) => { 
     let clientHeight = document.documentElement.clientHeight
     gameview.setHeight(clientHeight)
-
 });
 
