@@ -9,8 +9,8 @@ export default class Opponent extends Combatant {
         this.spriteWidth = 100;
         this.spriteHeight = 80;
         this.sizeCoef = 5
-        this.xPosition = 340
-        this.yPosition = 375
+        this.xPosition = 300
+        this.yPosition = 319
         this.animationTripper = -1
         this.animationQueue = []
 

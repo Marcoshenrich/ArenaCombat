@@ -6,10 +6,10 @@ export default class GameView {
         this.ctx = this.canvas.getContext('2d')
         this.pauseInputs = false
 
-        this.MAX_HEIGHT = 760
-        this.MIN_HEIGHT = 620
+        this.MAX_HEIGHT = 708
+        this.MIN_HEIGHT = 578
 
-        this.CANVAS_WIDTH = this.canvas.width = 1024
+        this.CANVAS_WIDTH = this.canvas.width = 950
         this.setHeight(clientHeight)
 
         this.infoDimensions = { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
@@ -34,8 +34,8 @@ export default class GameView {
 
         this.gameFrame = 0;
         this.staggerFrames = 10;
-        // this.animate()
-        this.openingAnimation()
+        this.animate()
+        // this.openingAnimation()
 
         this.hoveredCard = null
         this.showNextHover = true
@@ -116,7 +116,7 @@ export default class GameView {
     }
 
     renderBackground() {
-        this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset + 60, 1024, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
     }
 
     renderInfoSquares() {
@@ -236,15 +236,15 @@ export default class GameView {
 
     setHeight(clientHeight) {
         let height;
-         if (clientHeight > 1050) {
+        if (clientHeight > 950) {
             height = this.MAX_HEIGHT
             this.heightOffset = 0
-        } else if (clientHeight < 920) {
+        } else if (clientHeight < 820) {
             height = this.MIN_HEIGHT
             this.heightOffset = 130
         } else {
-            height = clientHeight - 290
-            this.heightOffset = 1050 - clientHeight
+            height = clientHeight - 244
+            this.heightOffset = 950 - clientHeight
         }
 
         this.CANVAS_HEIGHT = this.canvas.height = height

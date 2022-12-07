@@ -9,8 +9,8 @@ export default class Knight extends Combatant {
         this.image.src = 'art/knight1/_Idle.png'
         this.spriteWidth = 120;
         this.spriteHeight = 80;
-        this.xPosition = 210
-        this.yPosition = 455
+        this.xPosition = 200
+        this.yPosition = 400
         this.sizeCoef = 3.5
 
         this.maxHealth = 1

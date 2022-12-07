@@ -28,8 +28,8 @@
 
 #mat {
     background-image: url("../../dist/art/mat.png");
-    height: 275px;
-    width: 1026px;
+    height: 235px;
+    width: 950px;
     display: flex;
     position: relative;
     justify-content: space-around;

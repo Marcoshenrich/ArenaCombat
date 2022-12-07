@@ -107,12 +107,12 @@ addEventListener("resize", (event) => {
 });
 
 
-canvas.addEventListener("click", (e) => {
-    let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
-    console.log("x is " + e.clientX);
-    console.log("y is " + e.clientY);
-    console.log(gameview.heightOffset);
-    if (e.clientX > (220 + halfClientMargin) && e.clientX < (240 + halfClientMargin) && e.clientY > (320 - gameview.heightOffset) && e.clientY < (350 - gameview.heightOffset)) {
-        console.log("test")
-    }
-});
+// canvas.addEventListener("click", (e) => {
+//     let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
+//     console.log("x is " + e.clientX);
+//     console.log("y is " + e.clientY);
+//     console.log(gameview.heightOffset);
+//     if (e.clientX > (220 + halfClientMargin) && e.clientX < (240 + halfClientMargin) && e.clientY > (320 - gameview.heightOffset) && e.clientY < (350 - gameview.heightOffset)) {
+//         console.log("test")
+//     }
+// });
