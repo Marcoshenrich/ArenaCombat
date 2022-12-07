@@ -3,7 +3,30 @@ import GameView from './gameView.js'
 const canvas = document.getElementById('canvas1')
 const mat = document.getElementById('mat')
 let clientHeight = document.documentElement.clientHeight
+
+
+
+
+
+
+
+
+
+
+
 const gameview = new GameView(canvas, clientHeight)
+
+
+
+
+
+
+
+
+
+
+
+
 
 mat.addEventListener("click", (e) => {
     if (!gameview.game.gameOver && !gameview.pauseInputs)  {
@@ -48,9 +71,6 @@ mat.addEventListener("mouseout", (e) => {
 
 canvas.addEventListener("mousemove", (e) => {
     let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH)/2
-    console.log(halfClientMargin);
-    // console.log(e.clientX);
-    // console.log(e.clientY );
     if (document.documentElement.clientWidth >= 1000) {
         if (e.clientX > (800 + halfClientMargin) && e.clientX < (920 + halfClientMargin) && e.clientY > (375 - gameview.heightOffset) && e.clientY < (580 - gameview.heightOffset)){
             gameview.showNextHover = true
@@ -86,3 +106,13 @@ addEventListener("resize", (event) => {
     gameview.setHeight(clientHeight)
 });
 
+
+canvas.addEventListener("click", (e) => {
+    let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
+    console.log("x is " + e.clientX);
+    console.log("y is " + e.clientY);
+    console.log(gameview.heightOffset);
+    if (e.clientX > (220 + halfClientMargin) && e.clientX < (240 + halfClientMargin) && e.clientY > (320 - gameview.heightOffset) && e.clientY < (350 - gameview.heightOffset)) {
+        console.log("test")
+    }
+});

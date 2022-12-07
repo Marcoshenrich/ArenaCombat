@@ -30,18 +30,71 @@ export default class GameView {
         
         this.knight = this.game.knight
         this.opponent = this.game.opponent
+        this.crowd = this.game.crowd
 
         this.gameFrame = 0;
         this.staggerFrames = 10;
-        this.animate()
+        // this.animate()
+        this.openingAnimation()
 
         this.hoveredCard = null
         this.showNextHover = true
         this.showDeckLength = false
 
-
         this.fadeOut = 0
         this.textFadeIn = 1
+    }
+
+    openingAnimation() {
+        this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        this.renderBackground()
+        this.renderCrowd()
+        this.renderStartoptions()
+
+
+
+
+        requestAnimationFrame(this.openingAnimation.bind(this))
+    }
+
+    renderStartoptions() {
+        this.ctx.fillStyle = 'rgba(0,0,0,.9)'
+        this.ctx.fillRect(-10, 130, 2000, 120)
+        this.ctx.fillRect(-10, 290, 2000, 70)
+        this.ctx.fillRect(-10, 390, 2000, 70)
+        this.ctx.fillStyle = 'rgba(255,87,51,0.35)'
+        this.ctx.fillRect(-10,145, 2000, 90)
+        this.ctx.fillRect(-10, 305, 2000, 40)
+        this.ctx.fillRect(-10, 405, 2000, 40)
+
+
+        this.ctx.fillStyle = "crimson"
+        this.ctx.font = "130px trattatello, sans-serif "
+        this.ctx.fillText("Demon Slayer", 200, 225)
+        this.ctx.font = "80px trattatello, sans-serif "
+        this.ctx.fillText("start", 260, 350)
+        this.ctx.fillText("tutorial", 260, 450)
+        this.ctx.beginPath();
+        this.ctx.moveTo(220, 415 - this.heightOffset);
+        this.ctx.lineTo(245, 400 - this.heightOffset);
+        this.ctx.lineTo(220, 385 - this.heightOffset);
+        this.ctx.fill();
+        this.ctx.beginPath();
+        this.ctx.moveTo(220, 515 - this.heightOffset);
+        this.ctx.lineTo(245, 500 - this.heightOffset);
+        this.ctx.lineTo(220, 485 - this.heightOffset);
+        this.ctx.fill();
+    }
+
+    renderCrowd() {
+        for (let i = 0; i < this.crowd.crowdArray.length; i++) {
+            let section = this.crowd.crowdArray[i]
+            for (let j = 0; j < section.length; j++) {	
+                let spectator = section[j]
+                this.ctx.drawImage(spectator["img"], spectator["posX"], spectator["posY"], spectator["sizeX"], spectator["sizeY"])
+            }
+        }
+        this.crowd.jostle()
     }
 
     animate() {
@@ -49,12 +102,12 @@ export default class GameView {
         this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         this.renderBackground()
         if (this.game.gameLoss || this.game.gameWin) this.renderGameEndScreen()
-        this.renderCharacters()
         if (!this.game.gameOver) {
             this.renderInfoSquares()
             this.renderText()
             if (this.hoveredCard && this.showNextHover) this.renderHoveredCard(this.hoveredCard)
         }
+        this.renderCharacters()
         this.endScreenAnimations()
         this.gameFrame++
 
@@ -63,8 +116,6 @@ export default class GameView {
     }
 
     renderBackground() {
-        // this.ctx.drawImage(this.backgroundImage, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 10, 100, 1000, 1000)
-        // drawImage(this.backgroundImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
         this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
     }
 
