@@ -1,5 +1,6 @@
 export default class Crowd {
-    constructor() {
+    constructor(heightOffset) {
+        this.heightOffset = heightOffset
         this.leftImg = new Image()
         this.leftImg.src = 'art/crowd_left.png'
         this.rightImg = new Image()
@@ -7,11 +8,10 @@ export default class Crowd {
         this.crowdArray = []
         this.excitement = 75
         this.populateSection()
+        this.updateYImmediate(heightOffset)
     }
 
     sectionBoundaries() {
-
-        
         return { 
             farLeft: {
                 xLow: 0,
@@ -147,8 +147,10 @@ export default class Crowd {
             let yRange = section["yHigh"] - section["yLow"]
             for (let i = 0; i <= section["pop"]; i++) {
                 let dude = { img: section["img"] }
-                dude["posX"] = Math.floor(Math.random() * xRange) + section["xLow"]
-                dude["posY"] = Math.floor(Math.random() * yRange) + section["yLow"]
+                let yStart = Math.floor(Math.random() * yRange) + section["yLow"]
+                dude["yRender"] = yStart
+                dude["yCore"] = yStart
+                dude["xRender"] = Math.floor(Math.random() * xRange) + section["xLow"]
                 dude["sizeX"] = Math.floor(Math.random() * 10) + section["size"]
                 dude["sizeY"] = Math.floor(Math.random() * 10) + section["size"]
                 section["spectArr"].push(dude)
@@ -168,31 +170,46 @@ export default class Crowd {
             let yLow = sectionRules["yLow"]
 
             for (let j = 0; j < section.length; j++) {	
-                let stagger = Math.floor(Math.random() * this.excitement)
-                if (stagger === 0) {
-                let spectator = section[j]
-                
-                    spectator["posY"] += Math.floor(Math.random() * 3) - 1
-                    spectator["posX"] += Math.floor(Math.random() * 3) - 1
-                    if (spectator["posY"] > sectionRules["yHigh"]) {
-                        spectator["posY"] = yHigh
-                    } 
-                    if (spectator["posY"] < sectionRules["yLow"]) {
-                        spectator["posY"] = yLow
-                    }
-                    if (spectator["posX"] > sectionRules["xHigh"]) {
-                        spectator["posX"] = xHigh
-                    }
-                    if (spectator["posX"] < sectionRules["xLow"]) {
-                        spectator["posX"] = xLow
-                    }
-       
+                let yStagger = Math.floor(Math.random() * this.excitement)
+                let xStagger = Math.floor(Math.random() * (this.excitement + 10))
+                if (yStagger === 0) {
+                    let spectator = section[j]
                     
-                }
+                        spectator["yCore"] += Math.floor(Math.random() * 3) - 1
+                        if (xStagger === 0) spectator["xRender"] += Math.floor(Math.random() * 3) - 1
+                        if (spectator["yCore"] > sectionRules["yHigh"]) {
+                            spectator["yCore"] = yHigh
+                        } 
+                        if (spectator["yCore"] < sectionRules["yLow"]) {
+                            spectator["yCore"] = yLow
+                        }
+                        if (spectator["xRender"] > sectionRules["xHigh"]) {
+                            spectator["xRender"] = xHigh
+                        }
+                    if (spectator["xRender"] < sectionRules["xLow"]) {
+                        spectator["xRender"] = xLow
+                        }
+        
+                        
+                    }
             }
             section.sort((a, b) => { return a["posY"] - b["posY"] })
 
        } 
+    }
+
+    updateYImmediate(heightOffset) {
+        for (let i = 0; i < this.crowdArray.length; i++) {
+            let section = this.crowdArray[i]["spectArr"]
+
+            for (let j = 0; j < section.length; j++) {
+                let spectator = section[j]
+                spectator["yRender"] = spectator["yCore"] - heightOffset
+                spectator["yRender"] = spectator["yCore"] - heightOffset
+            }
+            section.sort((a, b) => { return a["yRender"] - b["yRender"] })
+
+        } 
     }
 
 

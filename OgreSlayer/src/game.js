@@ -53,10 +53,10 @@ export default class Game {
         this.knight.animationQueue.push(playedCard.animation)
         this.opponent.animationQueue.push(opponentCard.animation)
 
+        this.gameEndCheck()
         setTimeout(() => {
             this.numCardsDraw += 1
             this.drawCards()
-            this.gameEndCheck()
             this.knight.deckObj.thinDeck.call(this.knight)
             this.opponent.nextMove.shift()
             this.knight.attack = 0
@@ -76,7 +76,7 @@ export default class Game {
                 break;
             }
             let emptySlots = this.cardSlotCollector("empty")
-            if (emptySlots.length === 5) {
+            if (emptySlots.length === 5 && this.numCardsDraw === 0) {
                 this.gameLoss = true
                 this.cardLoss = true
             }

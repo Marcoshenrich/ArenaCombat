@@ -6,6 +6,8 @@ export default class Combatant {
         this.animationTripper = -1
         this.attack = 0
         this.block = 0
+        this.aniPlaying = false
+        this.aniCheckQueue = []
     }
 
     animationFramesSetter() {
@@ -28,12 +30,16 @@ export default class Combatant {
         let position = Math.floor(rawPosition)
 
         if (this.animationState !== "dead") {
-            if (this.animationQueue.length > 0 && this.animationState === "idle") {
-                this.animationQueueSetter()
-                position = 0
+            if (this.animationState !== "idle") {
+                this.aniCheckQueue.push(position)
+                let unique = this.aniCheckQueue.filter((value, index, self) => { return self.indexOf(value) === index })
+                if (unique.length > 1 && this.aniCheckQueue.at(-1) === 0 && this.animationState !== "idle") {
+                    this.animationQueueSetter()
+                    this.aniCheckQueue = []
+                }
+            
             }
-
-            if ((rawPosition + .15) > this.animationTripper) {
+            if (this.animationQueue.length > 0 && this.animationState === "idle") {
                 this.animationQueueSetter()
                 position = 0
             }

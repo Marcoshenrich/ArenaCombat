@@ -7,6 +7,9 @@ export default class GameView {
         this.ctx = this.canvas.getContext('2d')
         this.pauseInputs = false
 
+        this.crowd = new Crowd(this.heightOffset)
+        this.crowdArray = this.crowd.crowdArray
+
         this.MAX_HEIGHT = 708
         this.MIN_HEIGHT = 578
 
@@ -37,26 +40,25 @@ export default class GameView {
         
         this.fadeOut = 0
         this.textFadeIn = 1
-        
-        this.crowd = new Crowd()
-        this.crowdArray = this.crowd.crowdArray
+
 
         this.openingAnimation()
+        // this.animate()
     }
 
     openingAnimation() {
-        if (!this.gameStart) {
-            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            this.renderBackground()
-            this.renderCrowd()
-            // this.renderStartOptions()
-            requestAnimationFrame(this.openingAnimation.bind(this))
-        } else {
+        // if (!this.gameStart) {
+        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        //     this.renderBackground()
+        //     this.renderCrowd()
+        //     this.renderStartOptions()
+        //     requestAnimationFrame(this.openingAnimation.bind(this))
+        // } else {
             this.game = new Game()
             this.knight = this.game.knight
             this.opponent = this.game.opponent
             this.animate()
-        }
+        // }
     }
 
     renderStartOptions() {
@@ -78,14 +80,14 @@ export default class GameView {
         this.ctx.fillText("tutorial", 260, 450)
         
         this.ctx.beginPath();
-        this.ctx.moveTo(220, 340 - this.heightOffset);
-        this.ctx.lineTo(245, 325 - this.heightOffset);
-        this.ctx.lineTo(220, 310 - this.heightOffset);
+        this.ctx.moveTo(220, 340);
+        this.ctx.lineTo(245, 325);
+        this.ctx.lineTo(220, 310);
         this.ctx.fill();
         this.ctx.beginPath();
-        this.ctx.moveTo(220, 440 - this.heightOffset);
-        this.ctx.lineTo(245, 425 - this.heightOffset);
-        this.ctx.lineTo(220, 410 - this.heightOffset);
+        this.ctx.moveTo(220, 440);
+        this.ctx.lineTo(245, 425);
+        this.ctx.lineTo(220, 410);
         this.ctx.fill();
     }
 
@@ -95,10 +97,11 @@ export default class GameView {
             let section = this.crowdArray[i]["spectArr"]
             for (let j = 0; j < section.length; j++) {	
                 let spectator = section[j]
-                this.ctx.drawImage(spectator["img"], spectator["posX"], spectator["posY"], spectator["sizeX"], spectator["sizeY"])
+                this.ctx.drawImage(spectator["img"], spectator["xRender"], spectator["yRender"], spectator["sizeX"], spectator["sizeY"])
             }
         }
         this.crowd.jostle()
+        this.crowd.updateYImmediate(this.heightOffset)
     }
 
     animate() {
@@ -176,6 +179,7 @@ export default class GameView {
 
     endScreenAnimations() {
         if (this.game.gameLoss && this.game.gameWin && !this.game.gameOver) {
+            this.staggerFrames = 30
             this.game.gameOver = true
             this.resetAnimationFrames()
             this.knight.animationQueue.push("death")
@@ -184,12 +188,14 @@ export default class GameView {
             this.opponent.animationQueue.push("dead")
         }
         if (this.game.gameLoss && !this.game.gameOver) {
+            this.staggerFrames = 30
             this.game.gameOver = true
             this.resetAnimationFrames()
             this.knight.animationQueue.push("death")
             this.knight.animationQueue.push("dead")
         }
         if (this.game.gameWin && !this.game.gameOver) {
+            this.staggerFrames = 30
             this.game.gameOver = true
             this.resetAnimationFrames()
             this.opponent.animationQueue.push("death")
@@ -251,7 +257,7 @@ export default class GameView {
             height = clientHeight - 244
             this.heightOffset = 950 - clientHeight
         }
-
+        this.crowd.updateYImmediate(this.heightOffset)
         this.CANVAS_HEIGHT = this.canvas.height = height
     }
 
