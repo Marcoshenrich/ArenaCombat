@@ -40,17 +40,16 @@ export default class GameView {
         
         this.crowd = new Crowd()
         this.crowdArray = this.crowd.crowdArray
-        
+
         this.openingAnimation()
     }
 
     openingAnimation() {
-        
         if (!this.gameStart) {
             this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
             this.renderBackground()
             this.renderCrowd()
-            this.renderStartoptions()
+            // this.renderStartOptions()
             requestAnimationFrame(this.openingAnimation.bind(this))
         } else {
             this.game = new Game()
@@ -60,7 +59,7 @@ export default class GameView {
         }
     }
 
-    renderStartoptions() {
+    renderStartOptions() {
         this.ctx.fillStyle = 'rgba(0,0,0,.9)'
         this.ctx.fillRect(-10, 130, 2000, 120)
         this.ctx.fillRect(-10, 290, 2000, 70)
@@ -91,8 +90,9 @@ export default class GameView {
     }
 
     renderCrowd() {
+
         for (let i = 0; i < this.crowdArray.length; i++) {
-            let section = this.crowdArray[i]
+            let section = this.crowdArray[i]["spectArr"]
             for (let j = 0; j < section.length; j++) {	
                 let spectator = section[j]
                 this.ctx.drawImage(spectator["img"], spectator["posX"], spectator["posY"], spectator["sizeX"], spectator["sizeY"])
@@ -105,6 +105,7 @@ export default class GameView {
         
         this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         this.renderBackground()
+        this.renderCrowd()
         if (this.game.gameLoss || this.game.gameWin) this.renderGameEndScreen()
         if (!this.game.gameOver) {
             this.renderInfoSquares()
