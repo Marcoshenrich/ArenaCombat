@@ -1,6 +1,7 @@
 import Game from './game.js'
 import Crowd from './crowd.js'
 import Tutorial from './tutorial.js'
+import Archie from './archie.js'
 
 export default class GameView {
     constructor(canvas, clientHeight) { 
@@ -11,28 +12,27 @@ export default class GameView {
         this.crowd = new Crowd()
         this.crowdArray = this.crowd.crowdArray
 
-        this.tutorial = new Tutorial(this.ctx, this.heightOffset)
-
+        
         this.MAX_HEIGHT = 708
         this.MIN_HEIGHT = 578
-
+        
         this.CANVAS_WIDTH = this.canvas.width = 950
         this.setHeight(clientHeight)
-
+        
         this.infoDimensions = { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
-
+        
         this.backgroundImage = new Image()
         this.backgroundImage.src = 'art/arena.jpg'
-
+        
         this.matImage = new Image()
         this.matImage.src = 'art/mat.png'
-
+        
         this.lossText = new Image()
         this.lossText.src = 'art/youded.png'
-
+        
         this.winText = new Image()
         this.winText.src = 'art/youwin.png'
-
+        
         this.gameStart = false
         this.tutorialStart = false
         this.gameFrame = 0;
@@ -44,31 +44,87 @@ export default class GameView {
         
         this.fadeOut = 0
         this.textFadeIn = 1
-
-
-        this.openingAnimation()
+        
+        this.game = new Game()
+        this.knight = this.game.knight
+        this.opponent = this.game.opponent
+        this.archie = new Archie()
+        this.tutorial = new Tutorial(this.game, this.ctx, this.heightOffset)
+        this.titleCard()
         // this.animate()
+        this.introAnimationSeq = 1
+
+        this.shakeX = 0
+        this.shakeY = 0
     }
 
-    openingAnimation() {
-        if (!this.gameStart && !this.tutorialStart) {
-            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            this.renderBackground()
-            this.renderCrowd()
-            this.renderStartOptions()
-            requestAnimationFrame(this.openingAnimation.bind(this))
-        } else if (this.tutorialStart) {
-            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            this.renderBackground()
-            this.renderCrowd()
-            this.tutorial.renderTutorialPanel()
-            requestAnimationFrame(this.openingAnimation.bind(this))
-        } else if (this.gameStart) {
-            this.game = new Game()
-            this.knight = this.game.knight
-            this.opponent = this.game.opponent
-            this.animate()
+    shakeBackground(){
+ 
+        this.shakeX = Math.floor(Math.random() * 30) - 60
+        this.shakeY = Math.floor(Math.random() * 30) - 60
+
+    }
+
+    renderIntroAnimation() {
+        this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
+        this.archie.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
+        this.shakeBackground()
+        if (this.introAnimationSeq === 1) {
+            if (this.crowd.excitement >= 75) this.crowd.excite(0)
+            if (this.knight.xPosition < 200) {
+                this.knight.runForwards()
+                if (this.knight.animationState === "idle"){
+                    this.knight.animationQueue.push("run")
+                }
+            }  else {
+                this.knight.animationQueue = []
+                this.knight.animationState = "idle"
+                this.knight.image.src = this.knight.animations["idle"].src
+                setTimeout(()=>{
+                    this.archie.animationState = "tidle"
+                    this.archie.image.src = this.archie.animations["tidle"].src
+                    this.introAnimationSeq = 2
+                },1000)
+            }        
+        } else if (this.introAnimationSeq === 2) {
+            this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
+            this.ctx.fillRect(400, 418, 330, 45)
+            this.ctx.fillStyle = 'rgba(0,0,0,1)';
+            this.ctx.font = "26px optima, sans-serif "
+            this.ctx.fillText("You ready to die today, kid?", 410, 450, 2000, 200)
+            setTimeout(() => {
+
+            }, 1000)
         }
+        this.gameFrame++
+    }
+
+    titleCard() {
+        this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        this.renderBackground()
+        this.renderCrowd()
+        this.renderIntroAnimation()
+        requestAnimationFrame(this.titleCard.bind(this))
+
+
+
+
+        // if (!this.gameStart && !this.tutorialStart) {
+        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        //     this.renderBackground()
+        //     this.renderCrowd()
+        //     this.renderStartOptions()
+            // requestAnimationFrame(this.titleCard.bind(this))
+        // } else if (this.tutorialStart) {
+            // this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            // this.renderBackground()
+            // this.renderCrowd()
+            // this.tutorial.renderTutorial()
+            // requestAnimationFrame(this.titleCard.bind(this))
+        // } else if (this.gameStart) {
+        //     this.game.setupMat()
+        //     this.animate()
+        // }
     }
 
     renderTutorialPanel() {
@@ -139,7 +195,7 @@ export default class GameView {
     }
 
     renderBackground() {
-        this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset + 60, 1024, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset + 60, 1024, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH + this.shakeX, this.CANVAS_HEIGHT + this.shakeY)
     }
 
     renderInfoSquares() {

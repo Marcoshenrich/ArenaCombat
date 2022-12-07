@@ -6,7 +6,6 @@ export default class Game {
         this.knight = new Knight()
         this.opponent = new Opponent()
         
-        this.setupMat()
         this.numCardsDraw = 0
         this.gameOver = false
         this.gameWin = false

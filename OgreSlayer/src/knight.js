@@ -9,7 +9,7 @@ export default class Knight extends Combatant {
         this.image.src = 'art/knight1/_Idle.png'
         this.spriteWidth = 120;
         this.spriteHeight = 80;
-        this.xPosition = 200
+        this.xPosition = -280
         this.yPosition = 400
         this.sizeCoef = 3.5
 
@@ -30,7 +30,8 @@ export default class Knight extends Combatant {
         { name: "roll", frames: 12, src: 'art/knight1/_Roll.png' },
         { name: "duck", frames: 3, src: 'art/knight1/_CrouchAll.png' },
         { name: "crouchAttack", frames: 6, src: 'art/knight1/_CrouchAttack.png' },
-        { name: "hit", frames: 6, src: 'art/knight1/Hit.png' },
+        { name: "hit", frames: 6, src: 'art/knight1/_Hit.png' },
+        { name: "run", frames: 10, src: 'art/knight1/_Run.png' },
         ];
 
         this.animationFramesSetter()
@@ -46,7 +47,6 @@ export default class Knight extends Combatant {
     }
 }
 
-
 Knight.prototype.statusChecker = function (unModValue, stat) {
     switch (stat) {
         case "attack":
@@ -56,10 +56,5 @@ Knight.prototype.statusChecker = function (unModValue, stat) {
     }
 }
 
-// Knight.prototype.animation = function (aniStateName) {
-//     this.animationState = aniStateName
-//     this.image.src = this.animations[aniStateName].src
-//     this.animationTripper = this.framesFinder(aniStateName)
-// }
 
 

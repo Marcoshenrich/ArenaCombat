@@ -80,3 +80,8 @@ export default class Combatant {
     }
 
 }
+
+Combatant.prototype.runForwards = function () {
+    this.xPosition += 1.12
+    this.yPosition = 400
+}

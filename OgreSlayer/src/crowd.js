@@ -9,6 +9,7 @@ export default class Crowd {
         this.excitement = 75
         this.populateSection()
         this.updateYImmediate(heightOffset)
+        this.calmDown() 
     }
 
     sectionBoundaries() {
@@ -196,6 +197,21 @@ export default class Crowd {
             section.sort((a, b) => { return a["posY"] - b["posY"] })
 
        } 
+    }
+
+    calmDown() {
+        setInterval(()=>{
+            this.excitement += 1
+        }, 2000)
+    }
+
+    excite(num) {
+        this.excitement = num
+    }
+
+
+    hush() {
+        this.excitement = 75
     }
 
     updateYImmediate(heightOffset) {

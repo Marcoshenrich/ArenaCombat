@@ -1,7 +1,8 @@
 export default class Tutorial {
-    constructor(ctx, heightOffset) {
+    constructor(game, ctx, heightOffset) {
         this.ctx = ctx
         this.heightOffset = heightOffset
+        this.game = game
         this.panelDrop = 0
         this.knight = new Image()
         this.knight.src = 'art/knight1/_Idle.png'
@@ -16,16 +17,17 @@ export default class Tutorial {
         this.tutorialSeq = 0
     }
 
-    renderTutorialPanel() {
-        if (this.tutorialSeq === 1) {
-            this.renderTutorialPanel1()
-        } else if (this.tutorialSeq === 2) {
-            this.renderTutorialPanel2()
-        } else if (this.tutorialSeq === 3) {
-            this.renderTutorialPanel3()
-        } else if (this.tutorialSeq === 4) {
-            this.renderTutorialPanel4()
-        } 
+    renderTutorial() {
+        // if (this.tutorialSeq === 1) {
+        //     this.renderTutorialPanel1()
+        // } else if (this.tutorialSeq === 2) {
+        //     this.renderTutorialPanel2()
+        // } else if (this.tutorialSeq === 3) {
+        //     this.renderTutorialPanel3()
+        // } else if (this.tutorialSeq === 4) {
+        //     this.renderTutorialPanel4()
+        // } 
+        
     }
 
     renderTutorialPanel1() {
@@ -88,7 +90,6 @@ export default class Tutorial {
         this.ctx.font = "26px optima, sans-serif"
         this.ctx.fillText("You draw a card whenever you deal damage.", 200, startLine += this.leading, 2000, 200)
         this.ctx.fillText("Watch out! You die if you run out of cards.", 200, startLine += this.leading, 2000, 200)
-
     }
 
 
