@@ -201,7 +201,7 @@ export default class Crowd {
 
     calmDown() {
         setInterval(()=>{
-            this.excitement += 1
+            if (this.excitement < 75) this.excitement += 1
         }, 2000)
     }
 

@@ -1,7 +1,7 @@
 import Game from './game.js'
 import Crowd from './crowd.js'
 import Tutorial from './tutorial.js'
-import Archie from './archie.js'
+import Dummy from './dummy.js'
 
 export default class GameView {
     constructor(canvas, clientHeight) { 
@@ -48,29 +48,43 @@ export default class GameView {
         this.game = new Game()
         this.knight = this.game.knight
         this.opponent = this.game.opponent
-        this.archie = new Archie()
+        this.dummy = new Dummy(120, 80, 310, 358, 4)
+        this.demonDummy = new Dummy(100, 80, 300, 319, 5)
+
+        this.demonDummy.animationState = "demonLeap"
+        this.demonDummy.image.src = this.dummy.animations["demonLeap"].src
+
         this.tutorial = new Tutorial(this.game, this.ctx, this.heightOffset)
         this.titleCard()
         // this.animate()
         this.introAnimationSeq = 1
 
+        this.shaking = false
         this.shakeX = 0
         this.shakeY = 0
     }
 
     shakeBackground(){
- 
-        this.shakeX = Math.floor(Math.random() * 30) - 60
-        this.shakeY = Math.floor(Math.random() * 30) - 60
+        this.shaking = true
+        this.shakeX = Math.floor(Math.random() * 5) - 20
+        this.shakeY = Math.floor(Math.random() * 5) - 40
+        this.crowd.excite(0)
+    }
+
+    calmBackground() {
+        if (this.shaking === true) {
+            this.shakeX = 0
+            this.shakeY = 0
+            this.shaking = false
+        }
 
     }
 
     renderIntroAnimation() {
         this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
-        this.archie.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
-        this.shakeBackground()
+        this.dummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
         if (this.introAnimationSeq === 1) {
-            if (this.crowd.excitement >= 75) this.crowd.excite(0)
+            if (this.crowd.excitement >= 75) this.crowd.excite(5)
             if (this.knight.xPosition < 200) {
                 this.knight.runForwards()
                 if (this.knight.animationState === "idle"){
@@ -81,8 +95,8 @@ export default class GameView {
                 this.knight.animationState = "idle"
                 this.knight.image.src = this.knight.animations["idle"].src
                 setTimeout(()=>{
-                    this.archie.animationState = "tidle"
-                    this.archie.image.src = this.archie.animations["tidle"].src
+                    this.dummy.animationState = "knightTIdle"
+                    this.dummy.image.src = this.dummy.animations["knightTIdle"].src
                     this.introAnimationSeq = 2
                 },1000)
             }        
@@ -93,8 +107,32 @@ export default class GameView {
             this.ctx.font = "26px optima, sans-serif "
             this.ctx.fillText("You ready to die today, kid?", 410, 450, 2000, 200)
             setTimeout(() => {
+                this.introAnimationSeq = 3
+            }, 3000)
+        } else if (this.introAnimationSeq === 3) {
+            this.shakeBackground()
+            setTimeout(() => {
+                this.calmBackground()
+                this.introAnimationSeq = 4
+            }, 3000)
 
-            }, 1000)
+        } else if (this.introAnimationSeq === 4) {
+                this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
+                this.ctx.fillRect(430, 418, 281, 45)
+                this.ctx.fillStyle = 'rgba(0,0,0,1)';
+                this.ctx.font = "26px optima, sans-serif "
+                this.ctx.fillText("What the hell was that?", 440, 450, 2000, 260)
+                setTimeout(() => {
+                    this.introAnimationSeq = 5
+                }, 3000)
+        } else if (this.introAnimationSeq === 5) {
+            this.shakeBackground()
+            setTimeout(() => {
+                this.calmBackground()
+                this.introAnimationSeq = 6
+            }, 3000)
+        } else if (this.introAnimationSeq === 6) {
+            this.demonDummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
         }
         this.gameFrame++
     }
@@ -195,7 +233,7 @@ export default class GameView {
     }
 
     renderBackground() {
-        this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset + 60, 1024, this.CANVAS_HEIGHT, 0, 0, this.CANVAS_WIDTH + this.shakeX, this.CANVAS_HEIGHT + this.shakeY)
+        this.ctx.drawImage(this.backgroundImage, 0, this.heightOffset + 60, 1024 + this.shakeY, this.CANVAS_HEIGHT + this.shakeX, 0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
     }
 
     renderInfoSquares() {
