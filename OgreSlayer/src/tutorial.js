@@ -18,16 +18,15 @@ export default class Tutorial {
     }
 
     renderTutorial() {
-        // if (this.tutorialSeq === 1) {
-        //     this.renderTutorialPanel1()
-        // } else if (this.tutorialSeq === 2) {
-        //     this.renderTutorialPanel2()
-        // } else if (this.tutorialSeq === 3) {
-        //     this.renderTutorialPanel3()
-        // } else if (this.tutorialSeq === 4) {
-        //     this.renderTutorialPanel4()
-        // } 
-        
+        if (this.tutorialSeq === 1) {
+            this.renderTutorialPanel1()
+        } else if (this.tutorialSeq === 2) {
+            this.renderTutorialPanel2()
+        } else if (this.tutorialSeq === 3) {
+            this.renderTutorialPanel3()
+        } else if (this.tutorialSeq === 4) {
+            this.renderTutorialPanel4()
+        } 
     }
 
     renderTutorialPanel1() {

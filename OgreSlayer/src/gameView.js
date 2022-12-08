@@ -12,7 +12,6 @@ export default class GameView {
         this.crowd = new Crowd()
         this.crowdArray = this.crowd.crowdArray
 
-        
         this.MAX_HEIGHT = 708
         this.MIN_HEIGHT = 578
         
@@ -35,6 +34,7 @@ export default class GameView {
         
         this.gameStart = false
         this.tutorialStart = false
+        this.playIntroAnimation = false
         this.gameFrame = 0;
         this.staggerFrames = 10;
         
@@ -49,14 +49,13 @@ export default class GameView {
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)
-        this.demonDummy = new Dummy(100, 80, 300, 319, 5)
+        this.demonDummy = new Dummy(100, 80, 919, -300, 5)
 
         this.demonDummy.animationState = "demonLeap"
         this.demonDummy.image.src = this.dummy.animations["demonLeap"].src
 
         this.tutorial = new Tutorial(this.game, this.ctx, this.heightOffset)
         this.titleCard()
-        // this.animate()
         this.introAnimationSeq = 1
 
         this.shaking = false
@@ -77,97 +76,113 @@ export default class GameView {
             this.shakeY = 0
             this.shaking = false
         }
-
     }
 
     renderIntroAnimation() {
-        this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
-        this.dummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
-        if (this.introAnimationSeq === 1) {
-            if (this.crowd.excitement >= 75) this.crowd.excite(5)
-            if (this.knight.xPosition < 200) {
-                this.knight.runForwards()
-                if (this.knight.animationState === "idle"){
-                    this.knight.animationQueue.push("run")
-                }
-            }  else {
-                this.knight.animationQueue = []
-                this.knight.animationState = "idle"
-                this.knight.image.src = this.knight.animations["idle"].src
-                setTimeout(()=>{
-                    this.dummy.animationState = "knightTIdle"
-                    this.dummy.image.src = this.dummy.animations["knightTIdle"].src
-                    this.introAnimationSeq = 2
-                },1000)
-            }        
-        } else if (this.introAnimationSeq === 2) {
-            this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
-            this.ctx.fillRect(400, 418, 330, 45)
-            this.ctx.fillStyle = 'rgba(0,0,0,1)';
-            this.ctx.font = "26px optima, sans-serif "
-            this.ctx.fillText("You ready to die today, kid?", 410, 450, 2000, 200)
-            setTimeout(() => {
-                this.introAnimationSeq = 3
-            }, 3000)
-        } else if (this.introAnimationSeq === 3) {
-            this.shakeBackground()
-            setTimeout(() => {
-                this.calmBackground()
-                this.introAnimationSeq = 4
-            }, 3000)
-
-        } else if (this.introAnimationSeq === 4) {
+        if (this.introAnimationSeq < 9) {
+            this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
+            this.dummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
+            if (this.introAnimationSeq >= 6) this.demonDummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
+            console.log(this.introAnimationSeq);
+            if (this.introAnimationSeq === 1) {
+                if (this.crowd.excitement >= 75) this.crowd.excite(5)
+                if (this.knight.xPosition < 200) {
+                    this.knight.runForwards()
+                    if (this.knight.animationState === "idle"){
+                        this.knight.animationQueue.push("run")
+                    }
+                }  else {
+                    this.knight.animationQueue = []
+                    this.knight.animationState = "idle"
+                    this.knight.image.src = this.knight.animations["idle"].src
+                    setTimeout(()=>{
+                        this.dummy.animationState = "knightTIdle"
+                        this.dummy.image.src = this.dummy.animations["knightTIdle"].src
+                        this.introAnimationSeq = 2
+                    },1000)
+                }        
+            } else if (this.introAnimationSeq === 2) {
                 this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
-                this.ctx.fillRect(430, 418, 281, 45)
+                this.ctx.fillRect(400, 418, 330, 45)
                 this.ctx.fillStyle = 'rgba(0,0,0,1)';
                 this.ctx.font = "26px optima, sans-serif "
-                this.ctx.fillText("What the hell was that?", 440, 450, 2000, 260)
+                this.ctx.fillText("You ready to die today, kid?", 410, 450, 2000, 200)
                 setTimeout(() => {
-                    this.introAnimationSeq = 5
+                    this.introAnimationSeq = 3
                 }, 3000)
-        } else if (this.introAnimationSeq === 5) {
-            this.shakeBackground()
-            setTimeout(() => {
-                this.calmBackground()
-                this.introAnimationSeq = 6
-            }, 3000)
-        } else if (this.introAnimationSeq === 6) {
-            this.demonDummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
-        }
-        this.gameFrame++
+            } else if (this.introAnimationSeq === 3) {
+                this.shakeBackground()
+                setTimeout(() => {
+                    this.calmBackground()
+                    this.introAnimationSeq = 4
+                }, 3000)
+            } else if (this.introAnimationSeq === 4) {
+                    this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
+                    this.ctx.fillRect(430, 418, 281, 45)
+                    this.ctx.fillStyle = 'rgba(0,0,0,1)';
+                    this.ctx.font = "26px optima, sans-serif "
+                    this.ctx.fillText("What the hell was that?", 440, 450, 2000, 260)
+                    setTimeout(() => {
+                        this.introAnimationSeq = 5
+                    }, 3000)
+            } else if (this.introAnimationSeq === 5) {
+                this.shakeBackground()
+                setTimeout(() => {
+                    this.calmBackground()
+                    if (this.introAnimationSeq === 5) this.introAnimationSeq = 6
+                }, 3000)
+            } else if (this.introAnimationSeq === 6) {
+                    this.knight.animationQueue.push("roll")
+                    this.introAnimationSeq = 7
+            } else if (this.introAnimationSeq === 7) {
+                this.demonDummy.leap()
+                if (this.demonDummy.smash) {
+                    this.crowd.excite(0)
+                    this.demonDummy.animationState = "demonSmash"
+                    this.demonDummy.image.src = this.demonDummy.animations["demonSmash"].src
+                    this.dummy.animationState = "knightDeath"
+                    this.dummy.image.src = this.dummy.animations["knightDeath"].src
+                    this.shakeBackground()
+                    setTimeout(() => {
+                        this.introAnimationSeq = 8
+                    }, 300)
+                }
+            } else if (this.introAnimationSeq === 8) {
+                setTimeout(()=>{
+                    this.calmBackground()
+                },300)
+                this.gameStart = true
+                this.playIntroAnimation = false
+                this.introAnimationSeq = 9
+            }
+            this.gameFrame++
+        }   
     }
 
     titleCard() {
-        this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        this.renderBackground()
-        this.renderCrowd()
-        this.renderIntroAnimation()
-        requestAnimationFrame(this.titleCard.bind(this))
-
-
-
-
-        // if (!this.gameStart && !this.tutorialStart) {
-        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        //     this.renderBackground()
-        //     this.renderCrowd()
-        //     this.renderStartOptions()
-            // requestAnimationFrame(this.titleCard.bind(this))
-        // } else if (this.tutorialStart) {
-            // this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            // this.renderBackground()
-            // this.renderCrowd()
-            // this.tutorial.renderTutorial()
-            // requestAnimationFrame(this.titleCard.bind(this))
-        // } else if (this.gameStart) {
-        //     this.game.setupMat()
-        //     this.animate()
-        // }
-    }
-
-    renderTutorialPanel() {
-        this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
-        const opponentInfoSquare = this.ctx.fillRect(150,75,650,400)
+        if (!this.gameStart && !this.tutorialStart && !this.playIntroAnimation) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.renderStartOptions()
+            requestAnimationFrame(this.titleCard.bind(this))
+        } else if (this.tutorialStart) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.tutorial.renderTutorial()
+            requestAnimationFrame(this.titleCard.bind(this))
+        } else if (this.playIntroAnimation) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.renderIntroAnimation()
+            requestAnimationFrame(this.titleCard.bind(this))
+        } else if (this.gameStart) {
+            this.game.setupMat()
+            this.game.knight.xPosition = 200
+            this.animate()
+        }
     }
 
     renderStartOptions() {
@@ -179,7 +194,6 @@ export default class GameView {
         this.ctx.fillRect(-10,145, 2000, 90)
         this.ctx.fillRect(-10, 305, 2000, 40)
         this.ctx.fillRect(-10, 405, 2000, 40)
-
 
         this.ctx.fillStyle = "crimson"
         this.ctx.font = "130px trattatello, sans-serif "

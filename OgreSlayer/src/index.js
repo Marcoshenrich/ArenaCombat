@@ -87,17 +87,21 @@ addEventListener("resize", (e) => {
 
 
 canvas.addEventListener("click", (e) => {
-    let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
-    if (e.clientX > (220 + halfClientMargin) && e.clientX < (400 + halfClientMargin) && e.clientY > 320 && e.clientY < 350) {
-        gameview.gameStart = true
-    } else if (e.clientX > (220 + halfClientMargin) && e.clientX < (425 + halfClientMargin) && e.clientY > 400 && e.clientY < 450) {
-        gameview.tutorialStart = true
-    }
-    if (gameview.tutorialStart) {
-        gameview.tutorial.tutorialSeq += 1
-        if (gameview.tutorial.tutorialSeq === 5) {
+    if (!gameview.gameStart || !gameview.playIntroAnimation) {
+        let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
+        if (e.clientX > (220 + halfClientMargin) && e.clientX < (400 + halfClientMargin) && e.clientY > 320 && e.clientY < 350) {
             gameview.gameStart = true
-            gameview.tutorialStart = false
+        } else if (e.clientX > (220 + halfClientMargin) && e.clientX < (425 + halfClientMargin) && e.clientY > 400 && e.clientY < 450) {
+            gameview.tutorialStart = true
         }
-    }
+        if (gameview.tutorialStart) {
+            gameview.tutorial.tutorialSeq += 1
+            if (gameview.tutorial.tutorialSeq === 5) {
+                
+                gameview.playIntroAnimation = true
+                gameview.tutorialStart = false
+
+            }
+        }
+    } 
 });
