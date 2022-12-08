@@ -2,9 +2,9 @@ export default class Crowd {
     constructor(heightOffset) {
         this.heightOffset = heightOffset
         this.leftImg = new Image()
-        this.leftImg.src = '../../dist/art/crowd_left.png'
+        this.leftImg.src = './dist/art/crowd_left.png'
         this.rightImg = new Image()
-        this.rightImg.src = '../../dist/art/crowd_right.png'
+        this.rightImg.src = './dist/art/crowd_right.png'
         this.crowdArray = []
         this.excitement = 75
         this.populateSection()

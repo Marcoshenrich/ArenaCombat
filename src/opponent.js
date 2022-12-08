@@ -38,7 +38,7 @@ export default class Opponent extends Combatant {
 
         this.blindedCard = { }
         this.blindedCard["art"] = new Image()
-        this.blindedCard.art.src = "art/opponent_cards/mblinded.png"
+        this.blindedCard.art.src = "../../dist/art/opponent_cards/mblinded.png"
 
         this.status = { }
     }

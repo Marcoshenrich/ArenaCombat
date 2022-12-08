@@ -157,6 +157,20 @@ export default class Deck {
                 } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
+            shieldShatter: {
+                id: "shieldShatter",
+                attack: function () { return 0 },
+                block: function () { return 0 },
+                src: "../../dist/art/knight_cards/shield_shatter.png",
+                animation: "attack2",
+                instantEffects: function () {
+                    this.opponent.health -= (this.opponentCard.block() * 2)
+                    this.numCardsDraw += 1
+                },
+                delayedEffects: function () {
+                } // deal damage equal to twice your opponent's block
+            },
+
             shieldOfFaith: {
                 id: "shieldOfFaith",
                 attack: function () { return 0 },
