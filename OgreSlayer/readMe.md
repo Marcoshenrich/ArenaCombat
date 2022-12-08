@@ -23,13 +23,11 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
 
 ### Cards and Core Gameloop
 
-* The cards contain multiple functions that can be read by the core gameloop and other features. The have associated art that can be read to render hovered cards, and an associated animation string that is sent to the animation queue (described below). 
+* The cards contain multiple functions that can be read by the core gameloop and other features. They have associated art to render on the mat and when hovered over. They also contain an associated animation string that is sent to the animation queue (described below). 
 
 * The core game loop clears the played card from the slot, sets and resolves combat, plays status effects from cards, pushes animations into the queue, procedurally reduces the duration of status effects, checks for the end of the game, and resets coefficients and gamestates to prepare for the next turn. 
 
-* There are two effect evaluation steps in the core game logic. Instant effects affect game status this combat (deal or prevent damage dealt), and delayed effects affect future turns or game states (apply status effects, force opponent to player certain cards).
-
-
+* There are two evaluation steps to resolve card effects in the core game logic. Instant effects affect game status this combat (prevent damage dealt, deal damage per conditions, etc). Delayed effects affect future turns or game states (apply status effects, force opponent to player certain cards, etc).
 
 ```javascript
 //inside Deck#PlayerCards()
@@ -44,27 +42,27 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
     if (opponentCard.attack) {
         opponentCard.attack = function () { return 0 }
         this.opponent.health -= 4
+        this.numCardsDraw += 1 
         }
     },
     delayedEffects: function () { 
-        this.numCardsDraw += 1 
     }
     },
 
     //inside game
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
-        let playedCard = this.knight.allUniqueCards[playerCardId]
-        let opponentCard = this.opponent.nextMove[0]
-        this.instantCardEffects(playedCard, opponentCard)
-        this.statCalc(playedCard, opponentCard)
+        this.playedCard = this.knight.allUniqueCards[playerCardId]
+        this.opponentCard = this.opponent.nextMove[0]
+        this.instantCardEffects()
+        this.statCalc()
         this.damageCalc()
         this.resolveStatusEffects.call(this.knight, this.knight)
         this.resolveStatusEffects.call(this.opponent, this.opponent)
-        this.delayedCardEffects(playedCard, opponentCard)
+        this.delayedCardEffects()
 
-        this.knight.animationQueue.push(playedCard.animation)
-        this.opponent.animationQueue.push(opponentCard.animation)
+        this.knight.animationQueue.push(this.playedCard.animation)
+        this.opponent.animationQueue.push(this.opponentCard.animation)
 
         this.gameEndCheck()
         this.crowd.excite(0)
@@ -77,6 +75,8 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
             this.knight.block = 0
             this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
             this.opponent.block = this.opponent.nextMove[0].block.call(this)
+            this.playedCard = null
+            this.opponentCard = null
         },1100)
     }
 ```
@@ -114,7 +114,14 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
   
 ```
 
-- update file paths in html when moving to top level
-- settings from repo
-- pages 
-- deploy from main branch / root
+## Future Implementation
+
+Demon slayer is largely extendable, which was a core decider for choosing this project. 
+
+* Additional classes with unique cards (rogue, mystic, gladiator)
+* Selectable weapons which add unique cards to your deck (for dynamic playthroughs)
+* Basic vs. Class vs. Weapon vs. Other special cards
+* Play against multiple opponents of increasing difficulty
+* Select new cards to add to your deck at the end of each game phase
+
+

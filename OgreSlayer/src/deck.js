@@ -150,10 +150,10 @@ export default class Deck {
                 if (this.opponentCard.attack) {
                     this.opponentCard.attack = function () { return 0 }
                     this.opponent.health -= 4
+                    this.numCardsDraw += 1 
                 }
                  },
                 delayedEffects: function () { 
-                    this.numCardsDraw += 1 
                 } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
@@ -210,7 +210,7 @@ export default class Deck {
 
             revengeance: {
                 id: "revengeance",
-                attack: function () { return this.knight.deckObj.graveyard * 2 }, // deal damage equal to double the num of cards in discard
+                attack: function () { return (this.knight.deckObj.graveyard * 2) + 2 }, // deal damage equal to double the num of cards in discard
                 block: function () { return 0 },
                 src: "../../dist/art/knight_cards/revengeance.png",
                 animation: "combo",
