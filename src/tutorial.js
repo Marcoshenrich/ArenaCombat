@@ -5,7 +5,7 @@ export default class Tutorial {
         this.game = game
         this.panelDrop = 0
         this.knight = new Image()
-        this.knight.src = './dist/art/knight1/_Idle.png'
+        this.knight.src = './dist/art/knight1/Idle.png'
         this.leading = 38
         this.archibald = new Image()
         this.archibald.src = './dist/art/knight1/archie.png'

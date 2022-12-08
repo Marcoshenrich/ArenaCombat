@@ -22,7 +22,7 @@ export default class Dummy extends Combatant {
             { name: "knighTurn", frames: 2, src: './dist/art/knight1/_aTurnAround.png' },
             { name: "demonLeap", frames: 1, src: './dist/art/demon/_Leap.png' },
             { name: "demonSmash", frames: 1, src: './dist/art/demon/_Smash.png' },
-            { name: "demonIdle", frames: 6, src: './dist/art/demon/_Idle.png' },
+            { name: "demonIdle", frames: 6, src: './dist/art/demon/Idle.png' },
         ];
 
         this.animationFramesSetter()

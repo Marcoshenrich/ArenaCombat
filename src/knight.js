@@ -6,7 +6,7 @@ export default class Knight extends Combatant {
         super()
         
         this.image = new Image()
-        this.image.src = './dist/art/knight1/_Idle.png'
+        this.image.src = './dist/art/knight1/Idle.png'
         this.spriteWidth = 419.5;
         this.spriteHeight = 280;
         this.xPosition = -280
@@ -21,7 +21,7 @@ export default class Knight extends Combatant {
         this.allUniqueCards = this.deckObj.allUniqueCards
 
         this.animationStates = [
-        { name: "idle", frames: 10, src: './dist/art/knight1/_Idle.png' },
+        { name: "idle", frames: 10, src: './dist/art/knight1/Idle.png' },
         { name: "attack", frames: 5, src: './dist/art/knight1/_Attack.png' },
         { name: "attack2", frames: 6, src: './dist/art/knight1/_Attack2nm.png' },
         { name: "combo", frames: 10, src: './dist/art/knight1/_AttackCombonm.png' },
