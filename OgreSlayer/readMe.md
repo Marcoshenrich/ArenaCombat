@@ -21,6 +21,66 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
 
 ## Implementation
 
+### Cards and Core Gameloop
+
+* The cards contain multiple functions that can be read by the core gameloop and other features. The have associated art that can be read to render hovered cards, and an associated animation string that is sent to the animation queue (described below). 
+
+* The core game loop clears the played card from the slot, sets and resolves combat, plays status effects from cards, pushes animations into the queue, procedurally reduces the duration of status effects, checks for the end of the game, and resets coefficients and gamestates to prepare for the next turn. 
+
+* There are two effect evaluation steps in the core game logic. Instant effects affect game status this combat (deal or prevent damage dealt), and delayed effects affect future turns or game states (apply status effects, force opponent to player certain cards).
+
+
+
+```javascript
+//inside Deck#PlayerCards()
+ parry: {
+    // If your opponent attacks this turn, you negate the attack and they take 4 damage.
+    id: "parry",
+    attack: function () { return 0 },
+    block: function () { return 0 },
+    src: "art/knight_cards/parry.png",
+    animation: "combo",
+    instantEffects: function (playedCard, opponentCard) {
+    if (opponentCard.attack) {
+        opponentCard.attack = function () { return 0 }
+        this.opponent.health -= 4
+        }
+    },
+    delayedEffects: function () { 
+        this.numCardsDraw += 1 
+    }
+    },
+
+    //inside game
+    coreGameLoop(playerCardId, slotId) {
+        this.clearCardFromSlot(slotId)
+        let playedCard = this.knight.allUniqueCards[playerCardId]
+        let opponentCard = this.opponent.nextMove[0]
+        this.instantCardEffects(playedCard, opponentCard)
+        this.statCalc(playedCard, opponentCard)
+        this.damageCalc()
+        this.resolveStatusEffects.call(this.knight, this.knight)
+        this.resolveStatusEffects.call(this.opponent, this.opponent)
+        this.delayedCardEffects(playedCard, opponentCard)
+
+        this.knight.animationQueue.push(playedCard.animation)
+        this.opponent.animationQueue.push(opponentCard.animation)
+
+        this.gameEndCheck()
+        this.crowd.excite(0)
+        
+        setTimeout(() => {
+            this.drawCards()
+            this.knight.deckObj.thinDeck.call(this.knight)
+            this.opponent.nextMove.shift()
+            this.knight.attack = 0
+            this.knight.block = 0
+            this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
+            this.opponent.block = this.opponent.nextMove[0].block.call(this)
+        },1100)
+    }
+```
+
 ### Animation Queue
 * The Animation Queue was set up inside the shared combatant parent class. These shared functions dynamically set the animation states for both characters. They accept an animation string (eg "attack", "roll") that is stored in the card and sent to the animation queue by the core gameloop. 
 
@@ -43,6 +103,7 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
         this.animationState = aniStateName
         this.image.src = this.animations[aniStateName].src
     }
+
     // inside combatant.draw()
     this.aniCheckQueue.push(position)
                 let unique = this.aniCheckQueue.filter((value, index, self) => { return self.indexOf(value) === index })
@@ -52,3 +113,8 @@ Demon slayer is a simplified arena combat simulator featuring cards as the prima
                 }
   
 ```
+
+- update file paths in html when moving to top level
+- settings from repo
+- pages 
+- deploy from main branch / root

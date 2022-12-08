@@ -146,9 +146,9 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "art/knight_cards/parry.png",
                 animation: "combo",
-                instantEffects: function (playedCard, opponentCard) {
-                if (opponentCard.attack) {
-                    opponentCard.attack = function () { return 0 }
+                instantEffects: function () {
+                if (this.opponentCard.attack) {
+                    this.opponentCard.attack = function () { return 0 }
                     this.opponent.health -= 4
                 }
                  },
@@ -203,7 +203,7 @@ export default class Deck {
                 src: "art/knight_cards/feint.png",
                 animation: "crouchAttack",
                 instantEffects: function () { 
-                    this.opponent.nextMove[0] = this.opponent.allUniqueCards["turtle"]
+                    this.opponentCard = this.opponent.allUniqueCards["turtle"]
                 },
                 delayedEffects: function () { } //Instead of their action, your opponent turtles this turn.
             },

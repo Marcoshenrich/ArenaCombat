@@ -12,6 +12,9 @@ export default class Game {
         this.gameWin = false
         this.gameLoss = false
         this.cardLoss = false
+
+        this.playedCard = null
+        this.opponentCard = null
     }
         
     setupMat() {
@@ -31,30 +34,21 @@ export default class Game {
 
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
-
-        let playedCard = this.knight.allUniqueCards[playerCardId]
-        let opponentCard = this.opponent.nextMove[0]
-
-        this.instantCardEffects(playedCard, opponentCard)
-
-        this.knight.attack = this.knight.statusChecker.call(this.knight, playedCard.attack.call(this), "attack")
-        this.knight.block = playedCard.block.call(this)
-
-        this.opponent.attack = opponentCard.attack.call(this)
-        this.opponent.block = opponentCard.block.call(this)
-
+        this.playedCard = this.knight.allUniqueCards[playerCardId]
+        this.opponentCard = this.opponent.nextMove[0]
+        this.instantCardEffects()
+        this.statCalc()
         this.damageCalc()
-        
         this.resolveStatusEffects.call(this.knight, this.knight)
         this.resolveStatusEffects.call(this.opponent, this.opponent)
-        
-        this.delayedCardEffects(playedCard, opponentCard)
+        this.delayedCardEffects()
 
-        this.knight.animationQueue.push(playedCard.animation)
-        this.opponent.animationQueue.push(opponentCard.animation)
+        this.knight.animationQueue.push(this.playedCard.animation)
+        this.opponent.animationQueue.push(this.opponentCard.animation)
 
         this.gameEndCheck()
         this.crowd.excite(0)
+        
         setTimeout(() => {
             this.drawCards()
             this.knight.deckObj.thinDeck.call(this.knight)
@@ -63,7 +57,17 @@ export default class Game {
             this.knight.block = 0
             this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
             this.opponent.block = this.opponent.nextMove[0].block.call(this)
-        },1100) //should match the pause interval in indexlisteners
+            this.playedCard = null
+            this.opponentCard = null
+        },1100)
+    }
+
+    statCalc() {
+        this.knight.attack = this.knight.statusChecker.call(this.knight, this.playedCard.attack.call(this), "attack")
+        this.knight.block = this.playedCard.block.call(this)
+
+        this.opponent.attack = this.opponentCard.attack.call(this)
+        this.opponent.block = this.opponentCard.block.call(this)
     }
 
     gameEndCheck() {
@@ -109,14 +113,14 @@ export default class Game {
         }
     }
 
-    instantCardEffects(playedCard, opponentCard) {
-        playedCard.instantEffects.call(this, playedCard, opponentCard)
-        opponentCard.instantEffects.call(this, playedCard, opponentCard)
+    instantCardEffects() {
+        this.playedCard.instantEffects.call(this)
+        this.opponentCard.instantEffects.call(this)
     }
 
     delayedCardEffects(playedCard, opponentCard) {
-        playedCard.delayedEffects.call(this, playedCard, opponentCard)
-        opponentCard.delayedEffects.call(this, playedCard, opponentCard)
+        this.playedCard.delayedEffects.call(this)
+        this.opponentCard.delayedEffects.call(this)
     }
 
     clearCardFromSlot(slotId){
