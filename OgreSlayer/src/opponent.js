@@ -5,7 +5,7 @@ export default class Opponent extends Combatant {
     constructor() { 
         super()
         this.image = new Image()
-        this.image.src = 'art/demon/_Idle.png'
+        this.image.src = '../../dist/art/demon/_Idle.png'
         this.spriteWidth = 500;
         this.spriteHeight = 400;
         this.sizeCoef = 1
@@ -24,14 +24,14 @@ export default class Opponent extends Combatant {
         this.block = this.nextMove[0].block.call(this)
 
         this.animationStates = [
-        { name: "idle", frames: 6, src: 'art/demon/_Idle.png' },
-        { name: "attack", frames: 5, src: 'art/demon/_Attack.png' },
-        { name: "attack2", frames: 6, src: 'art/demon/_Attack2.png' },
-        { name: "attack3", frames: 6, src: 'art/demon/_Attack3.png' },
-        { name: "hit", frames: 3, src: 'art/demon/_Hit.png' },
-        { name: "death", frames: 4, src: 'art/demon/_Death.png' },
-        { name: "dead", frames: 1, src: 'art/demon/_Dead.png' },
-        { name: "flash", frames: 6, src: 'art/demon/_Flash.png' },
+        { name: "idle", frames: 6, src: '../../dist/art/demon/_Idle.png' },
+        { name: "attack", frames: 5, src: '../../dist/art/demon/_Attack.png' },
+        { name: "attack2", frames: 6, src: '../../dist/art/demon/_Attack2.png' },
+        { name: "attack3", frames: 6, src: '../../dist/art/demon/_Attack3.png' },
+        { name: "hit", frames: 3, src: '../../dist/art/demon/_Hit.png' },
+        { name: "death", frames: 4, src: '../../dist/art/demon/_Death.png' },
+        { name: "dead", frames: 1, src: '../../dist/art/demon/_Dead.png' },
+        { name: "flash", frames: 6, src: '../../dist/art/demon/_Flash.png' },
         ];
 
         this.animationFramesSetter()

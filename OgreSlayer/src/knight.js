@@ -6,7 +6,7 @@ export default class Knight extends Combatant {
         super()
         
         this.image = new Image()
-        this.image.src = 'art/knight1/_Idle.png'
+        this.image.src = '../../dist/art/knight1/_Idle.png'
         this.spriteWidth = 419.5;
         this.spriteHeight = 280;
         this.xPosition = -280
@@ -21,17 +21,17 @@ export default class Knight extends Combatant {
         this.allUniqueCards = this.deckObj.allUniqueCards
 
         this.animationStates = [
-        { name: "idle", frames: 10, src: 'art/knight1/_Idle.png' },
-        { name: "attack", frames: 5, src: 'art/knight1/_Attack.png' },
-        { name: "attack2", frames: 6, src: 'art/knight1/_Attack2nm.png' },
-        { name: "combo", frames: 10, src: 'art/knight1/_AttackCombonm.png' },
-        { name: "death", frames: 10, src: 'art/knight1/_Death.png' },
-        { name: "dead", frames: 1, src: 'art/knight1/_Dead.png' },
-        { name: "roll", frames: 12, src: 'art/knight1/_Roll.png' },
-        { name: "duck", frames: 3, src: 'art/knight1/_CrouchAll.png' },
-        { name: "crouchAttack", frames: 6, src: 'art/knight1/_CrouchAttack.png' },
-        { name: "hit", frames: 6, src: 'art/knight1/_Hit.png' },
-        { name: "run", frames: 10, src: 'art/knight1/_Run.png' },
+        { name: "idle", frames: 10, src: '../../dist/art/knight1/_Idle.png' },
+        { name: "attack", frames: 5, src: '../../dist/art/knight1/_Attack.png' },
+        { name: "attack2", frames: 6, src: '../../dist/art/knight1/_Attack2nm.png' },
+        { name: "combo", frames: 10, src: '../../dist/art/knight1/_AttackCombonm.png' },
+        { name: "death", frames: 10, src: '../../dist/art/knight1/_Death.png' },
+        { name: "dead", frames: 1, src: '../../dist/art/knight1/_Dead.png' },
+        { name: "roll", frames: 12, src: '../../dist/art/knight1/_Roll.png' },
+        { name: "duck", frames: 3, src: '../../dist/art/knight1/_CrouchAll.png' },
+        { name: "crouchAttack", frames: 6, src: '../../dist/art/knight1/_CrouchAttack.png' },
+        { name: "hit", frames: 6, src: '../../dist/art/knight1/_Hit.png' },
+        { name: "run", frames: 10, src: '../../dist/art/knight1/_Run.png' },
         ];
 
         this.animationFramesSetter()

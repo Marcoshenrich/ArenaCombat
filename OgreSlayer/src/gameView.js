@@ -21,16 +21,16 @@ export default class GameView {
         this.infoDimensions = { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
         
         this.backgroundImage = new Image()
-        this.backgroundImage.src = 'art/arena.jpg'
+        this.backgroundImage.src = '../../dist/art/arena.jpg'
         
         this.matImage = new Image()
-        this.matImage.src = 'art/mat.png'
+        this.matImage.src = '../../dist/art/mat.png'
         
         this.lossText = new Image()
-        this.lossText.src = 'art/youded.png'
+        this.lossText.src = '../../dist/art/youded.png'
         
         this.winText = new Image()
-        this.winText.src = 'art/youwin.png'
+        this.winText.src = '../../dist/art/youwin.png'
         
         this.gameStart = false
         this.tutorialStart = false
