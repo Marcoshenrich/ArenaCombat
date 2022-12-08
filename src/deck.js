@@ -7,13 +7,13 @@ export default class Deck {
         this.graveyard = 0
 
         this.fullDeck = new Image()
-        this.fullDeck.src = "../../dist/art/deck/full_deck.png"
+        this.fullDeck.src = "./dist/art/deck/full_deck.png"
 
         this.halfDeck = new Image()
-        this.halfDeck.src = "../../dist/art/deck/half_deck.png"
+        this.halfDeck.src = "./dist/art/deck/half_deck.png"
 
         this.emptyDeck = new Image()
-        this.emptyDeck.src = "../../dist/art/deck/empty_deck.png"
+        this.emptyDeck.src = "./dist/art/deck/empty_deck.png"
     }
 
 
@@ -100,7 +100,7 @@ export default class Deck {
                 id: "strike",
                 attack: function() { return 4 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/strike.png",
+                src: "./dist/art/knight_cards/strike.png",
                 animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -110,7 +110,7 @@ export default class Deck {
                 id: "defend",
                 attack: function () { return 0 },
                 block: function () { return 5 },
-                src: "../../dist/art/knight_cards/defend.png",
+                src: "./dist/art/knight_cards/defend.png",
                 animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -120,7 +120,7 @@ export default class Deck {
                 id: "reposition",
                 attack: function () { return 0 },
                 block: function () { return 2 },
-                src: "../../dist/art/knight_cards/reposition.png",
+                src: "./dist/art/knight_cards/reposition.png",
                 animation: "duck",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -132,7 +132,7 @@ export default class Deck {
                 id: "taunt",
                 attack: function () { return 0 },
                 block: function () { return 4 },
-                src: "../../dist/art/knight_cards/taunt.png",
+                src: "./dist/art/knight_cards/taunt.png",
                 animation: "duck",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -144,7 +144,7 @@ export default class Deck {
                 id: "parry",
                 attack: function () { return 0 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/parry.png",
+                src: "./dist/art/knight_cards/parry.png",
                 animation: "combo",
                 instantEffects: function () {
                 if (this.opponentCard.attack) {
@@ -161,7 +161,7 @@ export default class Deck {
                 id: "shieldShatter",
                 attack: function () { return 0 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/shield_shatter.png",
+                src: "./dist/art/knight_cards/shield_shatter.png",
                 animation: "attack2",
                 instantEffects: function () {
                     this.opponent.health -= (this.opponentCard.block() * 2)
@@ -175,7 +175,7 @@ export default class Deck {
                 id: "shieldOfFaith",
                 attack: function () { return 0 },
                 block: function () { return 5 },
-                src: "../../dist/art/knight_cards/shield_of_faith.png",
+                src: "./dist/art/knight_cards/shield_of_faith.png",
                 animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -188,7 +188,7 @@ export default class Deck {
                 id: "dodge",
                 attack: function () { return 0 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/dodge.png",
+                src: "./dist/art/knight_cards/dodge.png",
                 animation:  "roll",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -200,7 +200,7 @@ export default class Deck {
                 id: "secondWind",
                 attack: function () { return 0 },
                 block: function () { return 8 },
-                src: "../../dist/art/knight_cards/second_wind.png",
+                src: "./dist/art/knight_cards/second_wind.png",
                 animation: "duck",
                 instantEffects: function () { 
                     this.knight.heal(8)
@@ -214,7 +214,7 @@ export default class Deck {
                 id: "feint",
                 attack: function () { return 0 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/feint.png",
+                src: "./dist/art/knight_cards/feint.png",
                 animation: "crouchAttack",
                 instantEffects: function () { 
                     this.opponentCard = this.opponent.allUniqueCards["turtle"]
@@ -226,7 +226,7 @@ export default class Deck {
                 id: "revengeance",
                 attack: function () { return (this.knight.deckObj.graveyard * 2) + 2 }, // deal damage equal to double the num of cards in discard
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/revengeance.png",
+                src: "./dist/art/knight_cards/revengeance.png",
                 animation: "combo",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -236,7 +236,7 @@ export default class Deck {
                 id: "mightyBlow",
                 attack: function () { return 8 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/mighty_blow.png",
+                src: "./dist/art/knight_cards/mighty_blow.png",
                 animation: "combo",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -246,7 +246,7 @@ export default class Deck {
                 id: "forHonor",
                 attack: function () { return 3 },
                 block: function () { return 5 },
-                src: "../../dist/art/knight_cards/for_honor.png",
+                src: "./dist/art/knight_cards/for_honor.png",
                 animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -258,7 +258,7 @@ export default class Deck {
                 id: "poiseBreak",
                 attack: function () { return 4 },
                 block: function () { return 0 },
-                src: "../../dist/art/knight_cards/poise_break.png",
+                src: "./dist/art/knight_cards/poise_break.png",
                 animation: "crouchAttack",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -271,7 +271,7 @@ export default class Deck {
                 id: "holdTheLine",
                 attack: function () { return 0 },
                 block: function () { return 10 },
-                src: "../../dist/art/knight_cards/hold_the_line.png",
+                src: "./dist/art/knight_cards/hold_the_line.png",
                 animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -289,7 +289,7 @@ export default class Deck {
                 id: "strike",
                 attack: function () { return 6 },
                 block: function () { return 0 },
-                src: "../../dist/art/opponent_cards/mstrike.png",
+                src: "./dist/art/opponent_cards/mstrike.png",
                 animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -299,7 +299,7 @@ export default class Deck {
                 id: "rockThrow",
                 attack: function () { return 8 },
                 block: function () { return 6 },
-                src: "../../dist/art/opponent_cards/mrock_throw.png",
+                src: "./dist/art/opponent_cards/mrock_throw.png",
                 animation: "attack",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -309,7 +309,7 @@ export default class Deck {
                 id: "spikes",
                 attack: function () { return 12 },
                 block: function () { return 0 },
-                src: "../../dist/art/opponent_cards/mspikes.png",
+                src: "./dist/art/opponent_cards/mspikes.png",
                 animation: "attack2",
                 instantEffects: function () { },
                 delayedEffects: function () { }
@@ -319,7 +319,7 @@ export default class Deck {
                 id: "blindingFlash",
                 attack: function () { return 0 },
                 block: function () { return 0 },
-                src: "../../dist/art/opponent_cards/mblinding_flash.png",
+                src: "./dist/art/opponent_cards/mblinding_flash.png",
                 animation: "flash",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -332,7 +332,7 @@ export default class Deck {
                 id: "turtle",
                 attack: function () { return 0 },
                 block: function () { return 4 },
-                src: "../../dist/art/opponent_cards/mturtle.png",
+                src: "./dist/art/opponent_cards/mturtle.png",
                 animation: "idle",
                 instantEffects: function () { 
                     this.opponent.heal(4)
@@ -344,7 +344,7 @@ export default class Deck {
                 id: "groundPound",
                 attack: function () { return 0 },
                 block: function () { return 0 },
-                src: "../../dist/art/opponent_cards/mground_pound.png",
+                src: "./dist/art/opponent_cards/mground_pound.png",
                 animation: "attack3",
                 instantEffects: function () { },
                 delayedEffects: function () { 
@@ -366,7 +366,7 @@ export default class Deck {
     thinDeck() {
         let deckSlot = document.getElementById("deck-slot")
         if (this.deck.length === 0) {
-            deckSlot.innerHTML = '<img src="../../dist/art/deck/rune.png" id="deckArt" width="160px" height="260px"/>'
+            deckSlot.innerHTML = '<img src="./dist/art/deck/rune.png" id="deckArt" width="160px" height="260px"/>'
         } else if (this.deck.length < 3) {
             deckSlot.innerHTML = '<img src="' + this.deckObj.emptyDeck.src + '" id="deckArt" width="140px" height="200px"/>'
         } else if (this.deck.length < 6) {

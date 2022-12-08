@@ -5,14 +5,14 @@ export default class Tutorial {
         this.game = game
         this.panelDrop = 0
         this.knight = new Image()
-        this.knight.src = '../../dist/art/knight1/_Idle.png'
+        this.knight.src = './dist/art/knight1/_Idle.png'
         this.leading = 38
         this.archibald = new Image()
-        this.archibald.src = '../../dist/art/knight1/archie.png'
+        this.archibald.src = './dist/art/knight1/archie.png'
         this.playerCard = new Image()
-        this.playerCard.src = '../../dist/art/knight_cards/strike.png'
+        this.playerCard.src = './dist/art/knight_cards/strike.png'
         this.opponentCard = new Image()
-        this.opponentCard.src = '../../dist/art/knight_cards/reposition.png'
+        this.opponentCard.src = './dist/art/knight_cards/reposition.png'
         this.tutorialSeq = 0
     }
 

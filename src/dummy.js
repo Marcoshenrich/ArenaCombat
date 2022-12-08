@@ -5,7 +5,7 @@ export default class Dummy extends Combatant {
         super()
 
         this.image = new Image()
-        this.image.src = '../../dist/art/knight1/_aIdle.png'
+        this.image.src = './dist/art/knight1/_aIdle.png'
         this.animationState = "knightIdle"
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
@@ -15,14 +15,14 @@ export default class Dummy extends Combatant {
         this.smash = false
 
         this.animationStates = [
-            { name: "knightIdle", frames: 9, src: '../../dist/art/knight1/_aIdle.png' },
-            { name: "knightTIdle", frames: 9, src: '../../dist/art/knight1/_aIdleTurned.png' },
-            { name: "knightDeath", frames: 10, src: '../../dist/art/knight1/_aDeath.png' },
-            { name: "knightRun", frames: 10, src: '../../dist/art/knight1/_aRun.png' },
-            { name: "knighTurn", frames: 2, src: '../../dist/art/knight1/_aTurnAround.png' },
-            { name: "demonLeap", frames: 1, src: '../../dist/art/demon/_Leap.png' },
-            { name: "demonSmash", frames: 1, src: '../../dist/art/demon/_Smash.png' },
-            { name: "demonIdle", frames: 6, src: '../../dist/art/demon/_Idle.png' },
+            { name: "knightIdle", frames: 9, src: './dist/art/knight1/_aIdle.png' },
+            { name: "knightTIdle", frames: 9, src: './dist/art/knight1/_aIdleTurned.png' },
+            { name: "knightDeath", frames: 10, src: './dist/art/knight1/_aDeath.png' },
+            { name: "knightRun", frames: 10, src: './dist/art/knight1/_aRun.png' },
+            { name: "knighTurn", frames: 2, src: './dist/art/knight1/_aTurnAround.png' },
+            { name: "demonLeap", frames: 1, src: './dist/art/demon/_Leap.png' },
+            { name: "demonSmash", frames: 1, src: './dist/art/demon/_Smash.png' },
+            { name: "demonIdle", frames: 6, src: './dist/art/demon/_Idle.png' },
         ];
 
         this.animationFramesSetter()

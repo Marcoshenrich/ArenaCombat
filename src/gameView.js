@@ -21,22 +21,22 @@ export default class GameView {
         this.infoDimensions = { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
         
         this.backgroundImage = new Image()
-        this.backgroundImage.src = '../../dist/art/arena.jpg'
+        this.backgroundImage.src = './dist/art/arena.jpg'
         
         this.matImage = new Image()
-        this.matImage.src = '../../dist/art/mat.png'
+        this.matImage.src = './dist/art/mat.png'
         
         this.lossText = new Image()
-        this.lossText.src = '../../dist/art/youded.png'
+        this.lossText.src = './dist/art/youded.png'
         
         this.winText = new Image()
-        this.winText.src = '../../dist/art/youwin.png'
+        this.winText.src = './dist/art/youwin.png'
         
         this.gameStart = false
         this.tutorialStart = false
         this.playIntroAnimation = false
         this.gameFrame = 0;
-        this.staggerFrames = 10;
+        this.staggerFrames = 14;
         
         this.hoveredCard = null
         this.showNextHover = true
@@ -132,9 +132,10 @@ export default class GameView {
                     if (this.introAnimationSeq === 5) this.introAnimationSeq = 6
                 }, 3000)
             } else if (this.introAnimationSeq === 6) {
-                    this.knight.animationQueue.push("roll")
+                    // this.knight.animationQueue.push("roll")
                     this.introAnimationSeq = 7
             } else if (this.introAnimationSeq === 7) {
+                if (this.knight.animationState = "idle") this.knight.animationQueue.push("roll")
                 this.demonDummy.leap()
                 if (this.demonDummy.smash) {
                     this.crowd.excite(0)
@@ -309,7 +310,7 @@ export default class GameView {
 
 
         if (this.showDeckLength) {
-            this.ctx.fillText(`${this.knight.deck.length} cards left`, 825, 650 - this.heightOffset)
+            this.ctx.fillText(`${this.knight.deck.length} cards left`, 800, 650 - this.heightOffset)
             this.ctx.beginPath();
             this.ctx.moveTo(850, 660 - this.heightOffset);
             this.ctx.lineTo(870, 680 - this.heightOffset);
