@@ -7,11 +7,11 @@ export default class Knight extends Combatant {
         
         this.image = new Image()
         this.image.src = 'art/knight1/_Idle.png'
-        this.spriteWidth = 120;
-        this.spriteHeight = 80;
+        this.spriteWidth = 419.5;
+        this.spriteHeight = 280;
         this.xPosition = -280
         this.yPosition = 400
-        this.sizeCoef = 3.5
+        this.sizeCoef = 1
 
         this.maxHealth = 1
         this.health = this.maxHealth
@@ -39,10 +39,13 @@ export default class Knight extends Combatant {
         this.status = {
             blinded: false,
             ttblinded: 0,
+            rrblinded: "Blinded",
             opponentPoiseBroken: false,
             ttopponentPoiseBroken: 0,
+            rropponentPoiseBroken: "Double damage",
             damageImmune: false,
-            ttdamageImmune: 0
+            ttdamageImmune: 0,
+            rrdamageImmune: "Damage immune"
         }
     }
 }

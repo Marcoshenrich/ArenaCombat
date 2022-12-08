@@ -45,11 +45,11 @@ export default class GameView {
         this.fadeOut = 0
         this.textFadeIn = 1
         
-        this.game = new Game()
+        this.game = new Game(this.crowd)
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)
-        this.demonDummy = new Dummy(100, 80, 919, -300, 5)
+        this.demonDummy = new Dummy(500, 400, 919, -300, 1)
 
         this.demonDummy.animationState = "demonLeap"
         this.demonDummy.image.src = this.dummy.animations["demonLeap"].src
@@ -160,29 +160,29 @@ export default class GameView {
     }
 
     titleCard() {
-        if (!this.gameStart && !this.tutorialStart && !this.playIntroAnimation) {
-            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            this.renderBackground()
-            this.renderCrowd()
-            this.renderStartOptions()
-            requestAnimationFrame(this.titleCard.bind(this))
-        } else if (this.tutorialStart) {
-            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            this.renderBackground()
-            this.renderCrowd()
-            this.tutorial.renderTutorial()
-            requestAnimationFrame(this.titleCard.bind(this))
-        } else if (this.playIntroAnimation) {
-            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-            this.renderBackground()
-            this.renderCrowd()
-            this.renderIntroAnimation()
-            requestAnimationFrame(this.titleCard.bind(this))
-        } else if (this.gameStart) {
+        // if (!this.gameStart && !this.tutorialStart && !this.playIntroAnimation) {
+        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        //     this.renderBackground()
+        //     this.renderCrowd()
+        //     this.renderStartOptions()
+        //     requestAnimationFrame(this.titleCard.bind(this))
+        // } else if (this.tutorialStart) {
+        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        //     this.renderBackground()
+        //     this.renderCrowd()
+        //     this.tutorial.renderTutorial()
+        //     requestAnimationFrame(this.titleCard.bind(this))
+        // } else if (this.playIntroAnimation) {
+        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        //     this.renderBackground()
+        //     this.renderCrowd()
+        //     this.renderIntroAnimation()
+        //     requestAnimationFrame(this.titleCard.bind(this))
+        // } else if (this.gameStart) {
             this.game.setupMat()
             this.game.knight.xPosition = 200
             this.animate()
-        }
+        // }
     }
 
     renderStartOptions() {
@@ -267,25 +267,49 @@ export default class GameView {
 
     renderText() {
         this.ctx.fillStyle = 'rgba(0,0,0,1)';
-        this.ctx.font = "bold 20px verdana, sans-serif "
+        this.ctx.font = "26px optima, sans-serif "
         this.ctx.fillText("Monster Health", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 14, this.infoDimensions.infoSquareYOffset + 40 - this.heightOffset)
 
         if (this.knight.status["blinded"]) {
             this.ctx.fillText("Atk: ? Blk: ? ", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 30, this.infoDimensions.infoSquareYOffset + 110 - this.heightOffset)
-            this.ctx.fillText("?", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 80, this.infoDimensions.infoSquareYOffset + 80 - this.heightOffset)
+            this.ctx.fillText("?", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 90, this.infoDimensions.infoSquareYOffset + 75 - this.heightOffset)
         } else {
             this.ctx.fillText(`Atk: ${this.opponent.attack} Blk: ${this.opponent.block} `, (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 30, this.infoDimensions.infoSquareYOffset + 110 - this.heightOffset)
-            this.ctx.fillText(this.opponent.health, (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 80, this.infoDimensions.infoSquareYOffset + 80 - this.heightOffset)
+            this.ctx.fillText(this.opponent.health, (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 90, this.infoDimensions.infoSquareYOffset + 75 - this.heightOffset)
         }
 
-        this.ctx.fillText("Move", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 65, this.infoDimensions.infoSquareYOffset + 140 - this.heightOffset)
+        this.ctx.fillText("Move", (this.CANVAS_WIDTH - this.infoDimensions.infoSquareXOffset) + 65, this.infoDimensions.infoSquareYOffset + 150 - this.heightOffset)
 
         this.ctx.fillText("Knight Health", (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 21, this.infoDimensions.infoSquareYOffset + 40 - this.heightOffset)
         this.ctx.fillText(`Atk: ${this.knight.attack} Blk: ${this.knight.block} `, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 30, this.infoDimensions.infoSquareYOffset + 110 - this.heightOffset)
-        this.ctx.fillText(this.game.knight.health, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 81, this.infoDimensions.infoSquareYOffset + 80 - this.heightOffset)
+        this.ctx.fillText(this.game.knight.health, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 81, this.infoDimensions.infoSquareYOffset + 75 - this.heightOffset)
         
+        let activeKnightStatus = []
+        for (let statusName in this.knight.status) {
+            if (statusName.slice(0, 2) === "tt" || statusName.slice(0, 2) === "rr") {
+                continue
+            }
+            if (this.knight.status[statusName]) {
+                activeKnightStatus.push(statusName)
+            }
+        }
+
+        let baseline = 160
+        if (activeKnightStatus.length) {
+            this.ctx.font = "21px optima, sans-serif "
+
+            this.ctx.fillText("Status", (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 30, this.infoDimensions.infoSquareYOffset + 160 - this.heightOffset)
+            for (let i = 0; i < activeKnightStatus.length; i++) {	
+                baseline += 30
+                let status = this.knight.status["rr" + activeKnightStatus[i]]
+                this.ctx.fillText(`${status}`, (this.infoDimensions.infoSquareXOffset - this.infoDimensions.infoSquareLen) + 30, this.infoDimensions.infoSquareYOffset + baseline - this.heightOffset)
+
+            }
+        }
+
+
         if (this.showDeckLength) {
-            this.ctx.fillText(`${this.knight.deck.length} cards left`, 800, 650 - this.heightOffset)
+            this.ctx.fillText(`${this.knight.deck.length} cards left`, 825, 650 - this.heightOffset)
             this.ctx.beginPath();
             this.ctx.moveTo(850, 660 - this.heightOffset);
             this.ctx.lineTo(870, 680 - this.heightOffset);

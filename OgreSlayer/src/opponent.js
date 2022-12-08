@@ -6,9 +6,9 @@ export default class Opponent extends Combatant {
         super()
         this.image = new Image()
         this.image.src = 'art/demon/_Idle.png'
-        this.spriteWidth = 100;
-        this.spriteHeight = 80;
-        this.sizeCoef = 5
+        this.spriteWidth = 500;
+        this.spriteHeight = 400;
+        this.sizeCoef = 1
         this.xPosition = 300
         this.yPosition = 319
         this.animationTripper = -1
@@ -18,7 +18,7 @@ export default class Opponent extends Combatant {
         this.nextMove = this.deckObj.stack
         this.allUniqueCards = this.deckObj.allUniqueCards
 
-        this.maxHealth = 1
+        this.maxHealth = 30
         this.health = this.maxHealth
         this.attack = this.nextMove[0].attack.call(this)
         this.block = this.nextMove[0].block.call(this)

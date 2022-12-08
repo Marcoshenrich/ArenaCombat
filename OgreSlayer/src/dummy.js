@@ -39,8 +39,8 @@ export default class Dummy extends Combatant {
 
     leap(){
         if (this.xPosition > 300) {
-            this.xPosition -= 10
-            this.yPosition += 10
+            this.xPosition -= 8
+            this.yPosition += 8
         } else {
             this.xPosition = 300
             this.yPosition = 319

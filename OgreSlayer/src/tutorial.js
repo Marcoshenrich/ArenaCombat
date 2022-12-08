@@ -9,7 +9,6 @@ export default class Tutorial {
         this.leading = 38
         this.archibald = new Image()
         this.archibald.src = 'art/knight1/archie.png'
-        this.leading = 38
         this.playerCard = new Image()
         this.playerCard.src = 'art/knight_cards/strike.png'
         this.opponentCard = new Image()
@@ -35,7 +34,7 @@ export default class Tutorial {
         this.ctx.fillRect(150, 75, 650, this.panelDrop)
         if (this.panelDrop < 400) this.panelDrop += 6.5
         if (this.panelDrop >= 400) {
-            this.ctx.drawImage(this.knight, 0, 0, 120, 100, 275, 170, 120 * 3.5, 100 * 3.5)
+            this.ctx.drawImage(this.knight, 0, 0, 419.5, 280, 275, 170, 419.5, 280 )
             this.ctx.fillStyle = 'rgba(0,0,0,1)';
             this.ctx.font = "26px optima, sans-serif "
             this.ctx.fillText("You are", 200, startLine, 2000, 200)
