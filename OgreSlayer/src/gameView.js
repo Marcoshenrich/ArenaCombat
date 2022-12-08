@@ -160,29 +160,29 @@ export default class GameView {
     }
 
     titleCard() {
-        // if (!this.gameStart && !this.tutorialStart && !this.playIntroAnimation) {
-        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        //     this.renderBackground()
-        //     this.renderCrowd()
-        //     this.renderStartOptions()
-        //     requestAnimationFrame(this.titleCard.bind(this))
-        // } else if (this.tutorialStart) {
-        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        //     this.renderBackground()
-        //     this.renderCrowd()
-        //     this.tutorial.renderTutorial()
-        //     requestAnimationFrame(this.titleCard.bind(this))
-        // } else if (this.playIntroAnimation) {
-        //     this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
-        //     this.renderBackground()
-        //     this.renderCrowd()
-        //     this.renderIntroAnimation()
-        //     requestAnimationFrame(this.titleCard.bind(this))
-        // } else if (this.gameStart) {
+        if (!this.gameStart && !this.tutorialStart && !this.playIntroAnimation) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.renderStartOptions()
+            requestAnimationFrame(this.titleCard.bind(this))
+        } else if (this.tutorialStart) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.tutorial.renderTutorial()
+            requestAnimationFrame(this.titleCard.bind(this))
+        } else if (this.playIntroAnimation) {
+            this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+            this.renderBackground()
+            this.renderCrowd()
+            this.renderIntroAnimation()
+            requestAnimationFrame(this.titleCard.bind(this))
+        } else if (this.gameStart) {
             this.game.setupMat()
             this.game.knight.xPosition = 200
             this.animate()
-        // }
+        }
     }
 
     renderStartOptions() {

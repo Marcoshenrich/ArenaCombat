@@ -306,7 +306,7 @@ export default class Deck {
                 attack: function () { return 0 },
                 block: function () { return 0 },
                 src: "art/opponent_cards/mblinding_flash.png",
-                animation: "attack3",
+                animation: "flash",
                 instantEffects: function () { },
                 delayedEffects: function () { 
                     this.knight.status["blinded"] = true

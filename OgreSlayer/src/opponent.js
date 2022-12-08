@@ -31,6 +31,7 @@ export default class Opponent extends Combatant {
         { name: "hit", frames: 3, src: 'art/demon/_Hit.png' },
         { name: "death", frames: 4, src: 'art/demon/_Death.png' },
         { name: "dead", frames: 1, src: 'art/demon/_Dead.png' },
+        { name: "flash", frames: 6, src: 'art/demon/_Flash.png' },
         ];
 
         this.animationFramesSetter()

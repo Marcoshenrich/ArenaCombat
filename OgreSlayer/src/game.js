@@ -56,7 +56,6 @@ export default class Game {
         this.gameEndCheck()
         this.crowd.excite(0)
         setTimeout(() => {
-            this.numCardsDraw += 1
             this.drawCards()
             this.knight.deckObj.thinDeck.call(this.knight)
             this.opponent.nextMove.shift()
