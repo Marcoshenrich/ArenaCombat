@@ -18,7 +18,6 @@ export default class Deck {
 
 
     deckMaker(decksize) {
-        console.log(this.combatant.constructor.name);
         let infiniteDeck;
         let cardStats;
 

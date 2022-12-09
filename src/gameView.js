@@ -83,7 +83,6 @@ export default class GameView {
             this.knight.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
             this.dummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
             if (this.introAnimationSeq >= 6) this.demonDummy.draw(this.ctx, this.gameFrame, this.staggerFrames, this.heightOffset)
-            console.log(this.introAnimationSeq);
             if (this.introAnimationSeq === 1) {
                 if (this.crowd.excitement >= 75) this.crowd.excite(5)
                 if (this.knight.xPosition < 200) {
