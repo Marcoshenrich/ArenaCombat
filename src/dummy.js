@@ -5,7 +5,7 @@ export default class Dummy extends Combatant {
         super()
 
         this.image = new Image()
-        this.image.src = './dist/art/knight1/_aIdle.png'
+        this.image.src = './dist/art/knight1/aIdle.png'
         this.animationState = "knightIdle"
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
