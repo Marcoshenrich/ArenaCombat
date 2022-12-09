@@ -4,7 +4,7 @@ import Deck from './deck.js'
 export default class Knight extends Combatant {
     constructor(){
         super()
-        
+        this.name = "Knight"
         this.image = new Image()
         this.image.src = './dist/art/knight1/Idle.png'
         this.spriteWidth = 419.5;

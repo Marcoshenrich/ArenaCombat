@@ -4,6 +4,7 @@ import Deck from './deck.js'
 export default class Opponent extends Combatant {
     constructor() { 
         super()
+        this.name = "Opponent"
         this.image = new Image()
         this.image.src = './dist/art/demon/Idle.png'
         this.spriteWidth = 500;
