@@ -18,9 +18,13 @@ export default class Deck {
 
 
     deckMaker(decksize) {
+        console.log(this.combatant.constructor.name);
         let infiniteDeck;
         let cardStats;
-        if (this.combatant.constructor.name === "Knight") {
+
+        //this is e because the npm build randomizes constructor names.
+        
+        if (this.combatant.constructor.name === "e" || this.combatant.constructor.name === "Knight") {
             cardStats = this.playerCards(this.combatant)
             infiniteDeck = false
         } else {
