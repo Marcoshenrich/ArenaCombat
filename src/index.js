@@ -5,6 +5,8 @@ const mat = document.getElementById('mat')
 let clientHeight = document.documentElement.clientHeight
 const gameview = new GameView(canvas, clientHeight)
 
+// document.body.style.zoom = "80%";
+
 mat.addEventListener("click", (e) => {
     if (!gameview.game.gameOver && !gameview.pauseInputs)  {
         gameview.showNextHover = false

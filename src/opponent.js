@@ -18,7 +18,6 @@ export default class Opponent extends Combatant {
         this.deckObj = new Deck(this, 100)
         this.nextMove = this.deckObj.stack
         this.allUniqueCards = this.deckObj.allUniqueCards
-        this.nextMove[1] = this.allUniqueCards["blindingFlash"]
 
         this.maxHealth = 30
         this.health = this.maxHealth

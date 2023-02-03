@@ -202,7 +202,7 @@ export default class Crowd {
     calmDown() {
         setInterval(()=>{
             if (this.excitement < 75) this.excitement += 1
-        }, 2000)
+        }, 1000)
     }
 
     excite(num) {

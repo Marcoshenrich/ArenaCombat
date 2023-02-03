@@ -20,8 +20,6 @@ export default class Deck {
     deckMaker(decksize) {
         let infiniteDeck;
         let cardStats;
-
-        //this is e because the npm build randomizes constructor names.
         
         if (this.combatant.name === "Knight") {
             cardStats = this.playerCards(this.combatant)
