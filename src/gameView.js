@@ -17,6 +17,8 @@ export default class GameView {
         
         this.CANVAS_WIDTH = this.canvas.width = 950
         this.setHeight(clientHeight)
+        this.screenSize;
+        this.setScreenSize(clientHeight)
         
         this.infoDimensions = { infoSquareYOffset: 200, infoSquareXOffset: 274, infoSquareLen: 200, infoSquareHeight: 400 } 
         
@@ -389,6 +391,21 @@ export default class GameView {
             this.ctx.fillRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         }
 
+    }
+
+
+    setScreenSize(clientHeight) {
+        
+        if (clientHeight < 650) {
+            document.body.style.zoom = "75%";
+            this.screenSize = "small"
+        } else if (clientHeight < 775 ) {
+            document.body.style.zoom = "85%";
+            this.screenSize = "medium"
+        } else {
+            document.body.style.zoom = "100%";
+            this.screenSize = "large"
+        }
     }
 
     setHeight(clientHeight) {
