@@ -131,7 +131,6 @@ export default class GameView {
                     if (this.introAnimationSeq === 5) this.introAnimationSeq = 6
                 }, 3000)
             } else if (this.introAnimationSeq === 6) {
-                    // this.knight.animationQueue.push("roll")
                     this.introAnimationSeq = 7
             } else if (this.introAnimationSeq === 7) {
                 if (this.knight.animationState = "idle") this.knight.animationQueue.push("roll")
