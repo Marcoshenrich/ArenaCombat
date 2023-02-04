@@ -26,28 +26,33 @@ export default class Combatant {
     }
 
     draw(ctx, gameFrame, staggerFrames, heightOffset) {
+
         let rawPosition = (gameFrame / staggerFrames) % this.animations[this.animationState].loc.length
         let position = Math.floor(rawPosition)
+        
+        let frameX = this.spriteWidth * position;
+        let frameY = this.animations[this.animationState].loc[position].y
+        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
         if (this.animationState !== "dead") {
             if (this.animationState !== "idle") {
                 this.aniCheckQueue.push(position)
                 let unique = this.aniCheckQueue.filter((value, index, self) => { return self.indexOf(value) === index })
+                // console.log(unique)
                 if (unique.length > 1 && this.aniCheckQueue.at(-1) === 0 && this.animationState !== "idle") {
                     this.animationQueueSetter()
                     this.aniCheckQueue = []
+                    position = 0
                 }
             
             }
+            // console.log(this.animationQueue)
             if (this.animationQueue.length > 0 && this.animationState === "idle") {
                 this.animationQueueSetter()
                 position = 0
             }
         }   
 
-        let frameX = this.spriteWidth * position;
-        let frameY = this.animations[this.animationState].loc[position].y
-        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
     }
 
     heal(healVal) {
