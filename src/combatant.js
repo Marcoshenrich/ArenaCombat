@@ -31,7 +31,8 @@ export default class Combatant {
         let position = Math.floor(rawPosition)
         
         let frameX = this.spriteWidth * position;
-        let frameY = this.animations[this.animationState].loc[position].y
+        let frameY = 0
+        // let frameY = this.animations[this.animationState].loc[position].y <-- to navigate a fully laid out sprite sheet
         ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
         if (this.animationState !== "dead") {
