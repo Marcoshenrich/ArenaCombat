@@ -38,11 +38,11 @@ export default class Combatant {
             if (this.animationState !== "idle") {
                 this.aniCheckQueue.push(position)
                 let unique = this.aniCheckQueue.filter((value, index, self) => { return self.indexOf(value) === index })
-                // console.log(unique)
                 if (unique.length > 1 && this.aniCheckQueue.at(-1) === 0 && this.animationState !== "idle") {
                     this.animationQueueSetter()
                     this.aniCheckQueue = []
                     position = 0
+                    gameFrame = 0
                 }
             
             }
@@ -50,6 +50,7 @@ export default class Combatant {
             if (this.animationQueue.length > 0 && this.animationState === "idle") {
                 this.animationQueueSetter()
                 position = 0
+                gameFrame = 0
             }
         }   
 
