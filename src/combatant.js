@@ -29,11 +29,10 @@ export default class Combatant {
 
         let rawPosition = (gameFrame / staggerFrames) % this.animations[this.animationState].loc.length
         let position = Math.floor(rawPosition)
-        
+        if (this.constructor.name === "Knight") console.log(this.spriteWidth * position)
         let frameX = this.spriteWidth * position;
         let frameY = 0
-        // let frameY = this.animations[this.animationState].loc[position].y <-- to navigate a fully laid out sprite sheet
-        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
+        ctx.drawImage(this.image, 0, 0, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
         if (this.animationState !== "dead") {
             if (this.animationState !== "idle") {
@@ -70,6 +69,7 @@ export default class Combatant {
             this.animation("idle")
         } else {
             let aniStateName = this.animationQueue.shift()
+            if (this.constructor.name === "Knight") console.log(aniStateName)
             this.animation(aniStateName)
         } 
     }
