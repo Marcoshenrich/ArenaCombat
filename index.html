@@ -10,8 +10,8 @@
 
 <!-- <audio id="soundtrack" autoplay><source src="./dist/sounds/soundtrack.mp3"></audio> -->
 <body id="bgdiv">
-    <div></div>
-    <div id="game-container">
+    <div id="balancer" class="side-panel hidden" style="width: 0px"></div>
+    <div id="game-container" >
         <canvas id="canvas1"></canvas>
         <div id="mat">
             <div class="card-slot empty" id="card-slot1"></div>
@@ -22,9 +22,20 @@
             <div id="deck-slot"></div>
         </div>
     </div>
-    <div id="about-modal">
-        <div id="about-button">
-        
+    <div id="about-modal" class="side-panel hidden" style="width: 0px">
+
+       <div id="about-modal-content" style="display:none">
+            <div>
+                test
+            </div>
+            <div>
+                test
+            </div>
+       </div>
+
+
+        <div id="about-button" onClick="showModal()">
+            About
         </div>
     </div>
 
@@ -34,3 +45,30 @@
 
 
 </html>
+
+<script>
+    const showModal = () => {
+        let sidePanels = document.querySelectorAll(".side-panel")
+    
+        if (sidePanels[0].classList[1] === "hidden") {
+            for (let i = 0; i < sidePanels.length; i++) {	
+                sidePanels[i].style.width = "400px"
+                sidePanels[i].classList.remove("hidden")
+                sidePanels[i].classList.add("showing")
+
+            }
+            setTimeout(()=>{
+                document.getElementById('about-modal-content').style.display = ""},400)
+
+        } else {
+            for (let i = 0; i < sidePanels.length; i++) {	
+                sidePanels[i].style.width = "0px"
+                sidePanels[i].classList.remove("showing")
+                sidePanels[i].classList.add("hidden")
+            }
+            
+            document.getElementById('about-modal-content').style.display = "none"
+        }
+    }
+
+</script>

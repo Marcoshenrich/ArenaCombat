@@ -22,6 +22,8 @@ mat.addEventListener("click", (e) => {
     }
 });
 
+
+
 mat.addEventListener("mouseover", (e) => {
     let slot = e.target.parentNode
     if (slot.className === "card-slot full") {

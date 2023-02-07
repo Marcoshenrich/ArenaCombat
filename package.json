@@ -15,7 +15,8 @@
     "webpack-cli": "^5.0.0"
   },
   "dependencies": {
-    "node-polyfill-webpack-plugin": "^2.0.1"
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "simple-icons": "^8.4.0"
   },
   "browserslist": [
     "defaults"
