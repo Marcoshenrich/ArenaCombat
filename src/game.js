@@ -26,7 +26,9 @@ export default class Game {
             let card = deck[i - 1]
             let slotId = "card-slot" + i
             let slot = document.getElementById(slotId)
-            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" class="card" + " width="280px" height="280px"/>';
+            slot.classList.remove("empty")
+            slot.classList.add("full")
+            slot.innerHTML += `<img src="${card.src}" id="${card.id}" class="card" width="280px" height="280px"/>`;
         }
 
         this.knight.deck = deck.slice(5, deck.length)
@@ -39,6 +41,8 @@ export default class Game {
         for (let i = 1; i <= 5; i++) {
             let slotId = "card-slot" + i
             let slot = document.getElementById(slotId)
+            slot.classList.remove("full")
+            slot.classList.add("empty")
             slot.innerHTML = '';
         }
     }
@@ -136,15 +140,19 @@ export default class Game {
 
     clearCardFromSlot(slotId){
         let slot = document.getElementById(slotId)
+        slot.classList.remove("full")
+        slot.classList.add("empty")
         slot.innerHTML = ""
         this.knight.deckObj.graveyard++
     }
 
     addCardtoSlot(slotId) {
         let slot = document.getElementById(slotId)
+        slot.classList.remove("empty")
+        slot.classList.add("full")
         if (this.knight.deck.length > 0) {
             let card = this.knight.deck.shift()
-            slot.innerHTML += '<img src="' + card.src + '" id="' + card.id + '" class="card" width="280px" height="280px"/>';
+            slot.innerHTML += `<img src="${card.src}" id="${card.id}" class="card" width="280px" height="280px"/>`;
         }
     }
 

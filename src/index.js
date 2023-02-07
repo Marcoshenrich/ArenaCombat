@@ -10,7 +10,7 @@ mat.addEventListener("click", (e) => {
         gameview.showNextHover = false
         gameview.pauseInputs = true
         let slot = e.target.parentNode
-        if (slot.className === "card-slot") {
+        if (slot.className === "card-slot full") {
             let playerCardId = e.target.id
             gameview.resetAnimationFrames()
             gameview.game.coreGameLoop(playerCardId, slot.id)
@@ -24,7 +24,7 @@ mat.addEventListener("click", (e) => {
 
 mat.addEventListener("mouseover", (e) => {
     let slot = e.target.parentNode
-    if (slot.className === "card-slot") {
+    if (slot.className === "card-slot full") {
         let playerCardId = e.target.id
         let card = gameview.knight.allUniqueCards[playerCardId]
 
