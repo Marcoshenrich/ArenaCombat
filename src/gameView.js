@@ -99,9 +99,12 @@ export default class GameView {
                     this.knight.animationState = "idle"
                     this.knight.image.src = this.knight.animations["idle"].src
                     setTimeout(()=>{
+                        if (this.introAnimationSeq === 1) {
+                            new Audio("./dist/sounds/soundEffects/earthquake2.mp3").play()
+                            this.introAnimationSeq = 2
+                        }
                         this.dummy.animationState = "knightTIdle"
                         this.dummy.image.src = this.dummy.animations["knightTIdle"].src
-                        this.introAnimationSeq = 2
                     },1000)
                 }        
             } else if (this.introAnimationSeq === 2) {
@@ -111,33 +114,42 @@ export default class GameView {
                 this.ctx.font = "26px optima, sans-serif "
                 this.ctx.fillText("You ready to die today, kid?", 410, 450, 2000, 200)
                 setTimeout(() => {
-                    this.introAnimationSeq = 3
+                    if (this.introAnimationSeq === 2) {
+                        this.introAnimationSeq = 3
+                    }
                 }, 3000)
             } else if (this.introAnimationSeq === 3) {
                 this.shakeBackground()
                 setTimeout(() => {
-                    this.calmBackground()
-                    this.introAnimationSeq = 4
+                    if (this.introAnimationSeq === 3) {
+                        this.introAnimationSeq = 4
+                        new Audio("./dist/sounds/soundEffects/monsters/demonYouBelongToMe.wav").play()
+                    }
                 }, 3000)
             } else if (this.introAnimationSeq === 4) {
+                this.shakeBackground()
                     this.ctx.fillStyle = 'rgba(225,225,225,0.9)';
                     this.ctx.fillRect(430, 418, 281, 45)
                     this.ctx.fillStyle = 'rgba(0,0,0,1)';
                     this.ctx.font = "26px optima, sans-serif "
-                    this.ctx.fillText("What the hell was that?", 440, 450, 2000, 260)
+                    this.ctx.fillText("What the hell is that?", 440, 450, 2000, 260)
                     setTimeout(() => {
-                        this.introAnimationSeq = 5
-                    }, 3000)
+                        if (this.introAnimationSeq === 4)  {
+                            this.introAnimationSeq = 5
+                        }
+                    }, 1500)
             } else if (this.introAnimationSeq === 5) {
                 this.shakeBackground()
                 setTimeout(() => {
-                    this.calmBackground()
                     if (this.introAnimationSeq === 5) this.introAnimationSeq = 6
-                }, 3000)
+                }, 1000)
             } else if (this.introAnimationSeq === 6) {
+                this.shakeBackground()
+                if (this.introAnimationSeq === 6) {
+                    this.knight.animationQueue.push("roll")
                     this.introAnimationSeq = 7
+                }
             } else if (this.introAnimationSeq === 7) {
-                if (this.knight.animationState = "idle") this.knight.animationQueue.push("roll")
                 this.demonDummy.leap()
                 if (this.demonDummy.smash) {
                     this.crowd.excite(0)
@@ -148,12 +160,10 @@ export default class GameView {
                     this.shakeBackground()
                     setTimeout(() => {
                         this.introAnimationSeq = 8
+                        this.calmBackground()
                     }, 300)
                 }
             } else if (this.introAnimationSeq === 8) {
-                setTimeout(()=>{
-                    this.calmBackground()
-                },300)
                 this.gameStart = true
                 this.playIntroAnimation = false
                 this.introAnimationSeq = 9
@@ -367,7 +377,22 @@ export default class GameView {
         } else {
             card = this.opponent.nextMove[0]
         }
-        this.ctx.drawImage(card.art, (this.CANVAS_WIDTH / 2) - 195, (this.CANVAS_HEIGHT / 2) - 450 + this.heightOffset/2, 390, 600)
+
+        let xCardSize;
+        let yCardSize;
+        let xOffset;
+
+        if (this.screenSize === "small" || this.screenSize === "medium") {
+            xCardSize = 306
+            yCardSize = 470
+            xOffset = 150
+        } else {
+            xCardSize = 390
+            yCardSize = 600
+            xOffset = 195
+          
+        }
+        this.ctx.drawImage(card.art, (this.CANVAS_WIDTH / 2) - xOffset, (this.CANVAS_HEIGHT / 2) - 400 + this.heightOffset / 2, xCardSize, yCardSize)
     }
 
     renderGameEndScreen() {
