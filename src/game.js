@@ -2,7 +2,7 @@ import Knight from './knight.js'
 import Opponent from './opponent.js'
 
 export default class Game {
-    constructor(crowd) { 
+    constructor(crowd, playSound) { 
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.crowd = crowd
@@ -15,6 +15,7 @@ export default class Game {
 
         this.playedCard = null
         this.opponentCard = null
+        this.playSound = playSound
     }
         
     setupMat() {
@@ -160,7 +161,7 @@ export default class Game {
         let emptySlots = this.cardSlotCollector("empty")
         for (let i = emptySlots.length - 1; i >= 0 && this.numCardsDraw > 0; this.numCardsDraw--) {	
             let slotId = emptySlots[Math.abs(i - (emptySlots.length - 1))]
-            new Audio("./dist/sounds/soundEffects/flip-card.mp3").play()
+            this.playSound("./dist/sounds/soundEffects/flip-card.mp3")
             await this.delay(500)
             this.addCardtoSlot(slotId) 
             i--

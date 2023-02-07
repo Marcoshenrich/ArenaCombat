@@ -153,29 +153,48 @@ a:hover {
 }
 
 
-#about-button {
+.float-button {
     margin-left: 10px;
-    opacity: 80%;
     width: 60px;
     height: 60px;
-    background-color: crimson;
     position: absolute;
     border-radius: 50%;
-    left: 90%;
-    top: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
     box-shadow: 1px 1px 2px 1px rgb(0, 0, 0, .7);
     font-size: 16px;
-        transition: .5s width, .5s height;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: .5s width, .5s height;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.float-button:hover {
+    cursor: pointer;
+    opacity: 100%;
+    width: 65px;
+    height: 65px;
+    transition: .5s width, .5s height;
+}
+
+#sound-button {
+    background-color: lightgrey;
+    left :100% ;
+    bottom: 90%;
+    font-size: 30px;
+}
+
+
+#about-button {
+    background-color: crimson;
+    left: 90%;
+    top: 45%;
+    opacity: 80%;
 }
 
 #about-button:hover {
     cursor: pointer;
-        opacity: 100%;
+    opacity: 100%;
     width: 65px;
     height: 65px;
     transition: .5s width, .5s height;

@@ -5,6 +5,8 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="./src/styles/css_reset.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/arena.css">
+    <script src="https://kit.fontawesome.com/df26f2baff.js" crossorigin="anonymous"></script>
+
     <script type="module" src="./dist/main.js" charset="utf-8" defer></script>
 </head>
 
@@ -25,7 +27,6 @@
         </div>
     </div>
     <div id="about-modal" class="side-panel hidden" style="width: 0px">
-
        <div id="about-modal-content" style="display:none">
             <div id="about-header">Created by Marcos Henrich</div>
             <div id="about-links">
@@ -53,12 +54,14 @@
        </div>
 
 
-        <div id="about-button" onClick="showModal()">
+        <div id="about-button" class="float-button" onClick="showModal()">
             About
         </div>
     </div>
 
-
+        <div id="sound-button" class="float-button  sound-on">
+            <i class="fa-solid fa-volume-high"></i>
+        </div>
 
 </body>
 

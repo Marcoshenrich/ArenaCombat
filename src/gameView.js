@@ -46,8 +46,11 @@ export default class GameView {
         
         this.fadeOut = 0
         this.textFadeIn = 1
+
+        this.volume = .5
+        this.soundsArray = []
         
-        this.game = new Game(this.crowd)
+        this.game = new Game(this.crowd, this.playSound.bind(this))
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)
@@ -65,6 +68,27 @@ export default class GameView {
         this.shakeY = 0
 
         this.replay = false
+    }
+
+    playSound(audioPath) {
+        let soundClip = new Audio(audioPath)
+        soundClip.volume = this.volume
+        soundClip.play()
+        this.soundsArray.push(soundClip)
+    }
+
+    muteAllSounds() {
+        this.volume = 0
+        this.soundsArray.forEach((sound)=>{
+            sound.volume = 0
+        })
+    }
+
+    playAllSounds() {
+        this.volume = .5
+        this.soundsArray.forEach((sound) => {
+            sound.volume = .5
+        })
     }
 
     shakeBackground(){
@@ -100,7 +124,7 @@ export default class GameView {
                     this.knight.image.src = this.knight.animations["idle"].src
                     setTimeout(()=>{
                         if (this.introAnimationSeq === 1) {
-                            new Audio("./dist/sounds/soundEffects/earthquake2.mp3").play()
+                            this.playSound("./dist/sounds/soundEffects/earthquake2.mp3")
                             this.introAnimationSeq = 2
                         }
                         this.dummy.animationState = "knightTIdle"
@@ -123,7 +147,7 @@ export default class GameView {
                 setTimeout(() => {
                     if (this.introAnimationSeq === 3) {
                         this.introAnimationSeq = 4
-                        new Audio("./dist/sounds/soundEffects/monsters/demonYouBelongToMe.wav").play()
+                        this.playSound("./dist/sounds/soundEffects/monsters/demonYouBelongToMe.wav")
                     }
                 }, 3000)
             } else if (this.introAnimationSeq === 4) {

@@ -5,6 +5,26 @@ const mat = document.getElementById('mat')
 let clientHeight = document.documentElement.clientHeight
 let gameview = new GameView(canvas, clientHeight)
 
+const soundButton = document.getElementById('sound-button')
+
+soundButton.addEventListener("click", (e) => {
+    e.stopPropagation()
+  
+    if (soundButton.classList[1] === "sound-on") {
+        soundButton.classList.remove("sound-on")
+        soundButton.classList.add("sound-off")
+        soundButton.innerHTML = `<i class="fa-solid fa-volume-xmark">`
+        gameview.muteAllSounds()
+    } else {
+        soundButton.classList.remove("sound-off")
+        soundButton.classList.add("sound-on")
+        soundButton.innerHTML = `<i class="fa-solid fa-volume-high">`
+        gameview.playAllSounds()
+    }
+
+})
+
+
 mat.addEventListener("click", (e) => {
     if (!gameview.game.gameOver && !gameview.pauseInputs)  {
         gameview.showNextHover = false
@@ -74,7 +94,6 @@ canvas.addEventListener("mousemove", (e) => {
     }      
 });
 
-
 const showOpponentCard = () => {
     gameview.showNextHover = true
     if (gameview.knight.status["blinded"]) {
@@ -84,7 +103,6 @@ const showOpponentCard = () => {
     }
 }
 
-//numCards in Deck
 mat.addEventListener("mouseover", (e) => {
     let slot = e.target.parentNode
     if (slot.id === "deck-slot") {
