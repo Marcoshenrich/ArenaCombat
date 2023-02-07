@@ -127,18 +127,24 @@ canvas.addEventListener("click", (e) => {
         if (gameview.screenSize === "small") {
             if (e.clientX > (285 + halfClientMargin) && e.clientX < (418 + halfClientMargin) && e.clientY > 236 && e.clientY < 274) {
                 gameview.gameStart = true
+                new Audio("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav").play()
+
             } else if (e.clientX > (285 + halfClientMargin) && e.clientX < (476 + halfClientMargin) && e.clientY > 313 && e.clientY < 344) {
                 gameview.tutorialStart = true
             }
         } else if (gameview.screenSize === "medium") {
             if (e.clientX > (250 + halfClientMargin) && e.clientX < (403 + halfClientMargin) && e.clientY > 274 && e.clientY < 310) {
                 gameview.gameStart = true
+                new Audio("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav").play()
+
             } else if (e.clientX > (250 + halfClientMargin) && e.clientX < (476 + halfClientMargin) && e.clientY > 360 && e.clientY < 390) {
                 gameview.tutorialStart = true
             }
         } else {
             if (e.clientX > (220 + halfClientMargin) && e.clientX < (400 + halfClientMargin) && e.clientY > 320 && e.clientY < 350) {
                 gameview.gameStart = true
+                new Audio("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav").play()
+
             } else if (e.clientX > (220 + halfClientMargin) && e.clientX < (425 + halfClientMargin) && e.clientY > 400 && e.clientY < 450) {
                 gameview.tutorialStart = true
             }
@@ -153,8 +159,6 @@ canvas.addEventListener("click", (e) => {
 
             }
         }
-
-        // new Audio("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav").play()
 
 
     } 

@@ -156,10 +156,12 @@ export default class Game {
         }
     }
 
-    drawCards() {
+    async drawCards() {
         let emptySlots = this.cardSlotCollector("empty")
         for (let i = emptySlots.length - 1; i >= 0 && this.numCardsDraw > 0; this.numCardsDraw--) {	
             let slotId = emptySlots[Math.abs(i - (emptySlots.length - 1))]
+            new Audio("./dist/sounds/soundEffects/flip-card.mp3").play()
+            await this.delay(500)
             this.addCardtoSlot(slotId) 
             i--
         }
@@ -180,5 +182,10 @@ export default class Game {
         }
         return slots
     }
+
+    delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
 }
 
