@@ -2,11 +2,10 @@ import Knight from './knight.js'
 import Opponent from './opponent.js'
 
 export default class Game {
-    constructor(crowd, gameFrame) { 
+    constructor(crowd) { 
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.crowd = crowd
-        this.gameFrame = gameFrame
         
         this.numCardsDraw = 0
         this.gameOver = false
@@ -33,6 +32,17 @@ export default class Game {
         this.knight.deck = deck.slice(5, deck.length)
     }
 
+    clearMat() {
+        let deckSlot = document.getElementById("deck-slot")
+        deckSlot.innerHTML = ''
+
+        for (let i = 1; i <= 5; i++) {
+            let slotId = "card-slot" + i
+            let slot = document.getElementById(slotId)
+            slot.innerHTML = '';
+        }
+    }
+
     coreGameLoop(playerCardId, slotId) {
         this.clearCardFromSlot(slotId)
         this.playedCard = this.knight.allUniqueCards[playerCardId]
@@ -44,8 +54,6 @@ export default class Game {
         this.resolveStatusEffects.call(this.opponent, this.opponent)
         this.delayedCardEffects()
 
-        console.log(this.gameFrame)
-        this.gameFrame = 0
         this.knight.animationQueue.push(this.playedCard.animation)
         this.opponent.animationQueue.push(this.opponentCard.animation)
 

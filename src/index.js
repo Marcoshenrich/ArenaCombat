@@ -3,7 +3,7 @@ import GameView from './gameView.js'
 const canvas = document.getElementById('canvas1')
 const mat = document.getElementById('mat')
 let clientHeight = document.documentElement.clientHeight
-const gameview = new GameView(canvas, clientHeight)
+let gameview = new GameView(canvas, clientHeight)
 
 mat.addEventListener("click", (e) => {
     if (!gameview.game.gameOver && !gameview.pauseInputs)  {
@@ -110,8 +110,16 @@ addEventListener("resize", (e) => {
 });
 
 
-canvas.addEventListener("click", (e) => {
 
+canvas.addEventListener("click", (e) => {
+    e.stopPropagation()
+
+    if (gameview.replay) {
+        gameview.game.clearMat()
+        gameview = new GameView(canvas, clientHeight)
+        return
+    }
+        
     if (!gameview.gameStart || !gameview.playIntroAnimation) {
         let halfClientMargin = (document.documentElement.clientWidth - gameview.CANVAS_WIDTH) / 2
 

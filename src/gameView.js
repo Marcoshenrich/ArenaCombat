@@ -47,7 +47,7 @@ export default class GameView {
         this.fadeOut = 0
         this.textFadeIn = 1
         
-        this.game = new Game(this.crowd, this.gameFrame)
+        this.game = new Game(this.crowd)
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)
@@ -63,6 +63,8 @@ export default class GameView {
         this.shaking = false
         this.shakeX = 0
         this.shakeY = 0
+
+        this.replay = false
     }
 
     shakeBackground(){
@@ -213,6 +215,7 @@ export default class GameView {
         this.ctx.lineTo(245, 425);
         this.ctx.lineTo(220, 410);
         this.ctx.fill();
+
     }
 
     renderCrowd() {
@@ -376,7 +379,7 @@ export default class GameView {
 
         if (this.game.gameLoss) {
             text = this.lossText
-            sizeX = 600; sizeY = 300; posX = 200; posY = 150 
+            sizeX = 600; sizeY = 300; posX = 170; posY = 150 
         } else {
             text = this.winText
             sizeX = 840; sizeY = 220; posX = 80; posY = 150
@@ -389,6 +392,21 @@ export default class GameView {
             this.ctx.fillStyle = `rgba(0,0,0,${this.textFadeIn})`;
             this.ctx.drawImage(text, posX, posY - this.heightOffset, sizeX, sizeY)
             this.ctx.fillRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+        }
+
+        if (this.fadeOut > 1 && this.textFadeIn < 0 && !this.replay) {
+            this.replay = true
+        }
+
+        if (this.fadeOut > 1 && this.textFadeIn < 0) {
+            this.ctx.fillStyle = `rgba(197,65,20,1)`
+            this.ctx.beginPath();
+            this.ctx.moveTo(350, 410 - this.heightOffset);
+            this.ctx.lineTo(350, 450 - this.heightOffset);
+            this.ctx.lineTo(370, 430 - this.heightOffset);
+            this.ctx.fill();
+            this.ctx.font = "26px optima, sans-serif "
+            this.ctx.fillText("Play Again?", (this.CANVAS_WIDTH - 560), 440 - this.heightOffset)
         }
 
     }
