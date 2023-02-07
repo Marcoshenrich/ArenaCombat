@@ -47,7 +47,7 @@ export default class GameView {
         this.fadeOut = 0
         this.textFadeIn = 1
         
-        this.game = new Game(this.crowd)
+        this.game = new Game(this.crowd, this.gameFrame)
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)

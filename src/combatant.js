@@ -26,13 +26,14 @@ export default class Combatant {
     }
 
     draw(ctx, gameFrame, staggerFrames, heightOffset) {
-
+        // if (this.constructor.name === "Knight") console.log(this.animations[this.animationState].loc)
         let rawPosition = (gameFrame / staggerFrames) % this.animations[this.animationState].loc.length
         let position = Math.floor(rawPosition)
-        if (this.constructor.name === "Knight") console.log(this.spriteWidth * position)
+        // if (this.constructor.name === "Knight") console.log("g / s", gameFrame / staggerFrames)
+        // if (this.constructor.name === "Knight") console.log("w * p", this.spriteWidth * position)
         let frameX = this.spriteWidth * position;
         let frameY = 0
-        ctx.drawImage(this.image, 0, 0, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
+        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
         if (this.animationState !== "dead") {
             if (this.animationState !== "idle") {
@@ -41,16 +42,12 @@ export default class Combatant {
                 if (unique.length > 1 && this.aniCheckQueue.at(-1) === 0 && this.animationState !== "idle") {
                     this.animationQueueSetter()
                     this.aniCheckQueue = []
-                    position = 0
-                    gameFrame = 0
                 }
             
             }
             // console.log(this.animationQueue)
             if (this.animationQueue.length > 0 && this.animationState === "idle") {
                 this.animationQueueSetter()
-                position = 0
-                gameFrame = 0
             }
         }   
 
@@ -69,7 +66,7 @@ export default class Combatant {
             this.animation("idle")
         } else {
             let aniStateName = this.animationQueue.shift()
-            if (this.constructor.name === "Knight") console.log(aniStateName)
+            // if (this.constructor.name === "Knight") console.log(aniStateName)
             this.animation(aniStateName)
         } 
     }

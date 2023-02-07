@@ -2,10 +2,11 @@ import Knight from './knight.js'
 import Opponent from './opponent.js'
 
 export default class Game {
-    constructor(crowd) { 
+    constructor(crowd, gameFrame) { 
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.crowd = crowd
+        this.gameFrame = gameFrame
         
         this.numCardsDraw = 0
         this.gameOver = false
@@ -43,6 +44,8 @@ export default class Game {
         this.resolveStatusEffects.call(this.opponent, this.opponent)
         this.delayedCardEffects()
 
+        console.log(this.gameFrame)
+        this.gameFrame = 0
         this.knight.animationQueue.push(this.playedCard.animation)
         this.opponent.animationQueue.push(this.opponentCard.animation)
 
