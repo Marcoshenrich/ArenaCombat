@@ -49,6 +49,7 @@ export default class GameView {
 
         this.volume = .5
         this.soundsArray = []
+        this.kickOffScore = false
         
         this.game = new Game(this.crowd, this.playSound.bind(this))
         this.knight = this.game.knight
@@ -70,24 +71,40 @@ export default class GameView {
         this.replay = false
     }
 
-    playSound(audioPath) {
+    playScore() {
+        // this.playSound("./dist/sounds/soundtrack/soundTrack.mp3", .2)
+        // this.kickOffScore = true
+        // setTimeout(()=>{
+        //     this.loopScore()
+        // },190000)
+    }
+
+    loopScore() {
+        this.playSound("./dist/sounds/soundtrack/loopTrack.mp3", .2)
+        setTimeout(() => {
+            this.loopScore()
+        }, 150000)
+    }
+
+    playSound(audioPath,volume) {
+        console.log("in playsound")
         let soundClip = new Audio(audioPath)
-        soundClip.volume = this.volume
+        soundClip.volume = volume || this.volume
         soundClip.play()
-        this.soundsArray.push(soundClip)
+        this.soundsArray.push({soundClip, volume})
     }
 
     muteAllSounds() {
         this.volume = 0
-        this.soundsArray.forEach((sound)=>{
-            sound.volume = 0
+        this.soundsArray.forEach((soundObj)=>{
+            soundObj.soundClip.volume = 0
         })
     }
 
     playAllSounds() {
         this.volume = .5
-        this.soundsArray.forEach((sound) => {
-            sound.volume = .5
+        this.soundsArray.forEach((soundObj) => {
+            soundObj.soundClip.volume = soundObj["volume"] || .5
         })
     }
 
@@ -431,7 +448,7 @@ export default class GameView {
             sizeX = 600; sizeY = 300; posX = 170; posY = 150 
         } else {
             text = this.winText
-            sizeX = 840; sizeY = 220; posX = 80; posY = 150
+            sizeX = 840; sizeY = 220; posX = 60; posY = 150
         }
         this.fadeOut += .01
         this.ctx.fillStyle = `rgba(0,0,0,${this.fadeOut})`;

@@ -5,14 +5,17 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="./src/styles/css_reset.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/arena.css">
-    <script src="https://kit.fontawesome.com/df26f2baff.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7677d3838f.js" crossorigin="anonymous"></script>
 
     <script type="module" src="./dist/main.js" charset="utf-8" defer></script>
 </head>
 
+    <div id="sound-button" class="float-button  sound-on">
+        <i class="fa-solid fa-volume-high"></i>
+    </div>
+
 <body id="bgdiv">
-    <!-- <iframe src="./dist/sounds/silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
-    <audio autoplay><source src="./dist/sounds/bsgsoundtrack.mp3" type="audio/mpeg"></audio> -->
+
 
     <div id="balancer" class="side-panel hidden" style="width: 0px"></div>
     <div id="game-container" >
@@ -25,6 +28,7 @@
             <div class="card-slot empty" id="card-slot5"></div>
             <div id="deck-slot"></div>
         </div>
+
     </div>
     <div id="about-modal" class="side-panel hidden" style="width: 0px">
        <div id="about-modal-content" style="display:none">
@@ -49,7 +53,6 @@
             </div>
         <div id="about-body">This game was the first of three capstone projects during my time with App Academy. It is powered by vanilla javascript
             and canvas. <br/> <br />Click below to see the source code and learn more about the technologies used.</div>
-           
             <a href="https://github.com/Marcoshenrich/ArenaCombat" target="_blank"><div id="about-cta">Learn More</div></a>
        </div>
 
@@ -58,10 +61,6 @@
             About
         </div>
     </div>
-
-        <div id="sound-button" class="float-button  sound-on">
-            <i class="fa-solid fa-volume-high"></i>
-        </div>
 
 </body>
 

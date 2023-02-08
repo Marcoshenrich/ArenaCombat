@@ -86,8 +86,9 @@ export default class Tutorial {
         this.ctx.font = "bold 26px optima, sans-serif"
         this.ctx.fillText("Core Mechanics", 200, startLine, 2000, 200)
         this.ctx.font = "26px optima, sans-serif"
-        this.ctx.fillText("You draw a card whenever you deal damage.", 200, startLine += this.leading, 2000, 200)
-        this.ctx.fillText("Watch out! You die if you run out of cards.", 200, startLine += this.leading, 2000, 200)
+        this.ctx.fillText("You draw a card whenever you deal or", 200, startLine += this.leading, 2000, 200)
+        this.ctx.fillText("receive damage.", 200, startLine += this.leading, 2000, 200)
+        this.ctx.fillText("Watch out! You die if you run out of cards.", 200, startLine += (this.leading * 2), 2000, 200)
     }
 
 

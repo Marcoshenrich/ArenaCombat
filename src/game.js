@@ -107,6 +107,7 @@ export default class Game {
 
         if (this.opponent.attack > this.knight.block && !this.knight.status.damageImmune) {
             this.knight.health -= (this.opponent.attack - this.knight.block)
+            this.numCardsDraw += 1
         }
         if (this.knight.attack > this.opponent.block) {
             this.opponent.health -= (this.knight.attack - this.opponent.block)
