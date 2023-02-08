@@ -76,7 +76,7 @@ export default class GameView {
         this.soundsArray.forEach((soundObj) => {
             if (soundObj.soundClip.volume > 0){
                 recurseVolumeBool = true
-                soundObj.soundClip.volume = ((soundObj.soundClip.volume * 100) - 1)/100
+                soundObj.soundClip.volume = ((soundObj.soundClip.volume * 100) - 1)/100 //this is because -=.01 caused floats :/
             }
         })
         if (recurseVolumeBool) {
@@ -251,6 +251,7 @@ export default class GameView {
             this.renderIntroAnimation()
             requestAnimationFrame(this.titleCard.bind(this))
         } else if (this.gameStart) {
+            this.playSound("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav")
             this.game.setupMat()
             this.game.knight.xPosition = 200
             this.animate()
@@ -288,7 +289,6 @@ export default class GameView {
     }
 
     renderCrowd() {
-
         for (let i = 0; i < this.crowdArray.length; i++) {
             let section = this.crowdArray[i]["spectArr"]
             for (let j = 0; j < section.length; j++) {	

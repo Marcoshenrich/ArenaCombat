@@ -17,6 +17,7 @@ export default class Game {
         this.opponentCard = null
         this.playSound = playSound
         this.endAllSounds = endAllSounds
+
     }
         
     setupMat() {
