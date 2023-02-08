@@ -10,7 +10,7 @@ export default class Sound {
 
     allSoundsObj() {
         return {
-            soundTrack: { clip: new Audio("./dist/sounds/soundtrack/loopTrack.mp3"), volumePreset: .2},
+            soundTrack: { clip: new Audio("./dist/sounds/soundtrack/mainTrack.mp3"), volumePreset: .2},
             loopTrack: { clip: new Audio("./dist/sounds/soundtrack/loopTrack.mp3"), volumePreset: .2},
             gameWin: { clip: new Audio("./dist/sounds/soundtrack/gameWin.mp3"), volumePreset: .2 },
             gameLoss: { clip: new Audio("./dist/sounds/soundtrack/gameLoss.mp3"), volumePreset: .1 },
