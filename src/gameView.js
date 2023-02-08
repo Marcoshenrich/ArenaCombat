@@ -51,7 +51,7 @@ export default class GameView {
         this.soundsArray = []
         this.kickOffScore = false
         
-        this.game = new Game(this.crowd, this.playSound.bind(this))
+        this.game = new Game(this.crowd, this.playSound.bind(this), this.endAllSounds.bind(this))
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)
@@ -71,12 +71,30 @@ export default class GameView {
         this.replay = false
     }
 
+    endAllSounds() {
+        let recurseVolumeBool = false
+        this.soundsArray.forEach((soundObj) => {
+            if (soundObj.soundClip.volume > 0){
+                recurseVolumeBool = true
+                soundObj.soundClip.volume = ((soundObj.soundClip.volume * 100) - 1)/100
+            }
+        })
+        if (recurseVolumeBool) {
+            setTimeout(() => {
+                this.endAllSounds()
+            }, 100)
+        }
+        if (!recurseVolumeBool) {
+            this.soundsArray = []
+        }
+    }
+
     playScore() {
-        // this.playSound("./dist/sounds/soundtrack/soundTrack.mp3", .2)
-        // this.kickOffScore = true
-        // setTimeout(()=>{
-        //     this.loopScore()
-        // },190000)
+        this.playSound("./dist/sounds/soundtrack/soundTrack.mp3", .2)
+        this.kickOffScore = true
+        setTimeout(()=>{
+            this.loopScore()
+        },190000)
     }
 
     loopScore() {
@@ -87,7 +105,7 @@ export default class GameView {
     }
 
     playSound(audioPath,volume) {
-        console.log("in playsound")
+ 
         let soundClip = new Audio(audioPath)
         soundClip.volume = volume || this.volume
         soundClip.play()

@@ -191,9 +191,12 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "./dist/art/knight_cards/dodge.png",
                 animation:  "roll",
-                instantEffects: function () { },
+                instantEffects: function () { 
+                    this.knight.status["damageImmune"] = true
+                    this.knight.status["ttdamageImmune"] = 1
+                },
                 delayedEffects: function () { 
-                    if (this.opponent.attack > this.knight.block) this.knight.health += (this.opponent.attack - this.knight.block)
+                    // if (this.opponent.attack > this.knight.block) this.knight.health += (this.opponent.attack - this.knight.block)
                 } //You take no damage this turn
             },
 
@@ -349,7 +352,6 @@ export default class Deck {
                 animation: "attack3",
                 instantEffects: function () { },
                 delayedEffects: function () { 
-                    let cardSlots = document.querySelectorAll(".card-slot")
                     let filledSlots = this.cardSlotCollector("filled")
 
                     if (filledSlots.length) {

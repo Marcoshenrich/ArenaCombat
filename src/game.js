@@ -2,7 +2,7 @@ import Knight from './knight.js'
 import Opponent from './opponent.js'
 
 export default class Game {
-    constructor(crowd, playSound) { 
+    constructor(crowd, playSound, endAllSounds) { 
         this.knight = new Knight()
         this.opponent = new Opponent()
         this.crowd = crowd
@@ -16,6 +16,7 @@ export default class Game {
         this.playedCard = null
         this.opponentCard = null
         this.playSound = playSound
+        this.endAllSounds = endAllSounds
     }
         
     setupMat() {
@@ -65,8 +66,8 @@ export default class Game {
         this.gameEndCheck()
         this.crowd.excite(0)
         
-        setTimeout(() => {
-            this.drawCards()
+        setTimeout(async () => {
+            await this.drawCards()
             this.knight.deckObj.thinDeck.call(this.knight)
             this.opponent.nextMove.shift()
             this.knight.attack = 0
@@ -90,15 +91,20 @@ export default class Game {
         let i = 0
         while (i === 0) {
             i++
-            if (this.knight.health < 1) this.gameLoss = true
+            if (this.knight.health < 1) {
+                this.gameLoss = true
+                this.endAllSounds()
+            }
             if (this.opponent.health < 1) {
                 this.gameWin = true; 
+                this.endAllSounds()
                 break;
             }
             let emptySlots = this.cardSlotCollector("empty")
             if (emptySlots.length === 5 && this.numCardsDraw === 0) {
                 this.gameLoss = true
                 this.cardLoss = true
+                this.endAllSounds()
             }
         }
     }
