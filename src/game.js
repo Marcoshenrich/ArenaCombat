@@ -180,7 +180,6 @@ export default class Game {
             this.addCardtoSlot(slotId) 
             i--
         }
-
         this.numCardsDraw = 0
     }
 

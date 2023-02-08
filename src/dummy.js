@@ -25,6 +25,7 @@ export default class Dummy extends Combatant {
             { name: "demonIdle", frames: 6, src: './dist/art/demon/Idle.png' },
         ];
 
+        this.allImages = this.imgObjectMaker()
         this.animationFramesSetter()
 
     }

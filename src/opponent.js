@@ -12,14 +12,13 @@ export default class Opponent extends Combatant {
         this.sizeCoef = 1
         this.xPosition = 300
         this.yPosition = 319
-        this.animationTripper = -1
         this.animationQueue = []
 
         this.deckObj = new Deck(this, 100)
         this.nextMove = this.deckObj.stack
         this.allUniqueCards = this.deckObj.allUniqueCards
 
-        this.maxHealth = 30
+        this.maxHealth = 1
         this.health = this.maxHealth
         this.attack = this.nextMove[0].attack.call(this)
         this.block = this.nextMove[0].block.call(this)
@@ -36,13 +35,17 @@ export default class Opponent extends Combatant {
         ];
 
         this.animationFramesSetter()
+        this.allImages = this.imgObjectMaker()
 
         this.blindedCard = { }
         this.blindedCard["art"] = new Image()
         this.blindedCard.art.src = "./dist/art/opponent_cards/mblinded.png"
 
         this.status = { }
+
+        
     }
+
 
 
 
@@ -51,9 +54,7 @@ export default class Opponent extends Combatant {
 
 Opponent.prototype.animation = function (aniStateName) {
     this.animationState = aniStateName
-    this.image.src = this.animations[aniStateName].src
-    this.animationTripper = this.framesFinder(aniStateName)
-}
+    this.image.src = this.animations[aniStateName].src}
 
 
 

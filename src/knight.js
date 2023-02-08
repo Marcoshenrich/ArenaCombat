@@ -13,7 +13,7 @@ export default class Knight extends Combatant {
         this.yPosition = 400
         this.sizeCoef = 1
 
-        this.maxHealth = 30
+        this.maxHealth = 1
         this.health = this.maxHealth
 
         this.deckObj = new Deck(this, 15)
@@ -25,7 +25,7 @@ export default class Knight extends Combatant {
         { name: "attack", frames: 5, src: './dist/art/knight1/Attack.png' },
         { name: "attack2", frames: 6, src: './dist/art/knight1/Attack2nm.png' },
         { name: "combo", frames: 10, src: './dist/art/knight1/AttackCombonm.png' },
-        { name: "death", frames: 10, src: './dist/art/knight1/Death.png' },
+        { name: "death", frames: 9, src: './dist/art/knight1/Death.png' },
         { name: "dead", frames: 1, src: './dist/art/knight1/Dead.png' },
         { name: "roll", frames: 12, src: './dist/art/knight1/Roll.png' },
         { name: "duck", frames: 3, src: './dist/art/knight1/CrouchAll.png' },
@@ -35,6 +35,7 @@ export default class Knight extends Combatant {
         ];
 
         this.animationFramesSetter()
+        this.allImages = this.imgObjectMaker()
 
         this.status = {
             blinded: false,

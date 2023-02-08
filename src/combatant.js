@@ -3,11 +3,22 @@ export default class Combatant {
         this.animationState = "idle"
         this.animations = [];
         this.animationQueue = []
-        this.animationTripper = -1
         this.attack = 0
         this.block = 0
         this.aniPlaying = false
         this.aniCheckQueue = []
+    }
+
+
+    imgObjectMaker() {
+        let allImages = {}
+            this.animationStates.forEach((spriteState) => {
+                let image = new Image()
+                image.src = spriteState.src
+                allImages[spriteState.name] = image
+            })
+        return allImages
+    
     }
 
     animationFramesSetter() {
@@ -29,13 +40,13 @@ export default class Combatant {
         // if (this.constructor.name === "Knight") console.log(this.animations[this.animationState].loc)
         let rawPosition = (gameFrame / staggerFrames) % this.animations[this.animationState].loc.length
         let position = Math.floor(rawPosition)
-        // if (this.constructor.name === "Knight") console.log("g / s", gameFrame / staggerFrames)
-        // if (this.constructor.name === "Knight") console.log("w * p", this.spriteWidth * position)
-        // let frameX = this.spriteWidth * position;
-        let frameX = 0
-        let frameY = 0
-        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
+
+        let frameX = this.spriteWidth * position;
+        // let frameX = 0
+        let frameY = 0
+        
+        // console.log(this.animationQueue)
         if (this.animationState !== "dead") {
             if (this.animationState !== "idle") {
                 this.aniCheckQueue.push(position)
@@ -43,14 +54,29 @@ export default class Combatant {
                 if (unique.length > 1 && this.aniCheckQueue.at(-1) === 0 && this.animationState !== "idle") {
                     this.animationQueueSetter()
                     this.aniCheckQueue = []
+                    gameFrame = 0
                 }
-            
+                
             }
             // console.log(this.animationQueue)
             if (this.animationQueue.length > 0 && this.animationState === "idle") {
                 this.animationQueueSetter()
+                gameFrame = 0
             }
         }   
+
+
+        // let debugObj = {
+        //     "g / s": gameFrame / staggerFrames,
+        //     "modulo": this.animations[this.animationState].loc.length,
+        //     "position": position,
+        //     "anistate": this.animationState
+        // }
+
+        // if (this.constructor.name === "Knight") console.log("position", position)
+        // if (this.constructor.name === "Knight") console.log(debugObj)
+
+        ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
     }
 
@@ -72,16 +98,9 @@ export default class Combatant {
         } 
     }
 
-    framesFinder(aniStateName) {
-        for (let i in this.animationStates) {
-            let frameObj = this.animationStates[i]
-            if (frameObj["name"] === aniStateName) return frameObj["frames"]
-        }
-    }
-
     animation = function(aniStateName) {
         this.animationState = aniStateName
-        this.image.src = this.animations[aniStateName].src
+        this.image = this.allImages[aniStateName]
     }
 
 }
