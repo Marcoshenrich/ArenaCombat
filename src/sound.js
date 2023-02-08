@@ -3,6 +3,9 @@ export default class Sound {
         this.allSounds = this.allSoundsObj()
         this.volume = .5
         this.kickOffScore = false
+        this.demonSpeechKeyArr = this.demonSpeechMaker()
+        this.demonSpeechTracker = 0
+        this.timeOutSoundTrackerArr = []
     }
 
     allSoundsObj() {
@@ -12,13 +15,36 @@ export default class Sound {
 
             earthquake: { clip: new Audio("./dist/sounds/soundEffects/earthquake.mp3"), volumePreset: .5},
 
-            demonFearTheDark: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonFearTheDark.wav"), volumePreset: null},
+            demonFearTheDark: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonFearTheDark.wav"), volumePreset: .3},
             demonIAmYourMaster: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonIAmYourMaster.wav"), volumePreset: null},
             demonYouWillObey: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav"), volumePreset: null},
             demonYouBelongToMe: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonYouBelongToMe.wav"), volumePreset: null},
             
             flipCard: { clip: new Audio("./dist/sounds/soundEffects/flip-card.mp3"), volumePreset: null }
         }
+    }
+
+    demonVocalize() {
+        this.playSound(this.demonSpeechKeyArr[this.demonSpeechTracker])
+        this.demonSpeechTracker = (this.demonSpeechTracker + 1) % this.demonSpeechKeyArr.length
+    }
+
+    demonSpeechMaker() {
+        let allDemonSpeech = [
+            "demonIAmYourMaster",
+            "demonFearTheDark",
+            "demonYouWillObey",
+            "demonYouBelongToMe"
+            ]
+
+        for (let i = allDemonSpeech.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = allDemonSpeech[i];
+            allDemonSpeech[i] = allDemonSpeech[j];
+            allDemonSpeech[j] = temp;
+        }
+
+        return allDemonSpeech
     }
 
 
@@ -42,21 +68,30 @@ export default class Sound {
         })
     }
 
+    endAllTimeOuts() {
+        this.timeOutSoundTrackerArr.forEach((timeoutId)=>{
+            clearTimeout(timeoutId)
+        })
+    }
+
 
 
     playScore() {
         this.playSound("soundTrack", .2)
         this.kickOffScore = true
-        setTimeout(() => {
+        let timeoutId = setTimeout(() => {
             this.loopScore()
         }, 190000)
+        this.timeOutSoundTrackerArr.push(timeoutId)
     }
 
     loopScore() {
         this.playSound("loopTrack", .2)
-        setTimeout(() => {
+        let timeoutId = setTimeout(() => {
             this.loopScore()
         }, 150000)
+        this.timeOutSoundTrackerArr.push(timeoutId)
+
     }
 
 
@@ -66,6 +101,7 @@ export default class Sound {
             if (!soundObj.clip.paused) allPlayingSounds.push(soundObj.clip)
         })
 
+        this.endAllTimeOuts()
         this.volumeFader(allPlayingSounds)
     }
 

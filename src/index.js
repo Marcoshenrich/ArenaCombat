@@ -58,12 +58,11 @@ mat.addEventListener("mouseover", (e) => {
 mat.addEventListener("mouseout", (e) => {
     gameview.showNextHover = true
     let slot = e.target.parentNode
-    if (slot.className === "card-slot") {
+
+    if (slot.className === "card-slot full") {
         gameview.hoveredCard = null
-        if (!gameview.pauseInputs) {
         gameview.knight.attack = 0
         gameview.knight.block = 0
-        }
     }
 });
 
@@ -170,15 +169,11 @@ canvas.addEventListener("click", (e) => {
             }
         }
 
-        if (gameview.tutorialStart) {
+        if (gameview.tutorialStart && gameview.tutorial.tutorialSeq < 5) {
             gameview.tutorial.tutorialSeq += 1
-            if (gameview.tutorial.tutorialSeq === 5) {
-                
-                gameview.tutorial.playIntroAnimation = true
-                gameview.tutorialStart = false
-
-            }
-        }
+        } else if (gameview.tutorial.tutorialSeq === 6) {
+            gameview.tutorial.tutorialSeq += 1
+        } 
 
 
     } 

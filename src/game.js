@@ -64,18 +64,21 @@ export default class Game {
 
         this.gameEndCheck()
         this.crowd.excite(0)
+
+        if (!(this.gameLoss || this.gameWin )) {
+            setTimeout(async () => {
+                await this.drawCards()
+                this.knight.deckObj.thinDeck.call(this.knight)
+                this.opponent.nextMove.shift()
+                this.knight.attack = 0
+                this.knight.block = 0
+                this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
+                this.opponent.block = this.opponent.nextMove[0].block.call(this)
+                this.playedCard = null
+                this.opponentCard = null
+            },1100)
+        }
         
-        setTimeout(async () => {
-            await this.drawCards()
-            this.knight.deckObj.thinDeck.call(this.knight)
-            this.opponent.nextMove.shift()
-            this.knight.attack = 0
-            this.knight.block = 0
-            this.opponent.attack = this.opponent.nextMove[0].attack.call(this)
-            this.opponent.block = this.opponent.nextMove[0].block.call(this)
-            this.playedCard = null
-            this.opponentCard = null
-        },1100)
     }
 
     statCalc() {
@@ -92,6 +95,7 @@ export default class Game {
             i++
             if (this.knight.health < 1) {
                 this.gameLoss = true
+                this.sound.demonVocalize()
                 this.sound.endAllSounds()
             }
             if (this.opponent.health < 1) {
@@ -103,21 +107,23 @@ export default class Game {
             if (emptySlots.length === 5 && this.numCardsDraw === 0) {
                 this.gameLoss = true
                 this.cardLoss = true
+                this.sound.demonVocalize()
                 this.sound.endAllSounds()
             }
         }
     }
 
     damageCalc(){
-
+        let drawACard = false
         if (this.opponent.attack > this.knight.block && !this.knight.status.damageImmune) {
             this.knight.health -= (this.opponent.attack - this.knight.block)
-            this.numCardsDraw += 1
+            drawACard = true
         }
         if (this.knight.attack > this.opponent.block) {
             this.opponent.health -= (this.knight.attack - this.opponent.block)
-            this.numCardsDraw += 1
+            drawACard = true
         }
+        if (drawACard) this.numCardsDraw += 1
     }
 
     resolveStatusEffects() {
