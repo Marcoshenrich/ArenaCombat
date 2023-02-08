@@ -10,26 +10,24 @@
     <script type="module" src="./dist/main.js" charset="utf-8" defer></script>
 </head>
 
-    <div id="sound-button" class="float-button  sound-on">
-        <i class="fa-solid fa-volume-high"></i>
-    </div>
 
 <body id="bgdiv">
 
 
     <div id="balancer" class="side-panel hidden" style="width: 0px"></div>
     <div id="game-container" >
-        <canvas id="canvas1"></canvas>
-        <div id="mat">
-            <div class="card-slot empty" id="card-slot1"></div>
-            <div class="card-slot empty" id="card-slot2"></div>
-            <div class="card-slot empty" id="card-slot3"></div>
-            <div class="card-slot empty" id="card-slot4"></div>
-            <div class="card-slot empty" id="card-slot5"></div>
-            <div id="deck-slot"></div>
-        </div>
-
+            <canvas id="canvas1"></canvas>
+            <div id="mat">
+                <div class="card-slot empty" id="card-slot1"></div>
+                <div class="card-slot empty" id="card-slot2"></div>
+                <div class="card-slot empty" id="card-slot3"></div>
+                <div class="card-slot empty" id="card-slot4"></div>
+                <div class="card-slot empty" id="card-slot5"></div>
+                <div id="deck-slot"></div>             
+            </div>
     </div>
+
+
     <div id="about-modal" class="side-panel hidden" style="width: 0px">
        <div id="about-modal-content" style="display:none">
             <div id="about-header">Created by Marcos Henrich</div>
@@ -60,9 +58,15 @@
         <div id="about-button" class="float-button" onClick="showModal()">
             About
         </div>
+
+        <div id="sound-button" class="float-button  sound-on">
+            <i class="fa-solid fa-volume-high"></i>
+        </div>
     </div>
 
+    
 </body>
+
 
 
 </html>
