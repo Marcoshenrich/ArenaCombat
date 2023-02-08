@@ -71,61 +71,6 @@ export default class GameView {
         this.replay = false
     }
 
-    endAllSounds() {
-        let recurseVolumeBool = false
-        this.soundsArray.forEach((soundObj) => {
-            if (soundObj.soundClip.volume > 0){
-                recurseVolumeBool = true
-                soundObj.soundClip.volume = ((soundObj.soundClip.volume * 100) - 1)/100 //this is because -=.01 caused floats :/
-            }
-        })
-        if (recurseVolumeBool) {
-            setTimeout(() => {
-                this.endAllSounds()
-            }, 100)
-        }
-        if (!recurseVolumeBool) {
-            this.soundsArray = []
-        }
-    }
-
-    playScore() {
-        this.playSound("./dist/sounds/soundtrack/soundTrack.mp3", .2)
-        this.kickOffScore = true
-        setTimeout(()=>{
-            this.loopScore()
-        },190000)
-    }
-
-    loopScore() {
-        this.playSound("./dist/sounds/soundtrack/loopTrack.mp3", .2)
-        setTimeout(() => {
-            this.loopScore()
-        }, 150000)
-    }
-
-    playSound(audioPath,volume) {
- 
-        let soundClip = new Audio(audioPath)
-        soundClip.volume = volume || this.volume
-        soundClip.play()
-        this.soundsArray.push({soundClip, volume})
-    }
-
-    muteAllSounds() {
-        this.volume = 0
-        this.soundsArray.forEach((soundObj)=>{
-            soundObj.soundClip.volume = 0
-        })
-    }
-
-    playAllSounds() {
-        this.volume = .5
-        this.soundsArray.forEach((soundObj) => {
-            soundObj.soundClip.volume = soundObj["volume"] || .5
-        })
-    }
-
     shakeBackground(){
         this.shaking = true
         this.shakeX = Math.floor(Math.random() * 5) - 20
@@ -159,7 +104,7 @@ export default class GameView {
                     this.knight.image.src = this.knight.animations["idle"].src
                     setTimeout(()=>{
                         if (this.introAnimationSeq === 1) {
-                            this.playSound("./dist/sounds/soundEffects/earthquake2.mp3")
+                            this.playSound("earthquake")
                             this.introAnimationSeq = 2
                         }
                         this.dummy.animationState = "knightTIdle"
