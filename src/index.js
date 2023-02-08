@@ -7,13 +7,6 @@ let gameview = new GameView(canvas, clientHeight)
 
 const soundButton = document.getElementById('sound-button')
 
-document.addEventListener("click", (e) => {
-    e.stopPropagation()
-    if (!gameview.kickOffScore) {
-        gameview.kickOffScore = true
-        gameview.playScore()
-    }
-})
 
 soundButton.addEventListener("click", (e) => {
     e.stopPropagation()
@@ -22,12 +15,12 @@ soundButton.addEventListener("click", (e) => {
         soundButton.classList.remove("sound-on")
         soundButton.classList.add("sound-off")
         soundButton.innerHTML = `<i class="fa-solid fa-volume-xmark">`
-        gameview.muteAllSounds()
+        gameview.sound.muteAllSounds()
     } else {
         soundButton.classList.remove("sound-off")
         soundButton.classList.add("sound-on")
         soundButton.innerHTML = `<i class="fa-solid fa-volume-high">`
-        gameview.playAllSounds()
+        gameview.sound.unmuteAllSounds()
     }
 
 })
@@ -140,14 +133,14 @@ addEventListener("resize", (e) => {
 canvas.addEventListener("click", (e) => {
     e.stopPropagation()
 
-    if (!gameview.kickOffScore) {
-        gameview.kickOffScore = true
-        gameview.playScore()
+    if (!gameview.sound.kickOffScore) {
+        gameview.sound.kickOffScore = true
+        gameview.sound.playScore()
     }
     
     if (gameview.replay) {
         gameview.game.clearMat()
-        gameview.endAllSounds()
+        gameview.sound.endAllSounds()
         gameview = new GameView(canvas, clientHeight)
         return
     }
@@ -181,7 +174,7 @@ canvas.addEventListener("click", (e) => {
             gameview.tutorial.tutorialSeq += 1
             if (gameview.tutorial.tutorialSeq === 5) {
                 
-                gameview.playIntroAnimation = true
+                gameview.tutorial.playIntroAnimation = true
                 gameview.tutorialStart = false
 
             }

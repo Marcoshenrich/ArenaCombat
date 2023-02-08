@@ -2,6 +2,7 @@ import Game from './game.js'
 import Crowd from './crowd.js'
 import Tutorial from './tutorial.js'
 import Dummy from './dummy.js'
+import Sound from './sound.js'
 
 export default class GameView {
     constructor(canvas, clientHeight) { 
@@ -47,11 +48,9 @@ export default class GameView {
         this.fadeOut = 0
         this.textFadeIn = 1
 
-        this.volume = .5
-        this.soundsArray = []
-        this.kickOffScore = false
-        
-        this.game = new Game(this.crowd, this.playSound.bind(this), this.endAllSounds.bind(this))
+        this.sound = new Sound()
+        this.game = new Game(this.crowd, this.sound)
+
         this.knight = this.game.knight
         this.opponent = this.game.opponent
         this.dummy = new Dummy(120, 80, 310, 358, 4)
@@ -104,7 +103,7 @@ export default class GameView {
                     this.knight.image.src = this.knight.animations["idle"].src
                     setTimeout(()=>{
                         if (this.introAnimationSeq === 1) {
-                            this.playSound("earthquake")
+                            this.sound.playSound("earthquake")
                             this.introAnimationSeq = 2
                         }
                         this.dummy.animationState = "knightTIdle"
@@ -121,13 +120,13 @@ export default class GameView {
                     if (this.introAnimationSeq === 2) {
                         this.introAnimationSeq = 3
                     }
-                }, 3000)
+                }, 2000)
             } else if (this.introAnimationSeq === 3) {
                 this.shakeBackground()
                 setTimeout(() => {
                     if (this.introAnimationSeq === 3) {
                         this.introAnimationSeq = 4
-                        this.playSound("./dist/sounds/soundEffects/monsters/demonYouBelongToMe.wav")
+                        this.sound.playSound("demonYouBelongToMe")
                     }
                 }, 3000)
             } else if (this.introAnimationSeq === 4) {
@@ -196,7 +195,7 @@ export default class GameView {
             this.renderIntroAnimation()
             requestAnimationFrame(this.titleCard.bind(this))
         } else if (this.gameStart) {
-            this.playSound("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav")
+            // this.playSound("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav")
             this.game.setupMat()
             this.game.knight.xPosition = 200
             this.animate()
