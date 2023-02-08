@@ -55,9 +55,8 @@ export default class Tutorial {
                 if (this.gameview.crowd.excitement >= 75) this.gameview.crowd.excite(5)
                 if (this.game.knight.xPosition < 200) {
                     this.game.knight.runForwards()
-                    if (this.game.knight.animationState === "idle") {
-                        this.game.knight.animationQueue.push("run")
-                    }
+                    this.game.knight.animationQueue.push("run")
+                    
                 } else {
                     this.game.knight.animationQueue = []
                     this.game.knight.animationState = "idle"
@@ -111,7 +110,6 @@ export default class Tutorial {
             } else if (this.introAnimationSeq === 6) {
                 this.gameview.shakeBackground()
                 if (this.introAnimationSeq === 6) {
-                    if (this.introAnimationSeq = 6) this.game.knight.animationQueue.push("roll")
                     this.introAnimationSeq = 7
                 }
             } else if (this.introAnimationSeq === 7) {

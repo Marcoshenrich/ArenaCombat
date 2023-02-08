@@ -31,7 +31,8 @@ export default class Combatant {
         let position = Math.floor(rawPosition)
         // if (this.constructor.name === "Knight") console.log("g / s", gameFrame / staggerFrames)
         // if (this.constructor.name === "Knight") console.log("w * p", this.spriteWidth * position)
-        let frameX = this.spriteWidth * position;
+        // let frameX = this.spriteWidth * position;
+        let frameX = 0
         let frameY = 0
         ctx.drawImage(this.image, frameX, frameY, this.spriteWidth, this.spriteHeight, this.xPosition, this.yPosition - heightOffset, Math.floor(this.spriteWidth * this.sizeCoef), Math.floor(this.spriteHeight * this.sizeCoef))
 
