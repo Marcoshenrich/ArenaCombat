@@ -12,6 +12,8 @@ export default class Sound {
         return {
             soundTrack : { clip: new Audio("./dist/sounds/soundtrack/soundTrack.mp3"), volumePreset: .2},
             loopTrack: { clip: new Audio("./dist/sounds/soundtrack/loopTrack.mp3"), volumePreset: .2},
+            gameWin: { clip: new Audio("./dist/sounds/soundtrack/gameWin.mp3"), volumePreset: .2 },
+            gameLoss: { clip: new Audio("./dist/sounds/soundtrack/gameLoss.mp3"), volumePreset: .1 },
 
             earthquake: { clip: new Audio("./dist/sounds/soundEffects/earthquake.mp3"), volumePreset: .5},
 
@@ -77,7 +79,7 @@ export default class Sound {
 
 
     playScore() {
-        this.playSound("soundTrack", .2)
+        this.playSound("soundTrack")
         this.kickOffScore = true
         let timeoutId = setTimeout(() => {
             this.loopScore()
@@ -86,7 +88,7 @@ export default class Sound {
     }
 
     loopScore() {
-        this.playSound("loopTrack", .2)
+        this.playSound("loopTrack")
         let timeoutId = setTimeout(() => {
             this.loopScore()
         }, 150000)
@@ -95,17 +97,22 @@ export default class Sound {
     }
 
 
-    endAllSounds() {
+    async endAllSounds(winBool) {
         let allPlayingSounds = []
         Object.values(this.allSounds).forEach((soundObj) => {
             if (!soundObj.clip.paused) allPlayingSounds.push(soundObj.clip)
         })
 
         this.endAllTimeOuts()
-        this.volumeFader(allPlayingSounds)
+        await this.volumeFader(allPlayingSounds)
+        if (winBool === "win") {
+            this.playSound("gameWin")
+        } else if (winBool === "loss") {
+            this.playSound("gameLoss")
+        }
     }
 
-    volumeFader(audioClipArr) {
+    async volumeFader(audioClipArr) {
         let recurseVolumeBool = false
 
         audioClipArr.forEach((audioClip) => {
@@ -126,6 +133,8 @@ export default class Sound {
                 this.volumeFader(audioClipArr)
             }, 100)
         }
+
+        return "x"
     }
 
 

@@ -96,11 +96,12 @@ export default class Game {
             if (this.knight.health < 1) {
                 this.gameLoss = true
                 this.sound.demonVocalize()
-                this.sound.endAllSounds()
+                this.sound.endAllSounds("loss")
+                break
             }
             if (this.opponent.health < 1) {
                 this.gameWin = true; 
-                this.sound.endAllSounds()
+                this.sound.endAllSounds("win")
                 break;
             }
             let emptySlots = this.cardSlotCollector("empty")
@@ -108,7 +109,8 @@ export default class Game {
                 this.gameLoss = true
                 this.cardLoss = true
                 this.sound.demonVocalize()
-                this.sound.endAllSounds()
+                this.sound.endAllSounds("loss")
+                break
             }
         }
     }
