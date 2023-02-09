@@ -1,3 +1,7 @@
+## Live Link
+
+https://marcoshenrich.github.io/ArenaCombat/
+
 ## Overview
 
 Demon slayer is a simplified arena combat simulator featuring cards as the primary vehicle for play. This game was designed and implemented in one week using vanilla JavaScript, HTML5, and CSS. No outside libraries were used. It features dynamic sprite animations, procedural game logic, interactive rendering, and an intro cinematic.
