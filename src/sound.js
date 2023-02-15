@@ -76,8 +76,6 @@ export default class Sound {
         })
     }
 
-
-
     playScore() {
         this.playSound("soundTrack")
         this.kickOffScore = true
@@ -95,7 +93,6 @@ export default class Sound {
         this.timeOutSoundTrackerArr.push(timeoutId)
 
     }
-
 
     async endAllSounds(winBool) {
         let allPlayingSounds = []
