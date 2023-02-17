@@ -90,29 +90,27 @@ export default class Game {
     }
 
     gameEndCheck() {
-        let i = 0
-        while (i === 0) {
-            i++
-            if (this.knight.health < 1) {
-                this.gameLoss = true
-                this.sound.demonVocalize()
-                this.sound.endAllSounds("loss")
-                break
-            }
-            if (this.opponent.health < 1) {
-                this.gameWin = true; 
-                this.sound.endAllSounds("win")
-                break;
-            }
-            let emptySlots = this.cardSlotCollector("empty")
-            if (emptySlots.length === 5 && this.numCardsDraw === 0) {
-                this.gameLoss = true
-                this.cardLoss = true
-                this.sound.demonVocalize()
-                this.sound.endAllSounds("loss")
-                break
-            }
+
+        if (this.knight.health < 1) {
+            this.gameLoss = true
+            this.sound.demonVocalize()
+            this.sound.endAllSounds("loss")
+            return
         }
+        if (this.opponent.health < 1) {
+            this.gameWin = true; 
+            this.sound.endAllSounds("win")
+            return;
+        }
+        let emptySlots = this.cardSlotCollector("empty")
+        if (emptySlots.length === 5 && this.numCardsDraw === 0) {
+            this.gameLoss = true
+            this.cardLoss = true
+            this.sound.demonVocalize()
+            this.sound.endAllSounds("loss")
+            return
+        }
+        
     }
 
     damageCalc(){
