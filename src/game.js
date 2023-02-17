@@ -76,7 +76,7 @@ export default class Game {
                 this.opponent.block = this.opponent.nextMove[0].block.call(this)
                 this.playedCard = null
                 this.opponentCard = null
-            },1100)
+            },600)
         }
         
     }

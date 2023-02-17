@@ -142,7 +142,6 @@ export default class GameView {
     }
 
     animate() {
-        
         this.ctx.clearRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
         this.renderBackground()
         this.renderCrowd()
@@ -309,9 +308,11 @@ export default class GameView {
             text = this.winText
             sizeX = 840; sizeY = 220; posX = 60; posY = 150
         }
+
         this.fadeOut += .01
         this.ctx.fillStyle = `rgba(0,0,0,${this.fadeOut})`;
         this.ctx.fillRect(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT)
+
         if (this.fadeOut > 1) {
             this.textFadeIn -= .01
             this.ctx.fillStyle = `rgba(0,0,0,${this.textFadeIn})`;
@@ -332,6 +333,7 @@ export default class GameView {
             this.ctx.fill();
             this.ctx.font = "26px optima, sans-serif "
             this.ctx.fillText("Play Again?", (this.CANVAS_WIDTH - 560), 440 - this.heightOffset)
+            if (this.game.cardLoss) this.ctx.fillText("You lose if you run out of cards", (this.CANVAS_WIDTH - 650), 200 - this.heightOffset)
         }
 
     }
