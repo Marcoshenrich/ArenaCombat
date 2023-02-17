@@ -22,7 +22,9 @@ export default class Sound {
             demonYouWillObey: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonYouWillObey.wav"), volumePreset: null},
             demonYouBelongToMe: { clip: new Audio("./dist/sounds/soundEffects/monsters/demonYouBelongToMe.wav"), volumePreset: null},
             
-            flipCard: { clip: new Audio("./dist/sounds/soundEffects/flip-card.mp3"), volumePreset: null }
+            flipCard: { clip: new Audio("./dist/sounds/soundEffects/flip-card.mp3"), volumePreset: null },
+            flipCard2: { clip: new Audio("./dist/sounds/soundEffects/flip-card.mp3"), volumePreset: null }
+
         }
     }
 
@@ -52,6 +54,12 @@ export default class Sound {
 
     playSound(audiokey) {
         this.allSounds[audiokey].clip.volume = this.volume === 0 ? this.volume : this.allSounds[audiokey].volumePreset || this.volume
+        if (audiokey === "flipCard") {
+            if (!this.allSounds[audiokey].clip.paused) {
+                this.playSound("flipCard2")
+                return
+            }
+        }
         this.allSounds[audiokey].clip.play()
     }
 
