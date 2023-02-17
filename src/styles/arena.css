@@ -62,8 +62,23 @@
     top: -42px;
     left: -28px;
     width: 177px;
-    height: 260px
+    height: 260px;
+    animation: draw .5s;
 }
+
+@keyframes draw {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
 #about-modal-content {
         box-shadow: 2px 2px 2px 2px rgb(0, 0, 0, .5);
 }
