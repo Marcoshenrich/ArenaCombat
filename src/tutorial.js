@@ -38,6 +38,7 @@ export default class Tutorial {
         } else if (this.tutorialSeq === 5) {
             this.renderIntroAnimation()
         } else if (this.tutorialSeq === 6) {
+            if (this.gameview.pauseInputs) this.gameview.pauseInputs = false
             this.renderTutorialPanel5()
         } else if (this.tutorialSeq === 7) {
             this.gameview.tutorialStart = false
@@ -47,6 +48,7 @@ export default class Tutorial {
 
 
     renderIntroAnimation() {
+        if (!this.gameview.pauseInputs) this.gameview.pauseInputs = true
         if (this.introAnimationSeq < 9) {
             this.game.knight.draw(this.gameview.ctx, this.gameview.gameFrame, this.gameview.staggerFrames, this.gameview.heightOffset)
             this.dummy.draw(this.gameview.ctx, this.gameview.gameFrame, this.gameview.staggerFrames, this.gameview.heightOffset)

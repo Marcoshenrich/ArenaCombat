@@ -27,7 +27,8 @@ soundButton.addEventListener("click", (e) => {
 
 
 mat.addEventListener("click", (e) => {
-    if (!gameview.game.gameOver && !gameview.pauseInputs)  {
+    if (gameview.pauseInputs) return
+    if (!gameview.game.gameOver)  {
         gameview.showNextHover = false
         gameview.pauseInputs = true
         let slot = e.target.parentNode
@@ -36,10 +37,10 @@ mat.addEventListener("click", (e) => {
             gameview.resetAnimationFrames()
             gameview.game.coreGameLoop(playerCardId, slot.id)
             gameview.hoveredCard = null
-            setTimeout(() => {
-                gameview.pauseInputs = false
-            }, 1500);
         }
+        setTimeout(() => {
+            gameview.pauseInputs = false
+        }, 2000);
     }
 });
 
@@ -131,6 +132,7 @@ addEventListener("resize", (e) => {
 
 canvas.addEventListener("click", (e) => {
     e.stopPropagation()
+    if (gameview.pauseInputs) return
 
     if (!gameview.sound.kickOffScore) {
         gameview.sound.kickOffScore = true

@@ -1,8 +1,7 @@
 export default class Sound {
     constructor() {
         this.allSounds = this.allSoundsObj()
-        // this.volume = .5
-        this.volume = 0
+        this.volume = .5
         this.kickOffScore = false
         this.demonSpeechKeyArr = this.demonSpeechMaker()
         this.demonSpeechTracker = 0
