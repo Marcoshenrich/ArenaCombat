@@ -151,7 +151,8 @@ export default class Deck {
                 delayedEffects: function () { 
                     if (this.opponentCard.attack) {
                         this.opponent.health -= 4
-                        this.knight.heal(this.opponentCard.attack)
+              
+                        this.knight.heal(this.opponentCard.attack())
                     }
                 } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
