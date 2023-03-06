@@ -147,14 +147,12 @@ export default class Deck {
                 block: function () { return 0 },
                 src: "./dist/art/knight_cards/parry.png",
                 animation: "combo",
-                instantEffects: function () {
-                if (this.opponentCard.attack) {
-                    this.opponentCard.attack = function () { return 0 }
-                    this.opponent.health -= 4
-                    this.numCardsDraw += 1 
-                }
-                 },
+                instantEffects: function () {},
                 delayedEffects: function () { 
+                    if (this.opponentCard.attack) {
+                        this.opponent.health -= 4
+                        this.knight.heal(this.opponentCard.attack)
+                    }
                 } // If your opponent attacks this turn, you negate the attack and they take 4 damage.
             },
 
